@@ -46,7 +46,7 @@ function AdminProjects() {
   }
 
   async function update(id: string, patch: Partial<Project>) {
-    const { error } = await supabase.from("projects").update(patch).eq("id", id);
+    const { error } = await supabase.from("projects").update(patch as never).eq("id", id);
     if (error) return toast.error(error.message);
     load();
   }
