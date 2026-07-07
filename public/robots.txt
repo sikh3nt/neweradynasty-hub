@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /portal
+Disallow: /admin
+Disallow: /auth
+Disallow: /reset-password
