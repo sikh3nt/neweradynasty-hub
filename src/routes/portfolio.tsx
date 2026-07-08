@@ -1,18 +1,59 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/site/PageShell";
 import { ArrowRight, Network, Scissors, Building2 } from "lucide-react";
+import solestride from "@/assets/solestride-logo.jpg.asset.json";
+import aprilFront from "@/assets/april-concepts-front.png.asset.json";
+import aprilBack from "@/assets/april-concepts-back.png.asset.json";
+import ntsiki from "@/assets/ntsiki-community-project.png.asset.json";
+import blackstylePoster from "@/assets/blackstyle-poster.png.asset.json";
+import blackstylePamphlet from "@/assets/blackstyle-pamphlet.png.asset.json";
+import blackstylePricing from "@/assets/blackstyle-pricing.png.asset.json";
 
 export const Route = createFileRoute("/portfolio")({
   head: () => ({
     meta: [
-      { title: "Portfolio — New Era Dynasty, WireNet, Blackstyle Barbershop" },
-      { name: "description", content: "The business portfolio of Tozamile Sikhenjana — New Era Dynasty, WireNet, and Blackstyle Barbershop." },
-      { property: "og:title", content: "Business Portfolio — New Era Dynasty" },
-      { property: "og:description", content: "Ventures in technology, connectivity, and lifestyle from Motherwell to the world." },
+      { title: "Portfolio — Ventures & client work by Tozamile Sikhenjana" },
+      { name: "description", content: "Ventures and client work by Tozamile Sikhenjana — New Era Dynasty, WireNet, Blackstyle Barbershop, and design work for SoleStride Emporium, April Concepts, and Ntsiki's Community Project." },
+      { property: "og:title", content: "Portfolio — New Era Dynasty" },
+      { property: "og:description", content: "Ventures in technology, connectivity, and lifestyle, plus brand and design work for clients across Gqeberha." },
     ],
   }),
   component: Portfolio,
 });
+
+const clientWork = [
+  {
+    name: "SoleStride Emporium",
+    tag: "Logo Design · Sneaker Label",
+    desc: "Custom gothic-blackletter logo lockup for an independent sneaker label, built around a vibrant paint-splash sneaker illustration and concentric ring motif.",
+    images: [{ src: solestride.url, alt: "SoleStride Emporium logo design" }],
+  },
+  {
+    name: "April Concepts",
+    tag: "Brand Collateral · Business Cards",
+    desc: "Two-sided business card system for a licensed private investigations firm. Monochrome silhouette identity, PSIRA credentialing, and clear service hierarchy.",
+    images: [
+      { src: aprilFront.url, alt: "April Concepts business card — front" },
+      { src: aprilBack.url, alt: "April Concepts business card — back" },
+    ],
+  },
+  {
+    name: "Ntsiki's Community Project",
+    tag: "Logo Design · Ongoing Admin",
+    desc: "Full identity and continuing administrative support for a non-profit lifting youth and families. Uplifted hands and gradient wordmark carrying the tagline: “Making a difference, today & tomorrow.”",
+    images: [{ src: ntsiki.url, alt: "Ntsiki's Community Project logo with slogan" }],
+  },
+  {
+    name: "Black Style Barbershop",
+    tag: "Marketing Design · Posters, Pamphlets & Pricing",
+    desc: "Retro-inspired marketing suite for a Motherwell barbershop — social posters, an editorial pamphlet series, and an in-shop pricing menu that ties the room together.",
+    images: [
+      { src: blackstylePoster.url, alt: "Black Style Barbershop retro poster" },
+      { src: blackstylePamphlet.url, alt: "Black Style Barbershop digital pamphlet" },
+      { src: blackstylePricing.url, alt: "Black Style Barbershop pricing menu" },
+    ],
+  },
+];
 
 const ventures = [
   {
