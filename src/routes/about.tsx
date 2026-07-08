@@ -13,6 +13,21 @@ export const Route = createFileRoute("/about")({
           { property: "og:url", content: "https://neweradynasty-hub.lovable.app/about" },
     ],
     links: [{ rel: "canonical", href: "https://neweradynasty-hub.lovable.app/about" }],
+    scripts: [{
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "@id": "https://neweradynasty-hub.lovable.app/about#person",
+        name: "Tozamile Sikhenjana",
+        jobTitle: "Founder & CEO",
+        worksFor: { "@id": "https://neweradynasty-hub.lovable.app/#organization" },
+        url: "https://neweradynasty-hub.lovable.app/about",
+        address: { "@type": "PostalAddress", addressLocality: "Motherwell, Gqeberha", addressRegion: "Eastern Cape", addressCountry: "ZA" },
+        email: "tozamilesikh3njana@proton.me",
+        knowsAbout: ["Programming", "Web Development", "Cybersecurity", "Artificial Intelligence", "Graphic Design", "Trading", "Entrepreneurship"],
+      }),
+    }],
   }),
   component: About,
 });

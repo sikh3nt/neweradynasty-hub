@@ -13,15 +13,38 @@ type Review = {
 };
 
 export const Route = createFileRoute("/testimonials")({
-  head: () => ({
+  loader: async () => {
+    const { data } = await supabase.from("reviews").select("rating").eq("status", "approved");
+    const ratings = (data ?? []).map((r) => r.rating as number);
+    const count = ratings.length;
+    const avg = count ? ratings.reduce((a, b) => a + b, 0) / count : 0;
+    return { avg, count };
+  },
+  head: ({ loaderData }) => ({
     meta: [
       { title: "Testimonials & Reviews — New Era Dynasty" },
       { name: "description", content: "Read verified client reviews and leave your own testimonial about working with Tozamile Sikhenjana." },
       { property: "og:title", content: "Testimonials & Reviews" },
       { property: "og:description", content: "Verified reviews from clients of New Era Dynasty." },
-          { property: "og:url", content: "https://neweradynasty-hub.lovable.app/testimonials" },
+      { property: "og:url", content: "https://neweradynasty-hub.lovable.app/testimonials" },
     ],
     links: [{ rel: "canonical", href: "https://neweradynasty-hub.lovable.app/testimonials" }],
+    scripts: (loaderData && loaderData.count > 0) ? [{
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": "https://neweradynasty-hub.lovable.app/#organization",
+        name: "New Era Dynasty",
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: Number(loaderData.avg.toFixed(2)),
+          reviewCount: loaderData.count,
+          bestRating: 5,
+          worstRating: 1,
+        },
+      }),
+    }] : [],
   }),
   component: Testimonials,
 });
