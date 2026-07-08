@@ -77,8 +77,9 @@ export function ReviewForm({ defaultService = "" }: { defaultService?: string })
       <Field label="Profile photo or company logo URL (optional)" name="avatar_url" placeholder="https://…" />
       <div className="grid gap-2 sm:grid-cols-[1fr_auto] sm:items-end">
         <div>
-          <label className="block text-sm text-muted-foreground mb-2">Anti-spam: what is {captchaA} + {captchaB}?</label>
-          <input value={captcha} onChange={(e) => setCaptcha(e.target.value)} required inputMode="numeric"
+          <label htmlFor="review-captcha" className="block text-sm text-muted-foreground mb-2">Anti-spam: what is {captchaA} + {captchaB}?</label>
+          <input id="review-captcha" name="captcha" value={captcha} onChange={(e) => setCaptcha(e.target.value)} required inputMode="numeric"
+            aria-label={`Anti-spam question: what is ${captchaA} plus ${captchaB}`}
             className="w-full rounded-xl bg-input px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
         </div>
         <button disabled={loading} className="rounded-full bg-[image:var(--gradient-royal)] px-6 py-3 text-sm font-medium text-primary-foreground shadow-glow-gold disabled:opacity-60">

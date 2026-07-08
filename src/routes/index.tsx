@@ -67,6 +67,9 @@ function Home() {
           <h1 className="mt-6 font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.98]">
             <span className="text-foreground">Tozamile</span>{" "}
             <span className="text-gold-gradient">Sikhenjana</span>
+            <span className="mt-3 block font-sans text-base sm:text-lg md:text-xl font-medium uppercase tracking-[0.3em] text-silver/80">
+              Founder &amp; CEO · Multidisciplinary Entrepreneur
+            </span>
           </h1>
           <p className="mt-6 max-w-3xl font-display text-xl sm:text-2xl md:text-3xl text-silver/90 italic">
             "{SITE.slogan}"
