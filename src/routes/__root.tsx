@@ -79,6 +79,36 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       { rel: "stylesheet", href: appCss },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://neweradynasty-hub.lovable.app/#organization",
+              name: "New Era Dynasty",
+              url: "https://neweradynasty-hub.lovable.app/",
+              logo: "https://storage.googleapis.com/gpt-engineer-file-uploads/u913eolSbhc9BrWB2vOXu4D8g0k2/social-images/social-1783476624226-03_New_Era_Dynasty.webp",
+              founder: { "@id": "https://neweradynasty-hub.lovable.app/about#person" },
+              areaServed: "ZA",
+              email: "tozamilesikh3njana@proton.me",
+              telephone: "+27650570489",
+              address: { "@type": "PostalAddress", addressLocality: "Motherwell, Gqeberha", addressRegion: "Eastern Cape", addressCountry: "ZA" },
+              sameAs: [],
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://neweradynasty-hub.lovable.app/#website",
+              url: "https://neweradynasty-hub.lovable.app/",
+              name: "New Era Dynasty",
+              publisher: { "@id": "https://neweradynasty-hub.lovable.app/#organization" },
+            },
+          ],
+        }),
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
