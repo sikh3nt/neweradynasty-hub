@@ -16,8 +16,9 @@ export const Route = createFileRoute("/portfolio")({
       { name: "description", content: "Ventures and client work by Tozamile Sikhenjana — New Era Dynasty, WireNet, Blackstyle Barbershop, and design work for SoleStride Emporium, April Concepts, and Ntsiki's Community Project." },
       { property: "og:title", content: "Portfolio — New Era Dynasty" },
       { property: "og:description", content: "Ventures in technology, connectivity, and lifestyle, plus brand and design work for clients across Gqeberha." },
+          { property: "og:url", content: "https://neweradynasty-hub.lovable.app/portfolio" },
     ],
-  }),
+    links: [{ rel: "canonical", href: "https://neweradynasty-hub.lovable.app/portfolio" }],
   component: Portfolio,
 });
 

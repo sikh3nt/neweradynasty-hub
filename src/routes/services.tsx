@@ -9,8 +9,9 @@ export const Route = createFileRoute("/services")({
       { name: "description", content: "Programming, website development, cybersecurity, AI, graphic design, trading, DJ & entertainment, boxing & kickboxing." },
       { property: "og:title", content: "Services — New Era Dynasty" },
       { property: "og:description", content: "Multidisciplinary services delivered with a founder's standard." },
+          { property: "og:url", content: "https://neweradynasty-hub.lovable.app/services" },
     ],
-  }),
+    links: [{ rel: "canonical", href: "https://neweradynasty-hub.lovable.app/services" }],
   component: Services,
 });
 

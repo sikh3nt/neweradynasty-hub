@@ -14,8 +14,9 @@ export const Route = createFileRoute("/contact")({
       { name: "description", content: "Get in touch with Tozamile Sikhenjana. Business enquiries, collaborations, and quote requests welcome." },
       { property: "og:title", content: "Contact New Era Dynasty" },
       { property: "og:description", content: "Business enquiries, collaborations, and quote requests." },
+          { property: "og:url", content: "https://neweradynasty-hub.lovable.app/contact" },
     ],
-  }),
+    links: [{ rel: "canonical", href: "https://neweradynasty-hub.lovable.app/contact" }],
   component: Contact,
 });
 

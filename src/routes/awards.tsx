@@ -9,8 +9,9 @@ export const Route = createFileRoute("/awards")({
       { name: "description", content: "Recognitions, certifications, and continuous learning milestones on the Dynasty journey." },
       { property: "og:title", content: "Awards & Certifications" },
       { property: "og:description", content: "A record of continuous learning and recognition." },
+          { property: "og:url", content: "https://neweradynasty-hub.lovable.app/awards" },
     ],
-  }),
+    links: [{ rel: "canonical", href: "https://neweradynasty-hub.lovable.app/awards" }],
   component: Awards,
 });
 
