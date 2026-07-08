@@ -22,6 +22,7 @@ export const Route = createFileRoute("/testimonials")({
           { property: "og:url", content: "https://neweradynasty-hub.lovable.app/testimonials" },
     ],
     links: [{ rel: "canonical", href: "https://neweradynasty-hub.lovable.app/testimonials" }],
+  }),
   component: Testimonials,
 });
 

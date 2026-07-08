@@ -12,6 +12,7 @@ export const Route = createFileRoute("/services")({
           { property: "og:url", content: "https://neweradynasty-hub.lovable.app/services" },
     ],
     links: [{ rel: "canonical", href: "https://neweradynasty-hub.lovable.app/services" }],
+  }),
   component: Services,
 });
 

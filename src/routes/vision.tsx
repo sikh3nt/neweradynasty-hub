@@ -12,6 +12,7 @@ export const Route = createFileRoute("/vision")({
           { property: "og:url", content: "https://neweradynasty-hub.lovable.app/vision" },
     ],
     links: [{ rel: "canonical", href: "https://neweradynasty-hub.lovable.app/vision" }],
+  }),
   component: Vision,
 });
 

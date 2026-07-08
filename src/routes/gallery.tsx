@@ -11,6 +11,7 @@ export const Route = createFileRoute("/gallery")({
           { property: "og:url", content: "https://neweradynasty-hub.lovable.app/gallery" },
     ],
     links: [{ rel: "canonical", href: "https://neweradynasty-hub.lovable.app/gallery" }],
+  }),
   component: Gallery,
 });
 
