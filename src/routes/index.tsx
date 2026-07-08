@@ -17,7 +17,7 @@ export const Route = createFileRoute("/")({
       { title: "Tozamile Sikhenjana — Founder & CEO of New Era Dynasty" },
       { name: "description", content: "Multidisciplinary entrepreneur from Motherwell, Gqeberha. Technology, business, community. Founder of New Era Dynasty, WireNet, and Blackstyle Barbershop." },
       { property: "og:title", content: "Tozamile Sikhenjana — Founder & CEO of New Era Dynasty" },
-      { property: "og:description", content: "From Motherwell to the World — One Skill, One Business, One Legacy at a Time." },
+      { property: "og:description", content: "Multidisciplinary entrepreneur from Motherwell, Gqeberha. Technology, business, community. Founder of New Era Dynasty, WireNet, and Blackstyle Barbershop." },
     ],
   }),
   component: Home,
