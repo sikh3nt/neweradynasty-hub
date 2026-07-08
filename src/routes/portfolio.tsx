@@ -12,8 +12,8 @@ import blackstylePricing from "@/assets/blackstyle-pricing.png.asset.json";
 export const Route = createFileRoute("/portfolio")({
   head: () => ({
     meta: [
-      { title: "Portfolio — Ventures & client work by Tozamile Sikhenjana" },
-      { name: "description", content: "Ventures and client work by Tozamile Sikhenjana — New Era Dynasty, WireNet, Blackstyle Barbershop, and design work for SoleStride Emporium, April Concepts, and Ntsiki's Community Project." },
+      { title: "Portfolio — Ventures & Client Work | Tozamile Sikhenjana" },
+      { name: "description", content: "Ventures and brand/design work by Tozamile Sikhenjana — New Era Dynasty, WireNet, Blackstyle Barbershop, and client projects across Gqeberha." },
       { property: "og:title", content: "Portfolio — New Era Dynasty" },
       { property: "og:description", content: "Ventures in technology, connectivity, and lifestyle, plus brand and design work for clients across Gqeberha." },
           { property: "og:url", content: "https://neweradynasty-hub.lovable.app/portfolio" },
