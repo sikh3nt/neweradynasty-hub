@@ -12,6 +12,26 @@ export const Route = createFileRoute("/services")({
           { property: "og:url", content: "https://neweradynasty-hub.lovable.app/services" },
     ],
     links: [{ rel: "canonical", href: "https://neweradynasty-hub.lovable.app/services" }],
+    scripts: [{
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        itemListElement: [
+          "Programming", "Website Development", "Cybersecurity", "Artificial Intelligence",
+          "Graphic Design", "Trading", "DJ & Entertainment", "Boxing & Kickboxing",
+        ].map((name, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          item: {
+            "@type": "Service",
+            name,
+            provider: { "@id": "https://neweradynasty-hub.lovable.app/#organization" },
+            areaServed: "ZA",
+          },
+        })),
+      }),
+    }],
   }),
   component: Services,
 });
