@@ -84,7 +84,7 @@ const ventures = [
 
 function Portfolio() {
   return (
-    <PageShell eyebrow="Business Portfolio" title="Ventures under the Dynasty." intro="Three brands. One vision. Each venture is a chapter in a longer story about building meaningful South African businesses.">
+    <PageShell eyebrow="Portfolio" title="Ventures & client work." intro="Three brands under the Dynasty, plus selected identity and marketing work for clients across Gqeberha.">
       <div className="grid gap-6">
         {ventures.map((v) => {
           const Icon = v.icon;
@@ -112,6 +112,37 @@ function Portfolio() {
             </article>
           );
         })}
+      </div>
+
+      <div className="mt-20">
+        <div className="mb-10 max-w-2xl">
+          <div className="text-xs uppercase tracking-[0.25em] text-primary">Client Work</div>
+          <h2 className="mt-2 font-display text-3xl md:text-4xl text-foreground">Selected brand & design projects.</h2>
+          <p className="mt-4 text-muted-foreground">A snapshot of identity, collateral, and marketing work delivered for independent businesses and community organisations.</p>
+        </div>
+        <div className="grid gap-6 md:grid-cols-2">
+          {clientWork.map((w) => (
+            <article key={w.name} className="glass-strong rounded-3xl overflow-hidden flex flex-col">
+              <div className={`grid gap-2 p-4 bg-black/40 ${w.images.length > 1 ? "grid-cols-2" : "grid-cols-1"}`}>
+                {w.images.map((img) => (
+                  <div key={img.src} className="aspect-square rounded-2xl overflow-hidden bg-black grid place-items-center">
+                    <img src={img.src} alt={img.alt} loading="lazy" className="h-full w-full object-contain" />
+                  </div>
+                ))}
+              </div>
+              <div className="p-6 md:p-8 flex-1 flex flex-col">
+                <div className="text-xs uppercase tracking-[0.25em] text-primary">{w.tag}</div>
+                <h3 className="mt-2 font-display text-2xl text-foreground">{w.name}</h3>
+                <p className="mt-3 text-sm text-muted-foreground flex-1">{w.desc}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div className="mt-10 text-center">
+          <Link to="/contact" className="inline-flex items-center gap-2 rounded-full bg-primary/10 border border-primary/30 px-5 py-2.5 text-sm text-primary hover:bg-primary/20 transition-luxury">
+            Commission a project <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
       </div>
     </PageShell>
   );
