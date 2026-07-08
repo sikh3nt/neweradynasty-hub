@@ -10,7 +10,9 @@ export const Route = createFileRoute("/about")({
       { name: "description", content: "The story behind Tozamile Sikhenjana, Founder & CEO of New Era Dynasty — a self-taught, multidisciplinary entrepreneur from Motherwell, Gqeberha." },
       { property: "og:title", content: "About Tozamile Sikhenjana" },
       { property: "og:description", content: "Founder & CEO of New Era Dynasty. From Motherwell to the world." },
+          { property: "og:url", content: "https://neweradynasty-hub.lovable.app/about" },
     ],
+    links: [{ rel: "canonical", href: "https://neweradynasty-hub.lovable.app/about" }],
   }),
   component: About,
 });

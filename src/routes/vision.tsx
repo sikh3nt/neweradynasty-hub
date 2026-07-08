@@ -9,7 +9,9 @@ export const Route = createFileRoute("/vision")({
       { name: "description", content: "The mission, vision, core values, future goals, and community development commitments behind New Era Dynasty." },
       { property: "og:title", content: "Vision & Values — New Era Dynasty" },
       { property: "og:description", content: "Purpose over profit. Legacy over shortcuts." },
+          { property: "og:url", content: "https://neweradynasty-hub.lovable.app/vision" },
     ],
+    links: [{ rel: "canonical", href: "https://neweradynasty-hub.lovable.app/vision" }],
   }),
   component: Vision,
 });

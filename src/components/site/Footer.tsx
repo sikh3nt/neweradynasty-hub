@@ -38,9 +38,12 @@ export function Footer() {
               {SITE.slogan}
             </p>
             <form onSubmit={subscribe} className="mt-6 flex max-w-sm items-center gap-2 rounded-full glass px-1.5 py-1.5">
+              <label htmlFor="newsletter-email" className="sr-only">Email address for newsletter</label>
               <input
+                id="newsletter-email"
                 type="email"
                 required
+                aria-label="Email address for newsletter"
                 placeholder="Join the newsletter"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}

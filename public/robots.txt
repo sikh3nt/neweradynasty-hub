@@ -4,3 +4,5 @@ Disallow: /portal
 Disallow: /admin
 Disallow: /auth
 Disallow: /reset-password
+
+Sitemap: https://neweradynasty-hub.lovable.app/sitemap.xml

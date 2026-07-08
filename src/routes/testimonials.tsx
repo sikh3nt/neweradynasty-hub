@@ -19,7 +19,9 @@ export const Route = createFileRoute("/testimonials")({
       { name: "description", content: "Read verified client reviews and leave your own testimonial about working with Tozamile Sikhenjana." },
       { property: "og:title", content: "Testimonials & Reviews" },
       { property: "og:description", content: "Verified reviews from clients of New Era Dynasty." },
+          { property: "og:url", content: "https://neweradynasty-hub.lovable.app/testimonials" },
     ],
+    links: [{ rel: "canonical", href: "https://neweradynasty-hub.lovable.app/testimonials" }],
   }),
   component: Testimonials,
 });

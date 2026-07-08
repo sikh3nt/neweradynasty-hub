@@ -9,7 +9,9 @@ export const Route = createFileRoute("/blog")({
       { name: "description", content: "Insights on entrepreneurship, technology, self-learning, and building from Motherwell." },
       { property: "og:title", content: "Blog & Articles — New Era Dynasty" },
       { property: "og:description", content: "Writings on tech, business, and the township entrepreneurial journey." },
+          { property: "og:url", content: "https://neweradynasty-hub.lovable.app/blog" },
     ],
+    links: [{ rel: "canonical", href: "https://neweradynasty-hub.lovable.app/blog" }],
   }),
   component: Blog,
 });

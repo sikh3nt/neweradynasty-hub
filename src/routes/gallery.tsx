@@ -8,7 +8,9 @@ export const Route = createFileRoute("/gallery")({
       { name: "description", content: "Visual snapshots of the Dynasty — technology, entrepreneurship, community, and craft." },
       { property: "og:title", content: "Gallery — New Era Dynasty" },
       { property: "og:description", content: "Abstract visuals inspired by technology, business, networking, and community." },
+          { property: "og:url", content: "https://neweradynasty-hub.lovable.app/gallery" },
     ],
+    links: [{ rel: "canonical", href: "https://neweradynasty-hub.lovable.app/gallery" }],
   }),
   component: Gallery,
 });

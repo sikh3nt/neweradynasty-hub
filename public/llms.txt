@@ -1,0 +1,18 @@
+# Tozamile Sikhenjana — New Era Dynasty
+
+> Personal brand site for Tozamile Sikhenjana, Founder & CEO of New Era Dynasty (Reg. 2024/0980819/07), a multidisciplinary South African technology, business and community brand based in Motherwell, Gqeberha.
+
+Tozamile is a self-taught, multidisciplinary entrepreneur working across programming, website development, cybersecurity, artificial intelligence, graphic design, trading, DJing, and combat sports coaching. New Era Dynasty is the parent brand behind ventures including WireNet (connectivity) and Blackstyle Barbershop (lifestyle), and delivers client work spanning brand identity, web, and marketing design.
+
+## Pages
+
+- [Home](/): Overview of Tozamile, the Dynasty, services and featured work.
+- [About](/about): Founder story, leadership philosophy, values and vision.
+- [Portfolio](/portfolio): Ventures and client work — SoleStride Emporium, April Concepts, Ntsiki's Community Project, Blackstyle Barbershop.
+- [Services](/services): Full list of services and disciplines offered.
+- [Vision](/vision): Long-term vision for New Era Dynasty and community impact.
+- [Gallery](/gallery): Visual snapshots of the brand and work.
+- [Blog](/blog): Articles on entrepreneurship, self-learning, and technology.
+- [Awards](/awards): Certifications, milestones and recognitions.
+- [Testimonials](/testimonials): Verified client reviews and submissions.
+- [Contact](/contact): Email, phone and enquiry form.
