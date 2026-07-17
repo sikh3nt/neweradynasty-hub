@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Star, FolderKanban, Users, Inbox } from "lucide-react";
 
-export const Route = createFileRoute("/_authenticated/admin")({
+export const Route = createFileRoute("/_authenticated/admin/")({
   head: () => ({ meta: [{ title: "Admin — New Era Dynasty" }, { name: "robots", content: "noindex" }] }),
   component: () => <AdminGate><AdminHome /></AdminGate>,
 });

@@ -1,0 +1,1 @@
+CREATE POLICY "Profiles: admin read" ON public.profiles FOR SELECT TO authenticated USING (public.has_role(auth.uid(), 'admin'::app_role));

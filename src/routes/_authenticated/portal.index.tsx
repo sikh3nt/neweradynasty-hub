@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { FolderKanban, MessageSquare, Receipt, Star, ArrowRight } from "lucide-react";
 
-export const Route = createFileRoute("/_authenticated/portal")({
+export const Route = createFileRoute("/_authenticated/portal/")({
   head: () => ({ meta: [{ title: "Dashboard — Client Portal" }, { name: "robots", content: "noindex" }] }),
   component: Dashboard,
 });

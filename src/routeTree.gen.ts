@@ -23,8 +23,8 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedPortalRouteImport } from './routes/_authenticated/portal'
-import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedPortalIndexRouteImport } from './routes/_authenticated/portal.index'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedPortalReviewsRouteImport } from './routes/_authenticated/portal.reviews'
 import { Route as AuthenticatedPortalProjectsRouteImport } from './routes/_authenticated/portal.projects'
 import { Route as AuthenticatedPortalMessagesRouteImport } from './routes/_authenticated/portal.messages'
@@ -103,63 +103,64 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedPortalRoute = AuthenticatedPortalRouteImport.update({
-  id: '/portal',
-  path: '/portal',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
+const AuthenticatedPortalIndexRoute =
+  AuthenticatedPortalIndexRouteImport.update({
+    id: '/portal/',
+    path: '/portal/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedPortalReviewsRoute =
   AuthenticatedPortalReviewsRouteImport.update({
-    id: '/reviews',
-    path: '/reviews',
-    getParentRoute: () => AuthenticatedPortalRoute,
+    id: '/portal/reviews',
+    path: '/portal/reviews',
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedPortalProjectsRoute =
   AuthenticatedPortalProjectsRouteImport.update({
-    id: '/projects',
-    path: '/projects',
-    getParentRoute: () => AuthenticatedPortalRoute,
+    id: '/portal/projects',
+    path: '/portal/projects',
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedPortalMessagesRoute =
   AuthenticatedPortalMessagesRouteImport.update({
-    id: '/messages',
-    path: '/messages',
-    getParentRoute: () => AuthenticatedPortalRoute,
+    id: '/portal/messages',
+    path: '/portal/messages',
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedPortalInvoicesRoute =
   AuthenticatedPortalInvoicesRouteImport.update({
-    id: '/invoices',
-    path: '/invoices',
-    getParentRoute: () => AuthenticatedPortalRoute,
+    id: '/portal/invoices',
+    path: '/portal/invoices',
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedAdminReviewsRoute =
   AuthenticatedAdminReviewsRouteImport.update({
-    id: '/reviews',
-    path: '/reviews',
-    getParentRoute: () => AuthenticatedAdminRoute,
+    id: '/admin/reviews',
+    path: '/admin/reviews',
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedAdminProjectsRoute =
   AuthenticatedAdminProjectsRouteImport.update({
-    id: '/projects',
-    path: '/projects',
-    getParentRoute: () => AuthenticatedAdminRoute,
+    id: '/admin/projects',
+    path: '/admin/projects',
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedAdminContactRoute =
   AuthenticatedAdminContactRouteImport.update({
-    id: '/contact',
-    path: '/contact',
-    getParentRoute: () => AuthenticatedAdminRoute,
+    id: '/admin/contact',
+    path: '/admin/contact',
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedAdminClientsRoute =
   AuthenticatedAdminClientsRouteImport.update({
-    id: '/clients',
-    path: '/clients',
-    getParentRoute: () => AuthenticatedAdminRoute,
+    id: '/admin/clients',
+    path: '/admin/clients',
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -176,8 +177,6 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/testimonials': typeof TestimonialsRoute
   '/vision': typeof VisionRoute
-  '/admin': typeof AuthenticatedAdminRouteWithChildren
-  '/portal': typeof AuthenticatedPortalRouteWithChildren
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/admin/contact': typeof AuthenticatedAdminContactRoute
   '/admin/projects': typeof AuthenticatedAdminProjectsRoute
@@ -186,6 +185,8 @@ export interface FileRoutesByFullPath {
   '/portal/messages': typeof AuthenticatedPortalMessagesRoute
   '/portal/projects': typeof AuthenticatedPortalProjectsRoute
   '/portal/reviews': typeof AuthenticatedPortalReviewsRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/portal/': typeof AuthenticatedPortalIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -201,8 +202,6 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/testimonials': typeof TestimonialsRoute
   '/vision': typeof VisionRoute
-  '/admin': typeof AuthenticatedAdminRouteWithChildren
-  '/portal': typeof AuthenticatedPortalRouteWithChildren
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/admin/contact': typeof AuthenticatedAdminContactRoute
   '/admin/projects': typeof AuthenticatedAdminProjectsRoute
@@ -211,6 +210,8 @@ export interface FileRoutesByTo {
   '/portal/messages': typeof AuthenticatedPortalMessagesRoute
   '/portal/projects': typeof AuthenticatedPortalProjectsRoute
   '/portal/reviews': typeof AuthenticatedPortalReviewsRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
+  '/portal': typeof AuthenticatedPortalIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -228,8 +229,6 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/testimonials': typeof TestimonialsRoute
   '/vision': typeof VisionRoute
-  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
-  '/_authenticated/portal': typeof AuthenticatedPortalRouteWithChildren
   '/_authenticated/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/_authenticated/admin/contact': typeof AuthenticatedAdminContactRoute
   '/_authenticated/admin/projects': typeof AuthenticatedAdminProjectsRoute
@@ -238,6 +237,8 @@ export interface FileRoutesById {
   '/_authenticated/portal/messages': typeof AuthenticatedPortalMessagesRoute
   '/_authenticated/portal/projects': typeof AuthenticatedPortalProjectsRoute
   '/_authenticated/portal/reviews': typeof AuthenticatedPortalReviewsRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/portal/': typeof AuthenticatedPortalIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -255,8 +256,6 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/testimonials'
     | '/vision'
-    | '/admin'
-    | '/portal'
     | '/admin/clients'
     | '/admin/contact'
     | '/admin/projects'
@@ -265,6 +264,8 @@ export interface FileRouteTypes {
     | '/portal/messages'
     | '/portal/projects'
     | '/portal/reviews'
+    | '/admin/'
+    | '/portal/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -280,8 +281,6 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/testimonials'
     | '/vision'
-    | '/admin'
-    | '/portal'
     | '/admin/clients'
     | '/admin/contact'
     | '/admin/projects'
@@ -290,6 +289,8 @@ export interface FileRouteTypes {
     | '/portal/messages'
     | '/portal/projects'
     | '/portal/reviews'
+    | '/admin'
+    | '/portal'
   id:
     | '__root__'
     | '/'
@@ -306,8 +307,6 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/testimonials'
     | '/vision'
-    | '/_authenticated/admin'
-    | '/_authenticated/portal'
     | '/_authenticated/admin/clients'
     | '/_authenticated/admin/contact'
     | '/_authenticated/admin/projects'
@@ -316,6 +315,8 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/messages'
     | '/_authenticated/portal/projects'
     | '/_authenticated/portal/reviews'
+    | '/_authenticated/admin/'
+    | '/_authenticated/portal/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -435,121 +436,103 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/portal': {
-      id: '/_authenticated/portal'
+    '/_authenticated/portal/': {
+      id: '/_authenticated/portal/'
       path: '/portal'
-      fullPath: '/portal'
-      preLoaderRoute: typeof AuthenticatedPortalRouteImport
+      fullPath: '/portal/'
+      preLoaderRoute: typeof AuthenticatedPortalIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/admin': {
-      id: '/_authenticated/admin'
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
       path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/portal/reviews': {
       id: '/_authenticated/portal/reviews'
-      path: '/reviews'
+      path: '/portal/reviews'
       fullPath: '/portal/reviews'
       preLoaderRoute: typeof AuthenticatedPortalReviewsRouteImport
-      parentRoute: typeof AuthenticatedPortalRoute
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/portal/projects': {
       id: '/_authenticated/portal/projects'
-      path: '/projects'
+      path: '/portal/projects'
       fullPath: '/portal/projects'
       preLoaderRoute: typeof AuthenticatedPortalProjectsRouteImport
-      parentRoute: typeof AuthenticatedPortalRoute
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/portal/messages': {
       id: '/_authenticated/portal/messages'
-      path: '/messages'
+      path: '/portal/messages'
       fullPath: '/portal/messages'
       preLoaderRoute: typeof AuthenticatedPortalMessagesRouteImport
-      parentRoute: typeof AuthenticatedPortalRoute
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/portal/invoices': {
       id: '/_authenticated/portal/invoices'
-      path: '/invoices'
+      path: '/portal/invoices'
       fullPath: '/portal/invoices'
       preLoaderRoute: typeof AuthenticatedPortalInvoicesRouteImport
-      parentRoute: typeof AuthenticatedPortalRoute
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/admin/reviews': {
       id: '/_authenticated/admin/reviews'
-      path: '/reviews'
+      path: '/admin/reviews'
       fullPath: '/admin/reviews'
       preLoaderRoute: typeof AuthenticatedAdminReviewsRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/admin/projects': {
       id: '/_authenticated/admin/projects'
-      path: '/projects'
+      path: '/admin/projects'
       fullPath: '/admin/projects'
       preLoaderRoute: typeof AuthenticatedAdminProjectsRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/admin/contact': {
       id: '/_authenticated/admin/contact'
-      path: '/contact'
+      path: '/admin/contact'
       fullPath: '/admin/contact'
       preLoaderRoute: typeof AuthenticatedAdminContactRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/admin/clients': {
       id: '/_authenticated/admin/clients'
-      path: '/clients'
+      path: '/admin/clients'
       fullPath: '/admin/clients'
       preLoaderRoute: typeof AuthenticatedAdminClientsRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      parentRoute: typeof AuthenticatedRouteRoute
     }
   }
 }
 
-interface AuthenticatedAdminRouteChildren {
+interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminClientsRoute: typeof AuthenticatedAdminClientsRoute
   AuthenticatedAdminContactRoute: typeof AuthenticatedAdminContactRoute
   AuthenticatedAdminProjectsRoute: typeof AuthenticatedAdminProjectsRoute
   AuthenticatedAdminReviewsRoute: typeof AuthenticatedAdminReviewsRoute
-}
-
-const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
-  AuthenticatedAdminClientsRoute: AuthenticatedAdminClientsRoute,
-  AuthenticatedAdminContactRoute: AuthenticatedAdminContactRoute,
-  AuthenticatedAdminProjectsRoute: AuthenticatedAdminProjectsRoute,
-  AuthenticatedAdminReviewsRoute: AuthenticatedAdminReviewsRoute,
-}
-
-const AuthenticatedAdminRouteWithChildren =
-  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
-
-interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalInvoicesRoute: typeof AuthenticatedPortalInvoicesRoute
   AuthenticatedPortalMessagesRoute: typeof AuthenticatedPortalMessagesRoute
   AuthenticatedPortalProjectsRoute: typeof AuthenticatedPortalProjectsRoute
   AuthenticatedPortalReviewsRoute: typeof AuthenticatedPortalReviewsRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+  AuthenticatedPortalIndexRoute: typeof AuthenticatedPortalIndexRoute
 }
 
-const AuthenticatedPortalRouteChildren: AuthenticatedPortalRouteChildren = {
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminClientsRoute: AuthenticatedAdminClientsRoute,
+  AuthenticatedAdminContactRoute: AuthenticatedAdminContactRoute,
+  AuthenticatedAdminProjectsRoute: AuthenticatedAdminProjectsRoute,
+  AuthenticatedAdminReviewsRoute: AuthenticatedAdminReviewsRoute,
   AuthenticatedPortalInvoicesRoute: AuthenticatedPortalInvoicesRoute,
   AuthenticatedPortalMessagesRoute: AuthenticatedPortalMessagesRoute,
   AuthenticatedPortalProjectsRoute: AuthenticatedPortalProjectsRoute,
   AuthenticatedPortalReviewsRoute: AuthenticatedPortalReviewsRoute,
-}
-
-const AuthenticatedPortalRouteWithChildren =
-  AuthenticatedPortalRoute._addFileChildren(AuthenticatedPortalRouteChildren)
-
-interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
-  AuthenticatedPortalRoute: typeof AuthenticatedPortalRouteWithChildren
-}
-
-const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
-  AuthenticatedPortalRoute: AuthenticatedPortalRouteWithChildren,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+  AuthenticatedPortalIndexRoute: AuthenticatedPortalIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -574,13 +557,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
