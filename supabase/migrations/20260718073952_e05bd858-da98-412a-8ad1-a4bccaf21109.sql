@@ -1,0 +1,2 @@
+REVOKE SELECT ON public.reviews FROM anon;
+GRANT SELECT (id, full_name, company, service_received, project_title, rating, body, avatar_url, verified, featured, status, created_at, approved_at, submitter_user_id, project_id) ON public.reviews TO anon;
