@@ -120,8 +120,12 @@ function Portfolio() {
             <article key={v.name} className="relative overflow-hidden glass-strong rounded-3xl p-8 md:p-12">
               <div className="absolute inset-0 opacity-25" style={{ background: v.gradient }} />
               <div className="relative grid md:grid-cols-[auto_1fr_auto] gap-6 items-start">
-                <div className="grid h-16 w-16 place-items-center rounded-2xl bg-[image:var(--gradient-royal)] text-primary-foreground shadow-glow-gold">
-                  <Icon className="h-7 w-7" />
+                <div className="grid h-20 w-20 place-items-center rounded-2xl bg-black/60 border border-border overflow-hidden shadow-glow-gold">
+                  {v.logo ? (
+                    <img src={v.logo} alt={`${v.name} logo`} loading="lazy" className="h-full w-full object-contain p-2" />
+                  ) : (
+                    <Icon className="h-7 w-7 text-primary" />
+                  )}
                 </div>
                 <div>
                   <div className="text-xs uppercase tracking-[0.25em] text-primary">{v.tag}</div>
