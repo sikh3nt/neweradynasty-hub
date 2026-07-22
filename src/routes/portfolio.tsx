@@ -170,7 +170,7 @@ function Portfolio() {
               probability; a turtle <em>wick</em> soup is lower conviction and sized accordingly.
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
-              {["3-candle setup", "Liquidity sweep", "Break of structure", "Body {'>'} wick"].map((t) => (
+              {["3-candle setup", "Liquidity sweep", "Break of structure", "Body > wick"].map((t) => (
                 <span key={t} className="rounded-full glass px-3 py-1 text-xs text-foreground">{t}</span>
               ))}
             </div>
