@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/site/PageShell";
-import { ArrowRight, Network, Scissors, Building2 } from "lucide-react";
+import { ArrowRight, Network, Scissors, Building2, TrendingUp, CandlestickChart, Clock, Newspaper } from "lucide-react";
 import solestride from "@/assets/solestride-logo.jpg.asset.json";
 import aprilFront from "@/assets/april-concepts-front.png.asset.json";
 import aprilBack from "@/assets/april-concepts-back.png.asset.json";
