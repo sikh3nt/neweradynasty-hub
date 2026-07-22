@@ -60,11 +60,30 @@ const clientWork = [
       { src: blackstylePricing.url, alt: "Black Style Barbershop pricing menu" },
     ],
   },
+  {
+    name: "Black Style Barbershop — Marketing Poster",
+    tag: "Marketing Design · Retro Poster",
+    desc: "Retro-style hero poster for Black Style Barbershop in Motherwell, Gqeberha — bold typography, moody portrait treatment, and clear service and booking details.",
+    images: [{ src: blackstylePoster.url, alt: "Black Style Barbershop retro marketing poster" }],
+  },
+  {
+    name: "Ghost (iGhostLasego)",
+    tag: "Artist Poster · New Era Dynasty",
+    desc: "Promotional artist poster for Ghost under the New Era Dynasty banner — cinematic lighting, chromed typography, and clear booking and social handles for a Gqeberha-based performer.",
+    images: [{ src: ghostPoster.url, alt: "Ghost artist promotional poster" }],
+  },
+  {
+    name: "One Treat At A Time",
+    tag: "Poster Design · Small Business",
+    desc: "Poster for a Summerstrand treat brand — teal and coral palette, playful product framing, and clear pricing and contact hierarchy for at-a-glance ordering.",
+    images: [{ src: oneTreatPoster.url, alt: "One Treat At A Time poster with pricing and contact" }],
+  },
 ];
 
 const ventures = [
   {
     icon: Building2,
+    logo: nedPyramid.url,
     name: "New Era Dynasty",
     tag: "Parent Brand · 2024/0980819/07",
     desc: "The umbrella brand for every discipline — technology, business consulting, creative direction, and community development. A South African brand with global intent.",
