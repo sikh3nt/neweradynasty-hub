@@ -61,12 +61,6 @@ const clientWork = [
     ],
   },
   {
-    name: "Black Style Barbershop — Marketing Poster",
-    tag: "Marketing Design · Retro Poster",
-    desc: "Retro-style hero poster for Black Style Barbershop in Motherwell, Gqeberha — bold typography, moody portrait treatment, and clear service and booking details.",
-    images: [{ src: blackstylePoster.url, alt: "Black Style Barbershop retro marketing poster" }],
-  },
-  {
     name: "Ghost (iGhostLasego)",
     tag: "Artist Poster · New Era Dynasty",
     desc: "Promotional artist poster for Ghost under the New Era Dynasty banner — cinematic lighting, chromed typography, and clear booking and social handles for a Gqeberha-based performer.",
