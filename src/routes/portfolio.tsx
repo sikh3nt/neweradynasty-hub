@@ -8,6 +8,11 @@ import ntsiki from "@/assets/ntsiki-community-project.png.asset.json";
 import blackstylePoster from "@/assets/blackstyle-poster.png.asset.json";
 import blackstylePamphlet from "@/assets/blackstyle-pamphlet.png.asset.json";
 import blackstylePricing from "@/assets/blackstyle-pricing.png.asset.json";
+import wirenetLogo from "@/assets/wirenet-logo.png.asset.json";
+import nedPyramid from "@/assets/new-era-dynasty-pyramid.jpg.asset.json";
+import blackstyleLogo from "@/assets/blackstyle-logo.jpg.asset.json";
+import ghostPoster from "@/assets/ghost-poster.jpg.asset.json";
+import oneTreatPoster from "@/assets/one-treat-poster.jpg.asset.json";
 
 export const Route = createFileRoute("/portfolio")({
   head: () => ({
@@ -55,11 +60,24 @@ const clientWork = [
       { src: blackstylePricing.url, alt: "Black Style Barbershop pricing menu" },
     ],
   },
+  {
+    name: "Ghost (iGhostLasego)",
+    tag: "Artist Poster · New Era Dynasty",
+    desc: "Promotional artist poster for Ghost under the New Era Dynasty banner — cinematic lighting, chromed typography, and clear booking and social handles for a Gqeberha-based performer.",
+    images: [{ src: ghostPoster.url, alt: "Ghost artist promotional poster" }],
+  },
+  {
+    name: "One Treat At A Time",
+    tag: "Poster Design · Small Business",
+    desc: "Poster for a Summerstrand treat brand — teal and coral palette, playful product framing, and clear pricing and contact hierarchy for at-a-glance ordering.",
+    images: [{ src: oneTreatPoster.url, alt: "One Treat At A Time poster with pricing and contact" }],
+  },
 ];
 
 const ventures = [
   {
     icon: Building2,
+    logo: nedPyramid.url,
     name: "New Era Dynasty",
     tag: "Parent Brand · 2024/0980819/07",
     desc: "The umbrella brand for every discipline — technology, business consulting, creative direction, and community development. A South African brand with global intent.",
@@ -68,6 +86,7 @@ const ventures = [
   },
   {
     icon: Network,
+    logo: wirenetLogo.url,
     name: "WireNet",
     tag: "Connectivity & Networking",
     desc: "Networking and connectivity solutions built for homes, businesses, and community spaces. WireNet aims to close the digital access gap where it matters most.",
@@ -76,6 +95,7 @@ const ventures = [
   },
   {
     icon: Scissors,
+    logo: blackstyleLogo.url,
     name: "Blackstyle Barbershop",
     tag: "Lifestyle & Grooming",
     desc: "A modern grooming experience rooted in township pride and professional standards — a physical embodiment of the Dynasty's commitment to community.",
@@ -94,8 +114,12 @@ function Portfolio() {
             <article key={v.name} className="relative overflow-hidden glass-strong rounded-3xl p-8 md:p-12">
               <div className="absolute inset-0 opacity-25" style={{ background: v.gradient }} />
               <div className="relative grid md:grid-cols-[auto_1fr_auto] gap-6 items-start">
-                <div className="grid h-16 w-16 place-items-center rounded-2xl bg-[image:var(--gradient-royal)] text-primary-foreground shadow-glow-gold">
-                  <Icon className="h-7 w-7" />
+                <div className="grid h-20 w-20 place-items-center rounded-2xl bg-black/60 border border-border overflow-hidden shadow-glow-gold">
+                  {v.logo ? (
+                    <img src={v.logo} alt={`${v.name} logo`} loading="lazy" className="h-full w-full object-contain p-2" />
+                  ) : (
+                    <Icon className="h-7 w-7 text-primary" />
+                  )}
                 </div>
                 <div>
                   <div className="text-xs uppercase tracking-[0.25em] text-primary">{v.tag}</div>
