@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/site/PageShell";
-import { ArrowRight, Network, Scissors, Building2 } from "lucide-react";
+import { ArrowRight, Network, Scissors, Building2, TrendingUp, CandlestickChart, Clock, Newspaper } from "lucide-react";
 import solestride from "@/assets/solestride-logo.jpg.asset.json";
 import aprilFront from "@/assets/april-concepts-front.png.asset.json";
 import aprilBack from "@/assets/april-concepts-back.png.asset.json";
@@ -139,6 +139,105 @@ function Portfolio() {
           );
         })}
       </div>
+
+      {/* TRADING — Skills & Strategies */}
+      <div className="mt-20">
+        <div className="mb-10 max-w-2xl">
+          <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-primary">
+            <TrendingUp className="h-3.5 w-3.5" /> Trading · Skill Proof
+          </div>
+          <h2 className="mt-2 font-display text-3xl md:text-4xl text-foreground">Swing trading — strategies I run live.</h2>
+          <p className="mt-4 text-muted-foreground">
+            A disciplined swing-trading practice combining technical setups with fundamental catalysts.
+            I sit at the charts daily, watch the news feed, and only take setups where the technicals
+            and the macro story agree.
+          </p>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <article className="glass-strong rounded-3xl p-6 md:p-8">
+            <div className="flex items-center gap-3">
+              <div className="grid h-11 w-11 place-items-center rounded-xl bg-primary/10 text-primary">
+                <CandlestickChart className="h-5 w-5" />
+              </div>
+              <h3 className="font-display text-xl text-foreground">Candle Range Theory + Turtle Body Soup</h3>
+            </div>
+            <p className="mt-4 text-sm text-muted-foreground">
+              Two setups that pair together. Mark the high and low of the first candle as the range.
+              Wait for the second candle to close inside that range. When the third candle opens and breaks
+              the structure of candle two — up or down, depending on where liquidity was swept — that's the
+              trigger to look for an optimal entry. A clean turtle <em>body</em> soup delivers the highest
+              probability; a turtle <em>wick</em> soup is lower conviction and sized accordingly.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {["3-candle setup", "Liquidity sweep", "Break of structure", "Body > wick"].map((t) => (
+                <span key={t} className="rounded-full glass px-3 py-1 text-xs text-foreground">{t}</span>
+              ))}
+            </div>
+          </article>
+
+          <article className="glass-strong rounded-3xl p-6 md:p-8">
+            <div className="flex items-center gap-3">
+              <div className="grid h-11 w-11 place-items-center rounded-xl bg-primary/10 text-primary">
+                <TrendingUp className="h-5 w-5" />
+              </div>
+              <h3 className="font-display text-xl text-foreground">Quasimodo (QML) — Reversals</h3>
+            </div>
+            <p className="mt-4 text-sm text-muted-foreground">
+              A reversal pattern built on a shifted high/low structure. Price prints a high and a low,
+              sweeps liquidity, then reverses through the neckline — that's the QML shift. Same DNA as
+              the candle range theory: both live off reversal moves, which is exactly what a swing trader
+              wants to catch.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {["Reversal", "Neckline break", "Swing bias", "Higher timeframe confirm"].map((t) => (
+                <span key={t} className="rounded-full glass px-3 py-1 text-xs text-foreground">{t}</span>
+              ))}
+            </div>
+          </article>
+
+          <article className="glass-strong rounded-3xl p-6 md:p-8">
+            <div className="flex items-center gap-3">
+              <div className="grid h-11 w-11 place-items-center rounded-xl bg-primary/10 text-primary">
+                <Clock className="h-5 w-5" />
+              </div>
+              <h3 className="font-display text-xl text-foreground">7·1·4 Method (Session Bias)</h3>
+            </div>
+            <p className="mt-4 text-sm text-muted-foreground">
+              Daily bias tool on the 5-minute chart, Monday to Friday. Mark the 1&nbsp;o'clock candle and
+              the 2&nbsp;o'clock candle with horizontal lines. The direction from 1&nbsp;→&nbsp;2 tells you
+              the play from 2&nbsp;→&nbsp;3 — price reverses that leg. Down into 2? Bias flips up.
+              Up into 2? Bias flips down. Simple, repeatable, and it keeps you on the right side of the
+              afternoon session.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {["5-min chart", "Mon–Fri", "Session reversal", "Horizontal levels"].map((t) => (
+                <span key={t} className="rounded-full glass px-3 py-1 text-xs text-foreground">{t}</span>
+              ))}
+            </div>
+          </article>
+        </div>
+
+        <div className="mt-6 glass rounded-3xl p-6 md:p-8">
+          <div className="flex items-center gap-3">
+            <div className="grid h-11 w-11 place-items-center rounded-xl bg-primary/10 text-primary">
+              <Newspaper className="h-5 w-5" />
+            </div>
+            <h3 className="font-display text-xl text-foreground">News & Event Trading</h3>
+          </div>
+          <p className="mt-4 text-sm text-muted-foreground max-w-3xl">
+            Technicals only get you halfway. I trade high-impact events — ISM Manufacturing PMI, PPI, CPI,
+            and NFP — pairing the release with the same reversal setups above to find optimal entries into
+            the volatility spike, not against it.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            {["ISM PMI", "PPI", "CPI", "NFP", "FOMC-aware"].map((t) => (
+              <span key={t} className="rounded-full glass px-3 py-1 text-xs text-foreground">{t}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+
 
       <div className="mt-20">
         <div className="mb-10 max-w-2xl">
