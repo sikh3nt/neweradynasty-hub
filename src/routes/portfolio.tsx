@@ -92,6 +92,7 @@ const ventures = [
   },
   {
     icon: Network,
+    logo: wirenetLogo.url,
     name: "WireNet",
     tag: "Connectivity & Networking",
     desc: "Networking and connectivity solutions built for homes, businesses, and community spaces. WireNet aims to close the digital access gap where it matters most.",
@@ -100,6 +101,7 @@ const ventures = [
   },
   {
     icon: Scissors,
+    logo: blackstyleLogo.url,
     name: "Blackstyle Barbershop",
     tag: "Lifestyle & Grooming",
     desc: "A modern grooming experience rooted in township pride and professional standards — a physical embodiment of the Dynasty's commitment to community.",
