@@ -8,6 +8,11 @@ import ntsiki from "@/assets/ntsiki-community-project.png.asset.json";
 import blackstylePoster from "@/assets/blackstyle-poster.png.asset.json";
 import blackstylePamphlet from "@/assets/blackstyle-pamphlet.png.asset.json";
 import blackstylePricing from "@/assets/blackstyle-pricing.png.asset.json";
+import wirenetLogo from "@/assets/wirenet-logo.png.asset.json";
+import nedPyramid from "@/assets/new-era-dynasty-pyramid.jpg.asset.json";
+import blackstyleLogo from "@/assets/blackstyle-logo.jpg.asset.json";
+import ghostPoster from "@/assets/ghost-poster.jpg.asset.json";
+import oneTreatPoster from "@/assets/one-treat-poster.jpg.asset.json";
 
 export const Route = createFileRoute("/portfolio")({
   head: () => ({
