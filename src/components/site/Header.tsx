@@ -35,8 +35,8 @@ export function Header() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 sm:h-20 items-center justify-between gap-4">
           <Link to="/" className="flex items-center gap-3 group min-w-0">
-            <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[image:var(--gradient-royal)] text-primary-foreground font-bold shadow-glow-gold">
-              N
+            <div className="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-xl bg-black/60 border border-border shadow-glow-gold">
+              <img src={nedPyramid.url} alt="New Era Dynasty logo" className="h-full w-full object-contain p-1" />
             </div>
             <div className="min-w-0">
               <div className="font-display text-base sm:text-lg font-semibold truncate text-gold-gradient">
