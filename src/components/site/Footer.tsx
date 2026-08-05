@@ -28,7 +28,9 @@ export function Footer() {
         <div className="grid gap-12 md:grid-cols-4">
           <div className="md:col-span-2">
             <Link to="/" className="flex items-center gap-3">
-              <div className="grid h-11 w-11 place-items-center rounded-xl bg-[image:var(--gradient-royal)] text-primary-foreground font-bold shadow-glow-gold">N</div>
+              <div className="grid h-11 w-11 place-items-center overflow-hidden rounded-xl bg-black/60 border border-border shadow-glow-gold">
+                <img src={nedPyramid.url} alt="New Era Dynasty logo" className="h-full w-full object-contain p-1" />
+              </div>
               <div>
                 <div className="font-display text-lg text-gold-gradient">New Era Dynasty</div>
                 <div className="text-xs text-muted-foreground">Reg. {SITE.regNumber}</div>
