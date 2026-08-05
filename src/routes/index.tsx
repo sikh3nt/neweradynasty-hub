@@ -71,8 +71,9 @@ function Home() {
             "{SITE.slogan}"
           </p>
           <p className="mt-6 max-w-2xl text-base sm:text-lg text-muted-foreground">
-            Founder & CEO of <span className="text-primary">New Era Dynasty</span> — a multidisciplinary technology and business brand
-            building innovation, entrepreneurship, and community impact from Motherwell, Gqeberha to the world.
+            Founder & CEO of <span className="text-primary">New Era Dynasty</span> — one umbrella spanning trading, software development,
+            graphic design, and hospitality &amp; nightlife operations, building innovation, entrepreneurship, and community impact
+            from Motherwell, Gqeberha to the world.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <Link to="/portfolio" className="inline-flex items-center gap-2 rounded-full bg-[image:var(--gradient-royal)] px-6 py-3 text-sm font-medium text-primary-foreground shadow-glow-gold hover:brightness-110 transition-luxury">
@@ -148,9 +149,10 @@ function Home() {
         <SectionHeader eyebrow="Portfolio" title="Building the Dynasty" intro="A growing portfolio of ventures spanning technology, connectivity, and lifestyle." />
         <div className="mt-12 grid gap-5 lg:grid-cols-3">
           {[
-            { name: "New Era Dynasty", tag: "Parent Brand", desc: "A multidisciplinary technology & business brand.", gradient: "var(--gradient-royal)" },
-            { name: "WireNet", tag: "Connectivity", desc: "Networking, connectivity and infrastructure for communities.", gradient: "var(--gradient-quantum)" },
-            { name: "Blackstyle Barbershop", tag: "Lifestyle", desc: "A modern grooming experience rooted in township pride.", gradient: "linear-gradient(135deg, oklch(0.4 0.02 260), oklch(0.15 0.014 260))" },
+            { name: "New Era Dynasty", tag: "Parent Brand", desc: "A multidisciplinary technology & business brand.", gradient: "var(--gradient-royal)", tags: [] as string[] },
+            { name: "WireNet", tag: "Connectivity", desc: "Networking, connectivity and infrastructure for communities.", gradient: "var(--gradient-quantum)", tags: [] as string[] },
+            { name: "Blackstyle Barbershop", tag: "Lifestyle", desc: "A modern grooming experience rooted in township pride.", gradient: "linear-gradient(135deg, oklch(0.4 0.02 260), oklch(0.15 0.014 260))", tags: [] as string[] },
+            { name: "GraFX", tag: "Graphic Design", desc: "A graphic design venture producing logos, posters, and brand visuals — covering everything from identity design to print-ready marketing materials for individuals and small businesses.", gradient: "linear-gradient(135deg, oklch(0.45 0.14 250), oklch(0.16 0.03 250))", tags: ["Logo Design", "Posters", "Branding", "Print Design"] },
           ].map((p) => (
             <Link key={p.name} to="/portfolio" className="group relative overflow-hidden rounded-3xl glass p-8 transition-luxury hover:shadow-elegant hover:-translate-y-1">
               <div className="absolute inset-0 opacity-30 group-hover:opacity-50 transition-luxury" style={{ background: p.gradient }} />
@@ -158,6 +160,13 @@ function Home() {
                 <div className="text-xs uppercase tracking-[0.25em] text-primary">{p.tag}</div>
                 <div className="mt-4 font-display text-3xl text-foreground">{p.name}</div>
                 <p className="mt-3 text-sm text-muted-foreground">{p.desc}</p>
+                {p.tags.length > 0 && (
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {p.tags.map((t) => (
+                      <span key={t} className="rounded-full glass px-3 py-1 text-xs text-foreground">{t}</span>
+                    ))}
+                  </div>
+                )}
                 <div className="mt-8 inline-flex items-center gap-2 text-sm text-primary">Explore <ArrowRight className="h-4 w-4" /></div>
               </div>
             </Link>
