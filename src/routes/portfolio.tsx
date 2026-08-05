@@ -301,6 +301,49 @@ function Portfolio() {
         </div>
       </div>
 
+      {/* SOFTWARE & APPS */}
+      <div className="mt-20">
+        <div className="mb-6 max-w-2xl">
+          <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-primary">
+            <Code2 className="h-3.5 w-3.5" /> Software &amp; Apps · Built Solo
+          </div>
+          <h2 className="mt-2 font-display text-3xl md:text-4xl text-foreground">Tech I've built.</h2>
+          <p className="mt-4 text-muted-foreground">
+            Independent builds across trading automation, civic tech, and everyday tools — full-stack, self-taught, shipped.
+          </p>
+        </div>
+
+        <div className="mb-10 inline-flex max-w-3xl items-start gap-2 rounded-2xl glass px-4 py-3 text-xs sm:text-sm text-muted-foreground">
+          <Code2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+          <span>Built across two workflows: rapid app development in Lovable, and hand-coded projects in Python, MQL5, and React — hosted on GitHub.</span>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2">
+          {softwareProjects.map((p) => (
+            <article key={p.name} className="glass-strong rounded-3xl p-6 md:p-8 flex flex-col">
+              <div className="text-xs uppercase tracking-[0.25em] text-primary">{p.eyebrow}</div>
+              <h3 className="mt-2 font-display text-2xl text-foreground">{p.name}</h3>
+              <p className="mt-3 text-sm text-muted-foreground flex-1">{p.desc}</p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {p.tags.map((t) => (
+                  <span key={t} className="rounded-full glass px-3 py-1 text-xs text-foreground">{t}</span>
+                ))}
+              </div>
+              {p.github && (
+                <a
+                  href={p.github}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-primary/10 border border-primary/30 px-4 py-2 text-sm text-primary hover:bg-primary/20 transition-luxury"
+                >
+                  <Github className="h-4 w-4" /> View on GitHub
+                </a>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+
 
       <div className="mt-20">
         <div className="mb-10 max-w-2xl">
