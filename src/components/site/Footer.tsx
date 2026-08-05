@@ -4,6 +4,7 @@ import { NAV, SITE } from "@/lib/site";
 import { useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import nedPyramid from "@/assets/new-era-dynasty-pyramid.jpg.asset.json";
 
 export function Footer() {
   const [email, setEmail] = useState("");
