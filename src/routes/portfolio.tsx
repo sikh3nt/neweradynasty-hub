@@ -101,6 +101,67 @@ const ventures = [
     desc: "A modern grooming experience rooted in township pride and professional standards — a physical embodiment of the Dynasty's commitment to community.",
     highlights: ["Signature cuts", "Grooming products", "Community hub", "Apprentice pipeline"],
     gradient: "linear-gradient(135deg, oklch(0.35 0.02 260), oklch(0.12 0.014 260))",
+  {
+    icon: Palette,
+    logo: grafxLogo.url,
+    name: "GraFX",
+    tag: "Graphic Design",
+    desc: "A graphic design venture producing logos, posters, and brand visuals — covering everything from identity design to print-ready marketing materials for individuals and small businesses.",
+    highlights: ["Logo Design", "Posters", "Branding", "Print Design"],
+    gradient: "linear-gradient(135deg, oklch(0.45 0.14 250), oklch(0.16 0.03 250))",
+  },
+];
+
+const softwareProjects: {
+  eyebrow: string;
+  name: string;
+  desc: string;
+  tags: string[];
+  github?: string;
+}[] = [
+  {
+    eyebrow: "Automation · Forex",
+    name: "AMD Trading Bot",
+    desc: "A full-stack automated trading system for IC Markets running a custom AMD (Accumulation–Manipulation–Distribution) strategy. An MQL5 Expert Advisor handles execution, a Python Flask bridge server manages logic and signal processing, and a React Native Android app gives full remote control over trades and performance from a phone.",
+    tags: ["MQL5", "Python / Flask", "React Native", "Live trading"],
+    github: "https://github.com/sikh3nt/amd-trading-bot",
+  },
+  {
+    eyebrow: "Civic Tech · Concept Build",
+    name: "Civic FaceNet",
+    desc: "A technical concept for a community facial-recognition alert system, designed to flag wanted persons near public cameras and notify local police in real time. Built on accessible hardware using OpenCV, DeepFace, and FAISS for fast facial matching, with POPIA compliance and a formal law-enforcement MOU treated as non-negotiable prerequisites before real-world deployment.",
+    tags: ["Python", "OpenCV", "DeepFace", "FAISS", "Compliance-first"],
+    github: "https://github.com/sikh3nt/civic-facenet",
+  },
+  {
+    eyebrow: "Web App · Local Delivery",
+    name: "SwiftDrop",
+    desc: "An on-demand local delivery app for food, groceries, pharmacy runs, and custom errands. Users describe what they need, set pickup and drop-off points, and get a live fee quote with step-by-step order tracking. Supports cash, card, mobile money, and crypto payment options, plus full order history.",
+    tags: ["React", "Live tracking", "Multi-payment"],
+  },
+  {
+    eyebrow: "Internal Tool · Hospitality",
+    name: "469 Premium Bar Stock Tracker",
+    desc: "An operations tool built for weekend bar service, tracking opening, closing, and wastage counts by category against par levels. Runs on a shared live sheet so the whole team works off the same numbers, with CSV export and print-ready reports.",
+    tags: ["React", "Live shared data", "CSV export"],
+  },
+  {
+    eyebrow: "Web App · Utility",
+    name: "Scientific Calculator",
+    desc: "A precision-instrument-styled scientific calculator with full trig, log, exponent, factorial, and memory functions — degree/radian toggle included. Built as a standalone web app with a hardware-inspired LCD interface.",
+    tags: ["HTML/CSS/JS", "LCD-style UI"],
+  },
+  {
+    eyebrow: "Web App · Career Tool",
+    name: "CV / Résumé Builder",
+    desc: "A self-serve résumé builder — fill out a guided form, choose from multiple professional templates, and download the finished résumé as a PDF or editable Word document. Built so anyone can create a polished CV without design experience.",
+    tags: ["JavaScript", "Multi-template", "PDF/DOC export"],
+  },
+  {
+    eyebrow: "Client Project · Media & Streaming",
+    name: "Ndingubani TV",
+    desc: "A branded live-streaming channel website built for a client, designed around an identity and heritage storytelling concept (\u201CNdingubani\u201D — \u201CWho am I?\u201D). Features an autoplaying live-stream hero, a news-style announcement ticker, a schedule strip, and an episode gallery for catching up on past broadcasts — all built mobile-first for viewers arriving via shared social links.",
+    tags: ["HTML/CSS/JS", "Live streaming", "Client work"],
   },
 ];
 
