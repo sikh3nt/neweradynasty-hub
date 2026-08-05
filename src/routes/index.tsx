@@ -160,6 +160,13 @@ function Home() {
                 <div className="text-xs uppercase tracking-[0.25em] text-primary">{p.tag}</div>
                 <div className="mt-4 font-display text-3xl text-foreground">{p.name}</div>
                 <p className="mt-3 text-sm text-muted-foreground">{p.desc}</p>
+                {p.tags.length > 0 && (
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {p.tags.map((t) => (
+                      <span key={t} className="rounded-full glass px-3 py-1 text-xs text-foreground">{t}</span>
+                    ))}
+                  </div>
+                )}
                 <div className="mt-8 inline-flex items-center gap-2 text-sm text-primary">Explore <ArrowRight className="h-4 w-4" /></div>
               </div>
             </Link>
