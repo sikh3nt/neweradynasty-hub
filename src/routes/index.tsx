@@ -149,9 +149,10 @@ function Home() {
         <SectionHeader eyebrow="Portfolio" title="Building the Dynasty" intro="A growing portfolio of ventures spanning technology, connectivity, and lifestyle." />
         <div className="mt-12 grid gap-5 lg:grid-cols-3">
           {[
-            { name: "New Era Dynasty", tag: "Parent Brand", desc: "A multidisciplinary technology & business brand.", gradient: "var(--gradient-royal)" },
-            { name: "WireNet", tag: "Connectivity", desc: "Networking, connectivity and infrastructure for communities.", gradient: "var(--gradient-quantum)" },
-            { name: "Blackstyle Barbershop", tag: "Lifestyle", desc: "A modern grooming experience rooted in township pride.", gradient: "linear-gradient(135deg, oklch(0.4 0.02 260), oklch(0.15 0.014 260))" },
+            { name: "New Era Dynasty", tag: "Parent Brand", desc: "A multidisciplinary technology & business brand.", gradient: "var(--gradient-royal)", tags: [] as string[] },
+            { name: "WireNet", tag: "Connectivity", desc: "Networking, connectivity and infrastructure for communities.", gradient: "var(--gradient-quantum)", tags: [] as string[] },
+            { name: "Blackstyle Barbershop", tag: "Lifestyle", desc: "A modern grooming experience rooted in township pride.", gradient: "linear-gradient(135deg, oklch(0.4 0.02 260), oklch(0.15 0.014 260))", tags: [] as string[] },
+            { name: "GraFX", tag: "Graphic Design", desc: "A graphic design venture producing logos, posters, and brand visuals — covering everything from identity design to print-ready marketing materials for individuals and small businesses.", gradient: "linear-gradient(135deg, oklch(0.45 0.14 250), oklch(0.16 0.03 250))", tags: ["Logo Design", "Posters", "Branding", "Print Design"] },
           ].map((p) => (
             <Link key={p.name} to="/portfolio" className="group relative overflow-hidden rounded-3xl glass p-8 transition-luxury hover:shadow-elegant hover:-translate-y-1">
               <div className="absolute inset-0 opacity-30 group-hover:opacity-50 transition-luxury" style={{ background: p.gradient }} />
