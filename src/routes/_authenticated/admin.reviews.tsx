@@ -23,7 +23,12 @@ function AdminReviews() {
   const [editBody, setEditBody] = useState("");
 
   const load = async () => {
-    let q = supabase.from("reviews").select("*").order("created_at", { ascending: false });
+    let q = supabase
+      .from("reviews")
+      .select(
+        "id, full_name, company, service_received, rating, body, avatar_url, status, verified, featured, submitter_user_id, created_at",
+      )
+      .order("created_at", { ascending: false });
     if (filter !== "all") q = q.eq("status", filter);
     const { data } = await q;
     setRows((data ?? []) as Review[]);
