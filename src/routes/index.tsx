@@ -71,8 +71,9 @@ function Home() {
             "{SITE.slogan}"
           </p>
           <p className="mt-6 max-w-2xl text-base sm:text-lg text-muted-foreground">
-            Founder & CEO of <span className="text-primary">New Era Dynasty</span> — a multidisciplinary technology and business brand
-            building innovation, entrepreneurship, and community impact from Motherwell, Gqeberha to the world.
+            Founder & CEO of <span className="text-primary">New Era Dynasty</span> — one umbrella spanning trading, software development,
+            graphic design, and hospitality &amp; nightlife operations, building innovation, entrepreneurship, and community impact
+            from Motherwell, Gqeberha to the world.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <Link to="/portfolio" className="inline-flex items-center gap-2 rounded-full bg-[image:var(--gradient-royal)] px-6 py-3 text-sm font-medium text-primary-foreground shadow-glow-gold hover:brightness-110 transition-luxury">
