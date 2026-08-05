@@ -101,6 +101,7 @@ const ventures = [
     desc: "A modern grooming experience rooted in township pride and professional standards — a physical embodiment of the Dynasty's commitment to community.",
     highlights: ["Signature cuts", "Grooming products", "Community hub", "Apprentice pipeline"],
     gradient: "linear-gradient(135deg, oklch(0.35 0.02 260), oklch(0.12 0.014 260))",
+  },
   {
     icon: Palette,
     logo: grafxLogo.url,
