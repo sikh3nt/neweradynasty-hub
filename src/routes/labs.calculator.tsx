@@ -7,9 +7,17 @@ export const Route = createFileRoute("/labs/calculator")({
   head: () => ({
     meta: [
       { title: "Scientific calculator — free online tool | New Era Dynasty" },
-      { name: "description", content: "A free scientific calculator with trigonometry, logarithms, exponents, factorials and memory. Runs in your browser, built by Tozamile Sikhenjana." },
+      {
+        name: "description",
+        content:
+          "A free scientific calculator with trigonometry, logarithms, exponents, factorials and memory. Runs in your browser, built by Tozamile Sikhenjana.",
+      },
       { property: "og:title", content: "Scientific calculator — try it free" },
-      { property: "og:description", content: "Trig, logs, exponents, factorials and memory keys, with a degree and radian toggle. No sign-in needed." },
+      {
+        property: "og:description",
+        content:
+          "Trig, logs, exponents, factorials and memory keys, with a degree and radian toggle. No sign-in needed.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { property: "og:url", content: "https://neweradynasty-hub.lovable.app/labs/calculator" },
@@ -166,14 +174,18 @@ function CalculatorDemo() {
                   type="button"
                   onClick={() => setAngleMode(mode)}
                   className={`rounded-full px-3 py-1 text-xs uppercase tracking-[0.15em] transition-luxury ${
-                    angleMode === mode ? "bg-primary/20 text-primary" : "text-muted-foreground hover:text-foreground"
+                    angleMode === mode
+                      ? "bg-primary/20 text-primary"
+                      : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   {mode}
                 </button>
               ))}
             </div>
-            <span className={`text-xs tracking-[0.2em] ${memory !== 0 ? "text-primary" : "text-muted-foreground/40"}`}>
+            <span
+              className={`text-xs tracking-[0.2em] ${memory !== 0 ? "text-primary" : "text-muted-foreground/40"}`}
+            >
               M {memory !== 0 ? formatResult(memory) : "—"}
             </span>
           </div>
@@ -190,7 +202,9 @@ function CalculatorDemo() {
               spellCheck={false}
               className="w-full bg-transparent text-right text-sm text-muted-foreground outline-none placeholder:text-muted-foreground/40"
             />
-            <div className="mt-2 text-3xl sm:text-4xl text-primary break-all">{error ? "Error" : result}</div>
+            <div className="mt-2 text-3xl sm:text-4xl text-primary break-all">
+              {error ? "Error" : result}
+            </div>
             {error && <div className="mt-2 text-xs text-destructive">{error}</div>}
           </div>
 
@@ -211,7 +225,8 @@ function CalculatorDemo() {
         </div>
 
         <p className="mt-5 text-center text-xs text-muted-foreground">
-          Tip: you can also type straight into the expression line — try <code className="text-primary">sqrt(16)+3!</code>.
+          Tip: you can also type straight into the expression line — try{" "}
+          <code className="text-primary">sqrt(16)+3!</code>.
         </p>
       </div>
     </LabShell>

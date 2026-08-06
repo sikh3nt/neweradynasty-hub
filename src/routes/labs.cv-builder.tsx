@@ -16,9 +16,17 @@ export const Route = createFileRoute("/labs/cv-builder")({
   head: () => ({
     meta: [
       { title: "Free CV builder — make a résumé online | New Era Dynasty" },
-      { name: "description", content: "Build a professional CV in minutes: fill in a guided form, pick a template and download it as a PDF or Word file. Free, no sign-in." },
+      {
+        name: "description",
+        content:
+          "Build a professional CV in minutes: fill in a guided form, pick a template and download it as a PDF or Word file. Free, no sign-in.",
+      },
       { property: "og:title", content: "Free CV / résumé builder" },
-      { property: "og:description", content: "Guided form, three templates, instant PDF or Word download. Built by Tozamile Sikhenjana." },
+      {
+        property: "og:description",
+        content:
+          "Guided form, three templates, instant PDF or Word download. Built by Tozamile Sikhenjana.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { property: "og:url", content: "https://neweradynasty-hub.lovable.app/labs/cv-builder" },
@@ -38,7 +46,11 @@ const fieldClass =
   "w-full rounded-xl border border-border bg-black/40 px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:border-primary transition-luxury";
 
 function Label({ children }: { children: string }) {
-  return <span className="mb-1.5 block text-xs uppercase tracking-[0.15em] text-muted-foreground">{children}</span>;
+  return (
+    <span className="mb-1.5 block text-xs uppercase tracking-[0.15em] text-muted-foreground">
+      {children}
+    </span>
+  );
 }
 
 function CvBuilderDemo() {
@@ -108,31 +120,67 @@ function CvBuilderDemo() {
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             <label>
               <Label>Full name</Label>
-              <input className={fieldClass} value={data.fullName} onChange={(e) => update("fullName", e.target.value)} placeholder="Lindiwe Mbeki" />
+              <input
+                className={fieldClass}
+                value={data.fullName}
+                onChange={(e) => update("fullName", e.target.value)}
+                placeholder="Lindiwe Mbeki"
+              />
             </label>
             <label>
               <Label>Job title</Label>
-              <input className={fieldClass} value={data.jobTitle} onChange={(e) => update("jobTitle", e.target.value)} placeholder="Operations Coordinator" />
+              <input
+                className={fieldClass}
+                value={data.jobTitle}
+                onChange={(e) => update("jobTitle", e.target.value)}
+                placeholder="Operations Coordinator"
+              />
             </label>
             <label>
               <Label>Email</Label>
-              <input className={fieldClass} type="email" value={data.email} onChange={(e) => update("email", e.target.value)} placeholder="you@example.co.za" />
+              <input
+                className={fieldClass}
+                type="email"
+                value={data.email}
+                onChange={(e) => update("email", e.target.value)}
+                placeholder="you@example.co.za"
+              />
             </label>
             <label>
               <Label>Phone</Label>
-              <input className={fieldClass} value={data.phone} onChange={(e) => update("phone", e.target.value)} placeholder="+27 82 000 0000" />
+              <input
+                className={fieldClass}
+                value={data.phone}
+                onChange={(e) => update("phone", e.target.value)}
+                placeholder="+27 82 000 0000"
+              />
             </label>
             <label className="sm:col-span-2">
               <Label>Location</Label>
-              <input className={fieldClass} value={data.location} onChange={(e) => update("location", e.target.value)} placeholder="Gqeberha, Eastern Cape" />
+              <input
+                className={fieldClass}
+                value={data.location}
+                onChange={(e) => update("location", e.target.value)}
+                placeholder="Gqeberha, Eastern Cape"
+              />
             </label>
             <label className="sm:col-span-2">
               <Label>Profile summary</Label>
-              <textarea className={`${fieldClass} min-h-24`} value={data.summary} onChange={(e) => update("summary", e.target.value)} placeholder="Two or three sentences about who you are and what you do well." />
+              <textarea
+                className={`${fieldClass} min-h-24`}
+                value={data.summary}
+                onChange={(e) => update("summary", e.target.value)}
+                placeholder="Two or three sentences about who you are and what you do well."
+              />
             </label>
             <label className="sm:col-span-2">
               <Label>Skills (separate with commas)</Label>
-              <input className={fieldClass} value={data.skills} onChange={(e) => update("skills", e.target.value)} placeholder="Stock control, Excel, Customer service" />
+              <input
+                className={fieldClass}
+                value={data.skills}
+                onChange={(e) => update("skills", e.target.value)}
+                placeholder="Stock control, Excel, Customer service"
+              />
             </label>
           </div>
 
@@ -141,7 +189,12 @@ function CvBuilderDemo() {
               <h3 className="font-display text-lg text-foreground">Experience</h3>
               <button
                 type="button"
-                onClick={() => update("experience", [...data.experience, { role: "", company: "", period: "", detail: "" }])}
+                onClick={() =>
+                  update("experience", [
+                    ...data.experience,
+                    { role: "", company: "", period: "", detail: "" },
+                  ])
+                }
                 className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 border border-primary/30 px-3 py-1.5 text-xs text-primary hover:bg-primary/20 transition-luxury"
               >
                 <Plus className="h-3.5 w-3.5" /> Add role
@@ -151,15 +204,68 @@ function CvBuilderDemo() {
               {data.experience.map((item, index) => (
                 <div key={index} className="rounded-2xl border border-border p-4 grid gap-3">
                   <div className="grid gap-3 sm:grid-cols-2">
-                    <input className={fieldClass} value={item.role} placeholder="Job title" onChange={(e) => update("experience", data.experience.map((row, i) => (i === index ? { ...row, role: e.target.value } : row)))} />
-                    <input className={fieldClass} value={item.company} placeholder="Company" onChange={(e) => update("experience", data.experience.map((row, i) => (i === index ? { ...row, company: e.target.value } : row)))} />
+                    <input
+                      className={fieldClass}
+                      value={item.role}
+                      placeholder="Job title"
+                      onChange={(e) =>
+                        update(
+                          "experience",
+                          data.experience.map((row, i) =>
+                            i === index ? { ...row, role: e.target.value } : row,
+                          ),
+                        )
+                      }
+                    />
+                    <input
+                      className={fieldClass}
+                      value={item.company}
+                      placeholder="Company"
+                      onChange={(e) =>
+                        update(
+                          "experience",
+                          data.experience.map((row, i) =>
+                            i === index ? { ...row, company: e.target.value } : row,
+                          ),
+                        )
+                      }
+                    />
                   </div>
-                  <input className={fieldClass} value={item.period} placeholder="03/2023 – present" onChange={(e) => update("experience", data.experience.map((row, i) => (i === index ? { ...row, period: e.target.value } : row)))} />
-                  <textarea className={`${fieldClass} min-h-20`} value={item.detail} placeholder="What you were responsible for and what you achieved." onChange={(e) => update("experience", data.experience.map((row, i) => (i === index ? { ...row, detail: e.target.value } : row)))} />
+                  <input
+                    className={fieldClass}
+                    value={item.period}
+                    placeholder="03/2023 – present"
+                    onChange={(e) =>
+                      update(
+                        "experience",
+                        data.experience.map((row, i) =>
+                          i === index ? { ...row, period: e.target.value } : row,
+                        ),
+                      )
+                    }
+                  />
+                  <textarea
+                    className={`${fieldClass} min-h-20`}
+                    value={item.detail}
+                    placeholder="What you were responsible for and what you achieved."
+                    onChange={(e) =>
+                      update(
+                        "experience",
+                        data.experience.map((row, i) =>
+                          i === index ? { ...row, detail: e.target.value } : row,
+                        ),
+                      )
+                    }
+                  />
                   {data.experience.length > 1 && (
                     <button
                       type="button"
-                      onClick={() => update("experience", data.experience.filter((_, i) => i !== index))}
+                      onClick={() =>
+                        update(
+                          "experience",
+                          data.experience.filter((_, i) => i !== index),
+                        )
+                      }
                       className="inline-flex w-fit items-center gap-1.5 text-xs text-muted-foreground hover:text-destructive transition-luxury"
                     >
                       <Trash2 className="h-3.5 w-3.5" /> Remove role
@@ -175,7 +281,12 @@ function CvBuilderDemo() {
               <h3 className="font-display text-lg text-foreground">Education</h3>
               <button
                 type="button"
-                onClick={() => update("education", [...data.education, { qualification: "", institution: "", period: "" }])}
+                onClick={() =>
+                  update("education", [
+                    ...data.education,
+                    { qualification: "", institution: "", period: "" },
+                  ])
+                }
                 className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 border border-primary/30 px-3 py-1.5 text-xs text-primary hover:bg-primary/20 transition-luxury"
               >
                 <Plus className="h-3.5 w-3.5" /> Add qualification
@@ -184,15 +295,56 @@ function CvBuilderDemo() {
             <div className="mt-4 grid gap-4">
               {data.education.map((item, index) => (
                 <div key={index} className="rounded-2xl border border-border p-4 grid gap-3">
-                  <input className={fieldClass} value={item.qualification} placeholder="Qualification" onChange={(e) => update("education", data.education.map((row, i) => (i === index ? { ...row, qualification: e.target.value } : row)))} />
+                  <input
+                    className={fieldClass}
+                    value={item.qualification}
+                    placeholder="Qualification"
+                    onChange={(e) =>
+                      update(
+                        "education",
+                        data.education.map((row, i) =>
+                          i === index ? { ...row, qualification: e.target.value } : row,
+                        ),
+                      )
+                    }
+                  />
                   <div className="grid gap-3 sm:grid-cols-2">
-                    <input className={fieldClass} value={item.institution} placeholder="Institution" onChange={(e) => update("education", data.education.map((row, i) => (i === index ? { ...row, institution: e.target.value } : row)))} />
-                    <input className={fieldClass} value={item.period} placeholder="2018 – 2020" onChange={(e) => update("education", data.education.map((row, i) => (i === index ? { ...row, period: e.target.value } : row)))} />
+                    <input
+                      className={fieldClass}
+                      value={item.institution}
+                      placeholder="Institution"
+                      onChange={(e) =>
+                        update(
+                          "education",
+                          data.education.map((row, i) =>
+                            i === index ? { ...row, institution: e.target.value } : row,
+                          ),
+                        )
+                      }
+                    />
+                    <input
+                      className={fieldClass}
+                      value={item.period}
+                      placeholder="2018 – 2020"
+                      onChange={(e) =>
+                        update(
+                          "education",
+                          data.education.map((row, i) =>
+                            i === index ? { ...row, period: e.target.value } : row,
+                          ),
+                        )
+                      }
+                    />
                   </div>
                   {data.education.length > 1 && (
                     <button
                       type="button"
-                      onClick={() => update("education", data.education.filter((_, i) => i !== index))}
+                      onClick={() =>
+                        update(
+                          "education",
+                          data.education.filter((_, i) => i !== index),
+                        )
+                      }
                       className="inline-flex w-fit items-center gap-1.5 text-xs text-muted-foreground hover:text-destructive transition-luxury"
                     >
                       <Trash2 className="h-3.5 w-3.5" /> Remove
@@ -205,7 +357,12 @@ function CvBuilderDemo() {
 
           <label className="mt-8 block">
             <Label>References</Label>
-            <input className={fieldClass} value={data.references} onChange={(e) => update("references", e.target.value)} placeholder="Available on request." />
+            <input
+              className={fieldClass}
+              value={data.references}
+              onChange={(e) => update("references", e.target.value)}
+              placeholder="Available on request."
+            />
           </label>
         </div>
 
@@ -220,10 +377,16 @@ function CvBuilderDemo() {
                   type="button"
                   onClick={() => setTemplate(t.id)}
                   className={`rounded-2xl border px-3 py-3 text-left transition-luxury ${
-                    template === t.id ? "border-primary/60 bg-primary/10" : "border-border hover:border-primary/40"
+                    template === t.id
+                      ? "border-primary/60 bg-primary/10"
+                      : "border-border hover:border-primary/40"
                   }`}
                 >
-                  <span className={`block text-sm ${template === t.id ? "text-primary" : "text-foreground"}`}>{t.name}</span>
+                  <span
+                    className={`block text-sm ${template === t.id ? "text-primary" : "text-foreground"}`}
+                  >
+                    {t.name}
+                  </span>
                   <span className="mt-1 block text-xs text-muted-foreground">{t.blurb}</span>
                 </button>
               ))}

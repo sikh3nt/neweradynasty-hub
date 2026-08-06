@@ -47,7 +47,8 @@ export const sampleCv: CvData = {
   location: "Gqeberha, Eastern Cape",
   summary:
     "Detail-focused coordinator with three years of experience keeping busy retail operations running on time and on budget. Comfortable owning stock counts, supplier follow-ups and weekly reporting.",
-  skills: "Stock control, Supplier liaison, Microsoft Excel, Rostering, Customer service, Report writing",
+  skills:
+    "Stock control, Supplier liaison, Microsoft Excel, Rostering, Customer service, Report writing",
   experience: [
     {
       role: "Operations Assistant",
@@ -60,12 +61,21 @@ export const sampleCv: CvData = {
       role: "Floor Supervisor",
       company: "Motherwell Trading Co.",
       period: "01/2021 – 02/2023",
-      detail: "Supervised a team of six, built the weekly roster and cut stock losses by a quarter over two trading seasons.",
+      detail:
+        "Supervised a team of six, built the weekly roster and cut stock losses by a quarter over two trading seasons.",
     },
   ],
   education: [
-    { qualification: "National Diploma in Business Management", institution: "Nelson Mandela University", period: "2018 – 2020" },
-    { qualification: "National Senior Certificate", institution: "Ndzondelelo High School", period: "2017" },
+    {
+      qualification: "National Diploma in Business Management",
+      institution: "Nelson Mandela University",
+      period: "2018 – 2020",
+    },
+    {
+      qualification: "National Senior Certificate",
+      institution: "Ndzondelelo High School",
+      period: "2017",
+    },
   ],
   references: "Available on request.",
 };
@@ -131,7 +141,10 @@ export function buildCvHtml(data: CvData, template: CvTemplate): string {
   const experience = data.experience.filter((item) => item.role || item.company);
   const education = data.education.filter((item) => item.qualification || item.institution);
 
-  const contactLine = [data.email, data.phone, data.location].filter(Boolean).map(escapeHtml).join(" · ");
+  const contactLine = [data.email, data.phone, data.location]
+    .filter(Boolean)
+    .map(escapeHtml)
+    .join(" · ");
 
   return `<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8" />
@@ -175,13 +188,17 @@ ${data.references ? `<h2>References</h2><p>${escapeHtml(data.references)}</p>` :
 /** Wraps the CV HTML in a Word-compatible document string. */
 export function buildCvWordDocument(data: CvData, template: CvTemplate): string {
   return buildCvHtml(data, template).replace(
-    "<html lang=\"en\">",
-    "<html lang=\"en\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:w=\"urn:schemas-microsoft-com:office:word\">",
+    '<html lang="en">',
+    '<html lang="en" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word">',
   );
 }
 
 /** Turns a person's name into a safe download file name. */
 export function cvFileName(fullName: string, extension: string): string {
-  const base = fullName.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const base = fullName
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
   return `${base || "curriculum-vitae"}-cv.${extension}`;
 }

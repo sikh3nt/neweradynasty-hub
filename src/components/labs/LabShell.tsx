@@ -29,10 +29,14 @@ export function LabShell({
           <div className="inline-flex items-center gap-2 rounded-full glass px-3 py-1 text-xs uppercase tracking-[0.2em] text-primary">
             <FlaskConical className="h-3 w-3" /> {eyebrow}
           </div>
-          <h1 className="mt-4 font-display text-4xl sm:text-5xl leading-[1.05] text-foreground">{title}</h1>
+          <h1 className="mt-4 font-display text-4xl sm:text-5xl leading-[1.05] text-foreground">
+            {title}
+          </h1>
           <p className="mt-5 text-base text-muted-foreground">{intro}</p>
           {notice && (
-            <p className="mt-4 rounded-2xl glass px-4 py-3 text-xs text-muted-foreground">{notice}</p>
+            <p className="mt-4 rounded-2xl glass px-4 py-3 text-xs text-muted-foreground">
+              {notice}
+            </p>
           )}
         </div>
 

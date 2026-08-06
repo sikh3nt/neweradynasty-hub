@@ -1,14 +1,31 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/site/PageShell";
-import { ArrowRight, Calculator, FileText, CandlestickChart, Truck, Boxes, ShieldCheck, Tv } from "lucide-react";
+import {
+  ArrowRight,
+  Calculator,
+  FileText,
+  CandlestickChart,
+  Truck,
+  Boxes,
+  ShieldCheck,
+  Tv,
+} from "lucide-react";
 
 export const Route = createFileRoute("/labs/")({
   head: () => ({
     meta: [
       { title: "Labs — Try my software live | Tozamile Sikhenjana" },
-      { name: "description", content: "Test the tools I have built — scientific calculator, CV builder, trading bot replay and more. Run them in your browser, nothing to install." },
+      {
+        name: "description",
+        content:
+          "Test the tools I have built — scientific calculator, CV builder, trading bot replay and more. Run them in your browser, nothing to install.",
+      },
       { property: "og:title", content: "Labs — Live demos by New Era Dynasty" },
-      { property: "og:description", content: "Interactive, in-browser demos of the software I build: calculators, CV tools, trading automation and civic tech." },
+      {
+        property: "og:description",
+        content:
+          "Interactive, in-browser demos of the software I build: calculators, CV tools, trading automation and civic tech.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://neweradynasty-hub.lovable.app/labs" },
@@ -115,12 +132,16 @@ function Labs() {
                   {d.status === "live" ? "Live" : "Coming soon"}
                 </span>
               </div>
-              <div className="mt-5 text-xs uppercase tracking-[0.25em] text-primary">{d.eyebrow}</div>
+              <div className="mt-5 text-xs uppercase tracking-[0.25em] text-primary">
+                {d.eyebrow}
+              </div>
               <h2 className="mt-2 font-display text-2xl text-foreground">{d.name}</h2>
               <p className="mt-3 text-sm text-muted-foreground flex-1">{d.desc}</p>
               <div className="mt-5 flex flex-wrap gap-2">
                 {d.tags.map((t) => (
-                  <span key={t} className="rounded-full glass px-3 py-1 text-xs text-foreground">{t}</span>
+                  <span key={t} className="rounded-full glass px-3 py-1 text-xs text-foreground">
+                    {t}
+                  </span>
                 ))}
               </div>
               {d.to ? (
