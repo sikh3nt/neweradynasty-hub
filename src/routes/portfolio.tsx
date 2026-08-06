@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/site/PageShell";
-import { ArrowRight, Network, Scissors, Building2, TrendingUp, CandlestickChart, Clock, Newspaper, Palette, Github, Code2 } from "lucide-react";
+import { ArrowRight, Network, Scissors, Building2, TrendingUp, CandlestickChart, Clock, Newspaper, Palette, Github, Code2, FlaskConical } from "lucide-react";
 import grafxLogo from "@/assets/grafx-logo.png.asset.json";
 import solestride from "@/assets/solestride-logo.jpg.asset.json";
 import aprilFront from "@/assets/april-concepts-front.png.asset.json";
@@ -120,6 +120,7 @@ const softwareProjects: {
   desc: string;
   tags: string[];
   github?: string;
+  demo?: "/labs/calculator" | "/labs/cv-builder";
 }[] = [
   {
     eyebrow: "Automation · Forex",
@@ -152,12 +153,14 @@ const softwareProjects: {
     name: "Scientific Calculator",
     desc: "A precision-instrument-styled scientific calculator with full trig, log, exponent, factorial, and memory functions — degree/radian toggle included. Built as a standalone web app with a hardware-inspired LCD interface.",
     tags: ["HTML/CSS/JS", "LCD-style UI"],
+    demo: "/labs/calculator",
   },
   {
     eyebrow: "Web App · Career Tool",
     name: "CV / Résumé Builder",
     desc: "A self-serve résumé builder — fill out a guided form, choose from multiple professional templates, and download the finished résumé as a PDF or editable Word document. Built so anyone can create a polished CV without design experience.",
     tags: ["JavaScript", "Multi-template", "PDF/DOC export"],
+    demo: "/labs/cv-builder",
   },
   {
     eyebrow: "Client Project · Media & Streaming",
@@ -329,16 +332,26 @@ function Portfolio() {
                   <span key={t} className="rounded-full glass px-3 py-1 text-xs text-foreground">{t}</span>
                 ))}
               </div>
-              {p.github && (
-                <a
-                  href={p.github}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-primary/10 border border-primary/30 px-4 py-2 text-sm text-primary hover:bg-primary/20 transition-luxury"
-                >
-                  <Github className="h-4 w-4" /> View on GitHub
-                </a>
-              )}
+              <div className="mt-6 flex flex-wrap gap-3">
+                {p.demo && (
+                  <Link
+                    to={p.demo}
+                    className="inline-flex w-fit items-center gap-2 rounded-full bg-[image:var(--gradient-royal)] px-4 py-2 text-sm font-medium text-primary-foreground shadow-glow-gold hover:brightness-110 transition-luxury"
+                  >
+                    <FlaskConical className="h-4 w-4" /> Try it live
+                  </Link>
+                )}
+                {p.github && (
+                  <a
+                    href={p.github}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="inline-flex w-fit items-center gap-2 rounded-full bg-primary/10 border border-primary/30 px-4 py-2 text-sm text-primary hover:bg-primary/20 transition-luxury"
+                  >
+                    <Github className="h-4 w-4" /> View on GitHub
+                  </a>
+                )}
+              </div>
             </article>
           ))}
         </div>

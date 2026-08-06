@@ -23,6 +23,9 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LabsIndexRouteImport } from './routes/labs.index'
+import { Route as LabsCvBuilderRouteImport } from './routes/labs.cv-builder'
+import { Route as LabsCalculatorRouteImport } from './routes/labs.calculator'
 import { Route as AuthenticatedPortalIndexRouteImport } from './routes/_authenticated/portal.index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedPortalReviewsRouteImport } from './routes/_authenticated/portal.reviews'
@@ -103,6 +106,21 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LabsIndexRoute = LabsIndexRouteImport.update({
+  id: '/labs/',
+  path: '/labs/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LabsCvBuilderRoute = LabsCvBuilderRouteImport.update({
+  id: '/labs/cv-builder',
+  path: '/labs/cv-builder',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LabsCalculatorRoute = LabsCalculatorRouteImport.update({
+  id: '/labs/calculator',
+  path: '/labs/calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedPortalIndexRoute =
   AuthenticatedPortalIndexRouteImport.update({
     id: '/portal/',
@@ -177,6 +195,9 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/testimonials': typeof TestimonialsRoute
   '/vision': typeof VisionRoute
+  '/labs/calculator': typeof LabsCalculatorRoute
+  '/labs/cv-builder': typeof LabsCvBuilderRoute
+  '/labs/': typeof LabsIndexRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/admin/contact': typeof AuthenticatedAdminContactRoute
   '/admin/projects': typeof AuthenticatedAdminProjectsRoute
@@ -202,6 +223,9 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/testimonials': typeof TestimonialsRoute
   '/vision': typeof VisionRoute
+  '/labs/calculator': typeof LabsCalculatorRoute
+  '/labs/cv-builder': typeof LabsCvBuilderRoute
+  '/labs': typeof LabsIndexRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/admin/contact': typeof AuthenticatedAdminContactRoute
   '/admin/projects': typeof AuthenticatedAdminProjectsRoute
@@ -229,6 +253,9 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/testimonials': typeof TestimonialsRoute
   '/vision': typeof VisionRoute
+  '/labs/calculator': typeof LabsCalculatorRoute
+  '/labs/cv-builder': typeof LabsCvBuilderRoute
+  '/labs/': typeof LabsIndexRoute
   '/_authenticated/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/_authenticated/admin/contact': typeof AuthenticatedAdminContactRoute
   '/_authenticated/admin/projects': typeof AuthenticatedAdminProjectsRoute
@@ -256,6 +283,9 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/testimonials'
     | '/vision'
+    | '/labs/calculator'
+    | '/labs/cv-builder'
+    | '/labs/'
     | '/admin/clients'
     | '/admin/contact'
     | '/admin/projects'
@@ -281,6 +311,9 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/testimonials'
     | '/vision'
+    | '/labs/calculator'
+    | '/labs/cv-builder'
+    | '/labs'
     | '/admin/clients'
     | '/admin/contact'
     | '/admin/projects'
@@ -307,6 +340,9 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/testimonials'
     | '/vision'
+    | '/labs/calculator'
+    | '/labs/cv-builder'
+    | '/labs/'
     | '/_authenticated/admin/clients'
     | '/_authenticated/admin/contact'
     | '/_authenticated/admin/projects'
@@ -334,6 +370,9 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TestimonialsRoute: typeof TestimonialsRoute
   VisionRoute: typeof VisionRoute
+  LabsCalculatorRoute: typeof LabsCalculatorRoute
+  LabsCvBuilderRoute: typeof LabsCvBuilderRoute
+  LabsIndexRoute: typeof LabsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -434,6 +473,27 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/labs/': {
+      id: '/labs/'
+      path: '/labs'
+      fullPath: '/labs/'
+      preLoaderRoute: typeof LabsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/labs/cv-builder': {
+      id: '/labs/cv-builder'
+      path: '/labs/cv-builder'
+      fullPath: '/labs/cv-builder'
+      preLoaderRoute: typeof LabsCvBuilderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/labs/calculator': {
+      id: '/labs/calculator'
+      path: '/labs/calculator'
+      fullPath: '/labs/calculator'
+      preLoaderRoute: typeof LabsCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/portal/': {
@@ -553,6 +613,9 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TestimonialsRoute: TestimonialsRoute,
   VisionRoute: VisionRoute,
+  LabsCalculatorRoute: LabsCalculatorRoute,
+  LabsCvBuilderRoute: LabsCvBuilderRoute,
+  LabsIndexRoute: LabsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
