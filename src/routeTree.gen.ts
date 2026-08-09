@@ -26,6 +26,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as LabsIndexRouteImport } from './routes/labs.index'
 import { Route as LabsCvBuilderRouteImport } from './routes/labs.cv-builder'
 import { Route as LabsCalculatorRouteImport } from './routes/labs.calculator'
+import { Route as LabsAmdBotRouteImport } from './routes/labs.amd-bot'
 import { Route as AuthenticatedPortalIndexRouteImport } from './routes/_authenticated/portal.index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedPortalReviewsRouteImport } from './routes/_authenticated/portal.reviews'
@@ -121,6 +122,11 @@ const LabsCalculatorRoute = LabsCalculatorRouteImport.update({
   path: '/labs/calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LabsAmdBotRoute = LabsAmdBotRouteImport.update({
+  id: '/labs/amd-bot',
+  path: '/labs/amd-bot',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedPortalIndexRoute =
   AuthenticatedPortalIndexRouteImport.update({
     id: '/portal/',
@@ -195,6 +201,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/testimonials': typeof TestimonialsRoute
   '/vision': typeof VisionRoute
+  '/labs/amd-bot': typeof LabsAmdBotRoute
   '/labs/calculator': typeof LabsCalculatorRoute
   '/labs/cv-builder': typeof LabsCvBuilderRoute
   '/labs/': typeof LabsIndexRoute
@@ -223,6 +230,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/testimonials': typeof TestimonialsRoute
   '/vision': typeof VisionRoute
+  '/labs/amd-bot': typeof LabsAmdBotRoute
   '/labs/calculator': typeof LabsCalculatorRoute
   '/labs/cv-builder': typeof LabsCvBuilderRoute
   '/labs': typeof LabsIndexRoute
@@ -253,6 +261,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/testimonials': typeof TestimonialsRoute
   '/vision': typeof VisionRoute
+  '/labs/amd-bot': typeof LabsAmdBotRoute
   '/labs/calculator': typeof LabsCalculatorRoute
   '/labs/cv-builder': typeof LabsCvBuilderRoute
   '/labs/': typeof LabsIndexRoute
@@ -283,6 +292,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/testimonials'
     | '/vision'
+    | '/labs/amd-bot'
     | '/labs/calculator'
     | '/labs/cv-builder'
     | '/labs/'
@@ -311,6 +321,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/testimonials'
     | '/vision'
+    | '/labs/amd-bot'
     | '/labs/calculator'
     | '/labs/cv-builder'
     | '/labs'
@@ -340,6 +351,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/testimonials'
     | '/vision'
+    | '/labs/amd-bot'
     | '/labs/calculator'
     | '/labs/cv-builder'
     | '/labs/'
@@ -370,6 +382,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TestimonialsRoute: typeof TestimonialsRoute
   VisionRoute: typeof VisionRoute
+  LabsAmdBotRoute: typeof LabsAmdBotRoute
   LabsCalculatorRoute: typeof LabsCalculatorRoute
   LabsCvBuilderRoute: typeof LabsCvBuilderRoute
   LabsIndexRoute: typeof LabsIndexRoute
@@ -496,6 +509,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LabsCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/labs/amd-bot': {
+      id: '/labs/amd-bot'
+      path: '/labs/amd-bot'
+      fullPath: '/labs/amd-bot'
+      preLoaderRoute: typeof LabsAmdBotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/portal/': {
       id: '/_authenticated/portal/'
       path: '/portal'
@@ -613,6 +633,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TestimonialsRoute: TestimonialsRoute,
   VisionRoute: VisionRoute,
+  LabsAmdBotRoute: LabsAmdBotRoute,
   LabsCalculatorRoute: LabsCalculatorRoute,
   LabsCvBuilderRoute: LabsCvBuilderRoute,
   LabsIndexRoute: LabsIndexRoute,
@@ -620,3 +641,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
