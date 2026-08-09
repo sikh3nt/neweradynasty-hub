@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { runSimulation, statsAt } from "./amd-bot";
+import { DEFAULT_PARAMS, runSimulation, statsAt } from "./amd-bot";
 
 describe("runSimulation", () => {
   it("is deterministic for a given seed", () => {
@@ -39,5 +39,25 @@ describe("statsAt", () => {
     const stats = statsAt(simulation, simulation.candles.length - 1);
     expect(stats.closed).toBe(simulation.trades.length);
     expect(stats.wins + stats.losses).toBe(simulation.trades.length);
+  });
+});
+
+describe("strategy parameters", () => {
+  it("only trades the enabled sessions", () => {
+    const simulation = runSimulation(7, 6, { ...DEFAULT_PARAMS, sessions: ["london"] });
+    expect(simulation.trades.length).toBeGreaterThan(0);
+    expect(simulation.trades.every((t) => t.session === "london")).toBe(true);
+  });
+
+  it("scales risk per trade", () => {
+    const base = runSimulation(7, 6, { ...DEFAULT_PARAMS, riskPercent: 1 });
+    const doubled = runSimulation(7, 6, { ...DEFAULT_PARAMS, riskPercent: 2 });
+    expect(Math.abs(doubled.trades[0]!.pnl)).toBeCloseTo(Math.abs(base.trades[0]!.pnl) * 2, 1);
+  });
+
+  it("widens targets with the target multiplier", () => {
+    const base = runSimulation(7, 6, DEFAULT_PARAMS);
+    const wide = runSimulation(7, 6, { ...DEFAULT_PARAMS, targetMultiplier: 2 });
+    expect(wide.trades[0]!.riskReward).toBeGreaterThan(base.trades[0]!.riskReward);
   });
 });

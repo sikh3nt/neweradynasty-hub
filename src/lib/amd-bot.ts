@@ -7,6 +7,35 @@
 
 export type Phase = "accumulation" | "manipulation" | "distribution";
 
+export type Session = "asia" | "london" | "newYork";
+
+export const SESSIONS: readonly Session[] = ["asia", "london", "newYork"] as const;
+
+export const SESSION_LABELS: Record<Session, string> = {
+  asia: "Asia",
+  london: "London",
+  newYork: "New York",
+};
+
+/** Demo-only strategy parameters exposed in the replay UI. */
+export type BotParams = {
+  /** Account risk per trade, as a percentage (e.g. 1 = 1%). */
+  riskPercent: number;
+  /** Multiplier applied to the stop-loss buffer beyond the sweep. */
+  stopMultiplier: number;
+  /** Multiplier applied to the base reward-to-risk of each target. */
+  targetMultiplier: number;
+  /** Sessions the bot is allowed to trade. */
+  sessions: readonly Session[];
+};
+
+export const DEFAULT_PARAMS: BotParams = {
+  riskPercent: 1,
+  stopMultiplier: 1,
+  targetMultiplier: 1,
+  sessions: SESSIONS,
+};
+
 export type Candle = {
   index: number;
   open: number;
@@ -14,11 +43,13 @@ export type Candle = {
   low: number;
   close: number;
   phase: Phase;
+  session: Session;
 };
 
 export type Trade = {
   id: number;
   side: "long" | "short";
+  session: Session;
   entryIndex: number;
   entryPrice: number;
   stop: number;
@@ -32,7 +63,7 @@ export type Trade = {
 
 export type BotEvent = {
   index: number;
-  kind: "range" | "sweep" | "entry" | "exit";
+  kind: "range" | "sweep" | "entry" | "exit" | "skip";
   text: string;
 };
 
@@ -41,10 +72,10 @@ export type Simulation = {
   trades: Trade[];
   events: BotEvent[];
   startingBalance: number;
+  params: BotParams;
 };
 
 const STARTING_BALANCE = 10_000;
-const RISK_PER_TRADE = 0.01;
 
 /** Small deterministic PRNG so every visitor replays the same session. */
 function createRandom(seed: number): () => number {
@@ -58,8 +89,9 @@ function createRandom(seed: number): () => number {
 
 const round = (value: number): number => Math.round(value * 100000) / 100000;
 
-export function runSimulation(seed = 7, cycles = 5): Simulation {
+export function runSimulation(seed = 7, cycles = 5, params: BotParams = DEFAULT_PARAMS): Simulation {
   const random = createRandom(seed);
+  const riskFraction = params.riskPercent / 100;
   const candles: Candle[] = [];
   const trades: Trade[] = [];
   const events: BotEvent[] = [];
@@ -67,13 +99,17 @@ export function runSimulation(seed = 7, cycles = 5): Simulation {
   let price = 1.0865;
   let balance = STARTING_BALANCE;
 
+  let session: Session = SESSIONS[0]!;
+
   const push = (phase: Phase, open: number, close: number, wick: number): void => {
     const high = round(Math.max(open, close) + wick * random());
     const low = round(Math.min(open, close) - wick * random());
-    candles.push({ index: candles.length, phase, open: round(open), close: round(close), high, low });
+    candles.push({ index: candles.length, phase, session, open: round(open), close: round(close), high, low });
   };
 
   for (let cycle = 0; cycle < cycles; cycle += 1) {
+    session = SESSIONS[cycle % SESSIONS.length]!;
+    const sessionEnabled = params.sessions.includes(session);
     const bullish = random() > 0.45;
     const rangeHeight = 0.0035 + random() * 0.0018;
     const center = price;
@@ -90,8 +126,24 @@ export function runSimulation(seed = 7, cycles = 5): Simulation {
     events.push({
       index: candles.length - 1,
       kind: "range",
-      text: `Accumulation range mapped: ${rangeLow.toFixed(5)} – ${rangeHigh.toFixed(5)}`,
+      text: `${SESSION_LABELS[session]} session · accumulation range mapped: ${rangeLow.toFixed(5)} – ${rangeHigh.toFixed(5)}`,
     });
+
+    if (!sessionEnabled) {
+      // Session filtered out: the bot observes the range but stands aside.
+      events.push({
+        index: candles.length - 1,
+        kind: "skip",
+        text: `${SESSION_LABELS[session]} session filtered off — no trade taken`,
+      });
+      for (let i = 0; i < 12; i += 1) {
+        const open = price;
+        const close = price + (random() - 0.5) * rangeHeight * 0.3;
+        push("accumulation", open, close, rangeHeight * 0.1);
+        price = close;
+      }
+      continue;
+    }
 
     // Manipulation: liquidity sweep beyond the range, then a reclaim close.
     const sweepDepth = rangeHeight * (0.35 + random() * 0.25);
@@ -111,10 +163,10 @@ export function runSimulation(seed = 7, cycles = 5): Simulation {
     const entryIndex = candles.length - 1;
     price = entry;
 
-    const buffer = rangeHeight * 0.12;
+    const buffer = rangeHeight * 0.12 * params.stopMultiplier;
     const stop = bullish ? sweepLevel - buffer : sweepLevel + buffer;
     const risk = Math.abs(entry - stop);
-    const riskReward = 2 + random();
+    const riskReward = (2 + random()) * params.targetMultiplier;
     const target = bullish ? entry + risk * riskReward : entry - risk * riskReward;
     const win = random() > 0.32;
     const destination = win ? target : stop;
@@ -137,12 +189,13 @@ export function runSimulation(seed = 7, cycles = 5): Simulation {
     }
 
     const exitIndex = candles.length - 1;
-    const pnl = win ? balance * RISK_PER_TRADE * riskReward : -(balance * RISK_PER_TRADE);
+    const pnl = win ? balance * riskFraction * riskReward : -(balance * riskFraction);
     balance += pnl;
 
     trades.push({
       id: trades.length + 1,
       side: bullish ? "long" : "short",
+      session,
       entryIndex,
       entryPrice: round(entry),
       stop: round(stop),
@@ -168,7 +221,7 @@ export function runSimulation(seed = 7, cycles = 5): Simulation {
     }
   }
 
-  return { candles, trades, events, startingBalance: STARTING_BALANCE };
+  return { candles, trades, events, startingBalance: STARTING_BALANCE, params };
 }
 
 export type Stats = {
