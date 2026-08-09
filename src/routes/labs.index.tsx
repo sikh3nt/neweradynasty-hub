@@ -41,7 +41,7 @@ type Demo = {
   name: string;
   desc: string;
   tags: string[];
-  to?: "/labs/calculator" | "/labs/cv-builder";
+  to?: "/labs/calculator" | "/labs/cv-builder" | "/labs/amd-bot";
   status: "live" | "soon";
 };
 
@@ -69,8 +69,9 @@ const demos: Demo[] = [
     eyebrow: "Automation · Forex",
     name: "AMD trading bot replay",
     desc: "Replay market candles and watch the accumulation–manipulation–distribution engine mark setups, entries, exits and running P&L.",
-    tags: ["Simulated market data"],
-    status: "soon",
+    tags: ["Simulated market data", "Demo only"],
+    to: "/labs/amd-bot",
+    status: "live",
   },
   {
     icon: Truck,

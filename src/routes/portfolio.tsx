@@ -120,7 +120,7 @@ const softwareProjects: {
   desc: string;
   tags: string[];
   github?: string;
-  demo?: "/labs/calculator" | "/labs/cv-builder";
+  demo?: "/labs/calculator" | "/labs/cv-builder" | "/labs/amd-bot";
 }[] = [
   {
     eyebrow: "Automation · Forex",
@@ -128,6 +128,7 @@ const softwareProjects: {
     desc: "A full-stack automated trading system for IC Markets running a custom AMD (Accumulation–Manipulation–Distribution) strategy. An MQL5 Expert Advisor handles execution, a Python Flask bridge server manages logic and signal processing, and a React Native Android app gives full remote control over trades and performance from a phone.",
     tags: ["MQL5", "Python / Flask", "React Native", "Live trading"],
     github: "https://github.com/sikh3nt/amd-trading-bot",
+    demo: "/labs/amd-bot",
   },
   {
     eyebrow: "Civic Tech · Concept Build",
