@@ -2,7 +2,17 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { Pause, Play, RotateCcw, SkipForward } from "lucide-react";
 import { LabShell } from "@/components/labs/LabShell";
-import { formatMoney, runSimulation, statsAt, type Candle } from "@/lib/amd-bot";
+import {
+  DEFAULT_PARAMS,
+  SESSIONS,
+  SESSION_LABELS,
+  formatMoney,
+  runSimulation,
+  statsAt,
+  type BotParams,
+  type Candle,
+  type Session,
+} from "@/lib/amd-bot";
 
 export const Route = createFileRoute("/labs/amd-bot")({
   head: () => ({
@@ -35,9 +45,23 @@ const phaseColor: Record<Candle["phase"], string> = {
 };
 
 function AmdBotDemo() {
-  const simulation = useMemo(() => runSimulation(7), []);
+  const [params, setParams] = useState<BotParams>(DEFAULT_PARAMS);
+  const simulation = useMemo(() => runSimulation(7, 6, params), [params]);
   const total = simulation.candles.length;
   const [cursor, setCursor] = useState(20);
+
+  const updateParams = (patch: Partial<BotParams>): void => {
+    setParams((prev) => ({ ...prev, ...patch }));
+    setCursor(20);
+  };
+
+  const toggleSession = (session: Session): void => {
+    const next = params.sessions.includes(session)
+      ? params.sessions.filter((s) => s !== session)
+      : [...params.sessions, session];
+    if (next.length === 0) return;
+    updateParams({ sessions: next });
+  };
   const [playing, setPlaying] = useState(true);
   const [speed, setSpeed] = useState(140);
 
@@ -55,10 +79,11 @@ function AmdBotDemo() {
     return () => window.clearInterval(timer);
   }, [playing, speed, total]);
 
-  const visible = simulation.candles.slice(0, cursor + 1);
+  const safeCursor = Math.min(cursor, total - 1);
+  const visible = simulation.candles.slice(0, safeCursor + 1);
   const window40 = visible.slice(-60);
-  const stats = statsAt(simulation, cursor);
-  const events = simulation.events.filter((e) => e.index <= cursor).slice(-6).reverse();
+  const stats = statsAt(simulation, safeCursor);
+  const events = simulation.events.filter((e) => e.index <= safeCursor).slice(-6).reverse();
 
   const high = Math.max(...window40.map((c) => c.high));
   const low = Math.min(...window40.map((c) => c.low));
@@ -159,12 +184,12 @@ function AmdBotDemo() {
           </div>
 
           <label className="mt-5 block text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            Replay position — candle {cursor + 1} of {total}
+            Replay position — candle {safeCursor + 1} of {total}
             <input
               type="range"
               min={20}
               max={total - 1}
-              value={cursor}
+              value={safeCursor}
               onChange={(event) => {
                 setPlaying(false);
                 setCursor(Number(event.target.value));
@@ -188,6 +213,81 @@ function AmdBotDemo() {
         </div>
 
         <div className="grid gap-6 content-start">
+          <div className="glass-strong rounded-3xl p-6">
+            <div className="flex items-center justify-between gap-3">
+              <h2 className="font-display text-xl text-foreground">Strategy parameters</h2>
+              <span className="rounded-full border border-border px-3 py-1 text-[0.65rem] uppercase tracking-[0.2em] text-muted-foreground">
+                Demo only
+              </span>
+            </div>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Adjust the settings and the replay regenerates from the start. Nothing here touches a live account.
+            </p>
+
+            <Slider
+              label="Risk per trade"
+              value={`${params.riskPercent.toFixed(1).replace(".", ",")} %`}
+              min={0.25}
+              max={3}
+              step={0.25}
+              current={params.riskPercent}
+              onChange={(value) => updateParams({ riskPercent: value })}
+            />
+            <Slider
+              label="Stop multiplier"
+              value={`${params.stopMultiplier.toFixed(1).replace(".", ",")}×`}
+              min={0.5}
+              max={3}
+              step={0.1}
+              current={params.stopMultiplier}
+              onChange={(value) => updateParams({ stopMultiplier: value })}
+            />
+            <Slider
+              label="Target multiplier"
+              value={`${params.targetMultiplier.toFixed(1).replace(".", ",")}×`}
+              min={0.5}
+              max={3}
+              step={0.1}
+              current={params.targetMultiplier}
+              onChange={(value) => updateParams({ targetMultiplier: value })}
+            />
+
+            <fieldset className="mt-5">
+              <legend className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Session filter</legend>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {SESSIONS.map((session) => {
+                  const active = params.sessions.includes(session);
+                  return (
+                    <button
+                      key={session}
+                      type="button"
+                      aria-pressed={active}
+                      onClick={() => toggleSession(session)}
+                      className={`rounded-full border px-4 py-2 text-xs transition-luxury ${
+                        active
+                          ? "border-primary/60 bg-primary/10 text-primary"
+                          : "border-border text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      {SESSION_LABELS[session]}
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="mt-2 text-[0.7rem] text-muted-foreground">
+                At least one session stays active — filtered sessions are mapped but never traded.
+              </p>
+            </fieldset>
+
+            <button
+              type="button"
+              onClick={() => updateParams(DEFAULT_PARAMS)}
+              className="mt-5 w-full rounded-full border border-border px-4 py-2 text-xs uppercase tracking-[0.2em] text-muted-foreground hover:text-primary transition-luxury"
+            >
+              Reset to defaults
+            </button>
+          </div>
+
           <div className="glass-strong rounded-3xl p-6">
             <h2 className="font-display text-xl text-foreground">Performance</h2>
             <div className="mt-4 grid grid-cols-2 gap-4">
@@ -222,7 +322,9 @@ function AmdBotDemo() {
                         ? "text-foreground"
                         : event.kind === "sweep"
                           ? "text-destructive"
-                          : "text-primary"
+                          : event.kind === "skip"
+                            ? "text-muted-foreground"
+                            : "text-primary"
                     }
                   >
                     {event.text}
@@ -236,7 +338,7 @@ function AmdBotDemo() {
             <h2 className="font-display text-xl text-foreground">Closed trades</h2>
             <div className="mt-4 space-y-2">
               {simulation.trades
-                .filter((t) => t.exitIndex <= cursor)
+                .filter((t) => t.exitIndex <= safeCursor)
                 .map((trade) => (
                   <div key={trade.id} className="flex items-center justify-between rounded-xl glass px-3 py-2 text-sm">
                     <span className="uppercase tracking-[0.15em] text-xs text-muted-foreground">
@@ -253,6 +355,42 @@ function AmdBotDemo() {
         </div>
       </div>
     </LabShell>
+  );
+}
+
+function Slider({
+  label,
+  value,
+  min,
+  max,
+  step,
+  current,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  min: number;
+  max: number;
+  step: number;
+  current: number;
+  onChange: (value: number) => void;
+}) {
+  return (
+    <label className="mt-5 block text-xs uppercase tracking-[0.2em] text-muted-foreground">
+      <span className="flex items-center justify-between">
+        <span>{label}</span>
+        <span className="font-mono normal-case tracking-normal text-foreground">{value}</span>
+      </span>
+      <input
+        type="range"
+        min={min}
+        max={max}
+        step={step}
+        value={current}
+        onChange={(event) => onChange(Number(event.target.value))}
+        className="mt-2 w-full accent-[oklch(0.82_0.14_85)]"
+      />
+    </label>
   );
 }
 
