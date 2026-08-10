@@ -405,10 +405,11 @@ function CvBuilderDemo() {
             <div className="mt-6 flex flex-wrap gap-3">
               <button
                 type="button"
-                onClick={downloadPdf}
-                className="inline-flex items-center gap-2 rounded-full bg-[image:var(--gradient-royal)] px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-glow-gold hover:brightness-110 transition-luxury"
+                onClick={() => void downloadPdf()}
+                disabled={busy}
+                className="inline-flex items-center gap-2 rounded-full bg-[image:var(--gradient-royal)] px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-glow-gold hover:brightness-110 transition-luxury disabled:opacity-60"
               >
-                <FileText className="h-4 w-4" /> Download PDF
+                <FileText className="h-4 w-4" /> {busy ? "Preparing PDF…" : "Download PDF"}
               </button>
               <button
                 type="button"
@@ -419,8 +420,10 @@ function CvBuilderDemo() {
               </button>
             </div>
             <p className="mt-3 text-xs text-muted-foreground">
-              PDF opens your browser's print dialog — choose "Save as PDF" as the destination.
+              The PDF is a real, laid-out file — no print dialog. The Word file opens in Microsoft
+              Word or Google Docs with the same headings, spacing and dates in place.
             </p>
+
           </div>
         </div>
       </div>
