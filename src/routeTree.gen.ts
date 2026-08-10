@@ -28,6 +28,7 @@ import { Route as LabsSwiftdropRouteImport } from './routes/labs.swiftdrop'
 import { Route as LabsNdingubaniTvRouteImport } from './routes/labs.ndingubani-tv'
 import { Route as LabsCvBuilderRouteImport } from './routes/labs.cv-builder'
 import { Route as LabsCalculatorRouteImport } from './routes/labs.calculator'
+import { Route as LabsBarStockRouteImport } from './routes/labs.bar-stock'
 import { Route as LabsAmdBotRouteImport } from './routes/labs.amd-bot'
 import { Route as AuthenticatedPortalIndexRouteImport } from './routes/_authenticated/portal.index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
@@ -134,6 +135,11 @@ const LabsCalculatorRoute = LabsCalculatorRouteImport.update({
   path: '/labs/calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LabsBarStockRoute = LabsBarStockRouteImport.update({
+  id: '/labs/bar-stock',
+  path: '/labs/bar-stock',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LabsAmdBotRoute = LabsAmdBotRouteImport.update({
   id: '/labs/amd-bot',
   path: '/labs/amd-bot',
@@ -214,6 +220,7 @@ export interface FileRoutesByFullPath {
   '/testimonials': typeof TestimonialsRoute
   '/vision': typeof VisionRoute
   '/labs/amd-bot': typeof LabsAmdBotRoute
+  '/labs/bar-stock': typeof LabsBarStockRoute
   '/labs/calculator': typeof LabsCalculatorRoute
   '/labs/cv-builder': typeof LabsCvBuilderRoute
   '/labs/ndingubani-tv': typeof LabsNdingubaniTvRoute
@@ -245,6 +252,7 @@ export interface FileRoutesByTo {
   '/testimonials': typeof TestimonialsRoute
   '/vision': typeof VisionRoute
   '/labs/amd-bot': typeof LabsAmdBotRoute
+  '/labs/bar-stock': typeof LabsBarStockRoute
   '/labs/calculator': typeof LabsCalculatorRoute
   '/labs/cv-builder': typeof LabsCvBuilderRoute
   '/labs/ndingubani-tv': typeof LabsNdingubaniTvRoute
@@ -278,6 +286,7 @@ export interface FileRoutesById {
   '/testimonials': typeof TestimonialsRoute
   '/vision': typeof VisionRoute
   '/labs/amd-bot': typeof LabsAmdBotRoute
+  '/labs/bar-stock': typeof LabsBarStockRoute
   '/labs/calculator': typeof LabsCalculatorRoute
   '/labs/cv-builder': typeof LabsCvBuilderRoute
   '/labs/ndingubani-tv': typeof LabsNdingubaniTvRoute
@@ -311,6 +320,7 @@ export interface FileRouteTypes {
     | '/testimonials'
     | '/vision'
     | '/labs/amd-bot'
+    | '/labs/bar-stock'
     | '/labs/calculator'
     | '/labs/cv-builder'
     | '/labs/ndingubani-tv'
@@ -342,6 +352,7 @@ export interface FileRouteTypes {
     | '/testimonials'
     | '/vision'
     | '/labs/amd-bot'
+    | '/labs/bar-stock'
     | '/labs/calculator'
     | '/labs/cv-builder'
     | '/labs/ndingubani-tv'
@@ -374,6 +385,7 @@ export interface FileRouteTypes {
     | '/testimonials'
     | '/vision'
     | '/labs/amd-bot'
+    | '/labs/bar-stock'
     | '/labs/calculator'
     | '/labs/cv-builder'
     | '/labs/ndingubani-tv'
@@ -407,6 +419,7 @@ export interface RootRouteChildren {
   TestimonialsRoute: typeof TestimonialsRoute
   VisionRoute: typeof VisionRoute
   LabsAmdBotRoute: typeof LabsAmdBotRoute
+  LabsBarStockRoute: typeof LabsBarStockRoute
   LabsCalculatorRoute: typeof LabsCalculatorRoute
   LabsCvBuilderRoute: typeof LabsCvBuilderRoute
   LabsNdingubaniTvRoute: typeof LabsNdingubaniTvRoute
@@ -549,6 +562,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LabsCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/labs/bar-stock': {
+      id: '/labs/bar-stock'
+      path: '/labs/bar-stock'
+      fullPath: '/labs/bar-stock'
+      preLoaderRoute: typeof LabsBarStockRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/labs/amd-bot': {
       id: '/labs/amd-bot'
       path: '/labs/amd-bot'
@@ -674,6 +694,7 @@ const rootRouteChildren: RootRouteChildren = {
   TestimonialsRoute: TestimonialsRoute,
   VisionRoute: VisionRoute,
   LabsAmdBotRoute: LabsAmdBotRoute,
+  LabsBarStockRoute: LabsBarStockRoute,
   LabsCalculatorRoute: LabsCalculatorRoute,
   LabsCvBuilderRoute: LabsCvBuilderRoute,
   LabsNdingubaniTvRoute: LabsNdingubaniTvRoute,
