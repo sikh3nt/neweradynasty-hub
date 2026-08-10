@@ -120,7 +120,7 @@ const softwareProjects: {
   desc: string;
   tags: string[];
   github?: string;
-  demo?: "/labs/calculator" | "/labs/cv-builder" | "/labs/amd-bot";
+  demo?: "/labs/calculator" | "/labs/cv-builder" | "/labs/amd-bot" | "/labs/ndingubani-tv";
 }[] = [
   {
     eyebrow: "Automation · Forex",
