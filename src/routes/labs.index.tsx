@@ -41,7 +41,14 @@ type Demo = {
   name: string;
   desc: string;
   tags: string[];
-  to?: "/labs/calculator" | "/labs/cv-builder" | "/labs/amd-bot" | "/labs/ndingubani-tv";
+  to?:
+    | "/labs/calculator"
+    | "/labs/cv-builder"
+    | "/labs/amd-bot"
+    | "/labs/ndingubani-tv"
+    | "/labs/swiftdrop"
+    | "/labs/bar-stock"
+    | "/labs/civic-facenet";
   status: "live" | "soon";
 };
 
@@ -79,7 +86,8 @@ const demos: Demo[] = [
     name: "SwiftDrop",
     desc: "Describe an errand, set pickup and drop-off, get a live fee quote and follow a simulated driver through every stage.",
     tags: ["Interactive flow", "No real orders"],
-    status: "soon",
+    to: "/labs/swiftdrop",
+    status: "live",
   },
   {
     icon: Boxes,
@@ -87,7 +95,8 @@ const demos: Demo[] = [
     name: "469 Premium bar stock tracker",
     desc: "Run a full stock count against par levels — opening, closing and wastage — then export the shift report as CSV.",
     tags: ["Interactive flow", "CSV export"],
-    status: "soon",
+    to: "/labs/bar-stock",
+    status: "live",
   },
   {
     icon: ShieldCheck,
@@ -95,7 +104,8 @@ const demos: Demo[] = [
     name: "Civic FaceNet walkthrough",
     desc: "A guided concept walkthrough of the community safety system, including the panic-button flow. No biometric data is captured from visitors.",
     tags: ["Concept demo", "No face scanning"],
-    status: "soon",
+    to: "/labs/civic-facenet",
+    status: "live",
   },
   {
     icon: Tv,

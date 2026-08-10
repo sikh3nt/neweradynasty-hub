@@ -27,6 +27,7 @@ import { Route as LabsIndexRouteImport } from './routes/labs.index'
 import { Route as LabsSwiftdropRouteImport } from './routes/labs.swiftdrop'
 import { Route as LabsNdingubaniTvRouteImport } from './routes/labs.ndingubani-tv'
 import { Route as LabsCvBuilderRouteImport } from './routes/labs.cv-builder'
+import { Route as LabsCivicFacenetRouteImport } from './routes/labs.civic-facenet'
 import { Route as LabsCalculatorRouteImport } from './routes/labs.calculator'
 import { Route as LabsBarStockRouteImport } from './routes/labs.bar-stock'
 import { Route as LabsAmdBotRouteImport } from './routes/labs.amd-bot'
@@ -130,6 +131,11 @@ const LabsCvBuilderRoute = LabsCvBuilderRouteImport.update({
   path: '/labs/cv-builder',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LabsCivicFacenetRoute = LabsCivicFacenetRouteImport.update({
+  id: '/labs/civic-facenet',
+  path: '/labs/civic-facenet',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LabsCalculatorRoute = LabsCalculatorRouteImport.update({
   id: '/labs/calculator',
   path: '/labs/calculator',
@@ -222,6 +228,7 @@ export interface FileRoutesByFullPath {
   '/labs/amd-bot': typeof LabsAmdBotRoute
   '/labs/bar-stock': typeof LabsBarStockRoute
   '/labs/calculator': typeof LabsCalculatorRoute
+  '/labs/civic-facenet': typeof LabsCivicFacenetRoute
   '/labs/cv-builder': typeof LabsCvBuilderRoute
   '/labs/ndingubani-tv': typeof LabsNdingubaniTvRoute
   '/labs/swiftdrop': typeof LabsSwiftdropRoute
@@ -254,6 +261,7 @@ export interface FileRoutesByTo {
   '/labs/amd-bot': typeof LabsAmdBotRoute
   '/labs/bar-stock': typeof LabsBarStockRoute
   '/labs/calculator': typeof LabsCalculatorRoute
+  '/labs/civic-facenet': typeof LabsCivicFacenetRoute
   '/labs/cv-builder': typeof LabsCvBuilderRoute
   '/labs/ndingubani-tv': typeof LabsNdingubaniTvRoute
   '/labs/swiftdrop': typeof LabsSwiftdropRoute
@@ -288,6 +296,7 @@ export interface FileRoutesById {
   '/labs/amd-bot': typeof LabsAmdBotRoute
   '/labs/bar-stock': typeof LabsBarStockRoute
   '/labs/calculator': typeof LabsCalculatorRoute
+  '/labs/civic-facenet': typeof LabsCivicFacenetRoute
   '/labs/cv-builder': typeof LabsCvBuilderRoute
   '/labs/ndingubani-tv': typeof LabsNdingubaniTvRoute
   '/labs/swiftdrop': typeof LabsSwiftdropRoute
@@ -322,6 +331,7 @@ export interface FileRouteTypes {
     | '/labs/amd-bot'
     | '/labs/bar-stock'
     | '/labs/calculator'
+    | '/labs/civic-facenet'
     | '/labs/cv-builder'
     | '/labs/ndingubani-tv'
     | '/labs/swiftdrop'
@@ -354,6 +364,7 @@ export interface FileRouteTypes {
     | '/labs/amd-bot'
     | '/labs/bar-stock'
     | '/labs/calculator'
+    | '/labs/civic-facenet'
     | '/labs/cv-builder'
     | '/labs/ndingubani-tv'
     | '/labs/swiftdrop'
@@ -387,6 +398,7 @@ export interface FileRouteTypes {
     | '/labs/amd-bot'
     | '/labs/bar-stock'
     | '/labs/calculator'
+    | '/labs/civic-facenet'
     | '/labs/cv-builder'
     | '/labs/ndingubani-tv'
     | '/labs/swiftdrop'
@@ -421,6 +433,7 @@ export interface RootRouteChildren {
   LabsAmdBotRoute: typeof LabsAmdBotRoute
   LabsBarStockRoute: typeof LabsBarStockRoute
   LabsCalculatorRoute: typeof LabsCalculatorRoute
+  LabsCivicFacenetRoute: typeof LabsCivicFacenetRoute
   LabsCvBuilderRoute: typeof LabsCvBuilderRoute
   LabsNdingubaniTvRoute: typeof LabsNdingubaniTvRoute
   LabsSwiftdropRoute: typeof LabsSwiftdropRoute
@@ -553,6 +566,13 @@ declare module '@tanstack/react-router' {
       path: '/labs/cv-builder'
       fullPath: '/labs/cv-builder'
       preLoaderRoute: typeof LabsCvBuilderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/labs/civic-facenet': {
+      id: '/labs/civic-facenet'
+      path: '/labs/civic-facenet'
+      fullPath: '/labs/civic-facenet'
+      preLoaderRoute: typeof LabsCivicFacenetRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/labs/calculator': {
@@ -696,6 +716,7 @@ const rootRouteChildren: RootRouteChildren = {
   LabsAmdBotRoute: LabsAmdBotRoute,
   LabsBarStockRoute: LabsBarStockRoute,
   LabsCalculatorRoute: LabsCalculatorRoute,
+  LabsCivicFacenetRoute: LabsCivicFacenetRoute,
   LabsCvBuilderRoute: LabsCvBuilderRoute,
   LabsNdingubaniTvRoute: LabsNdingubaniTvRoute,
   LabsSwiftdropRoute: LabsSwiftdropRoute,
@@ -704,3 +725,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
