@@ -41,7 +41,7 @@ type Demo = {
   name: string;
   desc: string;
   tags: string[];
-  to?: "/labs/calculator" | "/labs/cv-builder" | "/labs/amd-bot";
+  to?: "/labs/calculator" | "/labs/cv-builder" | "/labs/amd-bot" | "/labs/ndingubani-tv";
   status: "live" | "soon";
 };
 
@@ -103,7 +103,8 @@ const demos: Demo[] = [
     name: "Ndingubani TV",
     desc: "A preview of the branded live-streaming channel built for a client — hero stream, ticker, schedule strip and episode gallery.",
     tags: ["Client project", "Preview"],
-    status: "soon",
+    to: "/labs/ndingubani-tv",
+    status: "live",
   },
 ];
 
