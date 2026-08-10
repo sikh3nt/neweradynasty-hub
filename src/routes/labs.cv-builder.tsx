@@ -63,30 +63,36 @@ function CvBuilderDemo() {
     setData((prev) => ({ ...prev, [key]: value }));
   };
 
-  const downloadPdf = (): void => {
-    const frame = document.createElement("iframe");
-    frame.style.position = "fixed";
-    frame.style.right = "100%";
-    frame.style.width = "0";
-    frame.style.height = "0";
-    frame.srcdoc = html;
-    frame.onload = () => {
-      frame.contentWindow?.focus();
-      frame.contentWindow?.print();
-      window.setTimeout(() => frame.remove(), 1000);
-    };
-    document.body.appendChild(frame);
-  };
+  const [busy, setBusy] = useState(false);
 
-  const downloadWord = (): void => {
-    const blob = new Blob([buildCvWordDocument(data, template)], { type: "application/msword" });
+  const saveBlob = (blob: Blob, fileName: string): void => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = cvFileName(data.fullName, "doc");
+    link.download = fileName;
+    document.body.appendChild(link);
     link.click();
-    URL.revokeObjectURL(url);
+    link.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 2000);
   };
+
+  const downloadPdf = async (): Promise<void> => {
+    setBusy(true);
+    try {
+      const { buildCvPdf } = await import("@/lib/cv-pdf");
+      saveBlob(buildCvPdf(data, template), cvFileName(data.fullName, "pdf"));
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const downloadWord = (): void => {
+    const blob = new Blob(["\ufeff", buildCvWordDocument(data, template)], {
+      type: "application/msword",
+    });
+    saveBlob(blob, cvFileName(data.fullName, "doc"));
+  };
+
 
   return (
     <LabShell
