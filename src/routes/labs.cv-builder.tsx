@@ -63,30 +63,36 @@ function CvBuilderDemo() {
     setData((prev) => ({ ...prev, [key]: value }));
   };
 
-  const downloadPdf = (): void => {
-    const frame = document.createElement("iframe");
-    frame.style.position = "fixed";
-    frame.style.right = "100%";
-    frame.style.width = "0";
-    frame.style.height = "0";
-    frame.srcdoc = html;
-    frame.onload = () => {
-      frame.contentWindow?.focus();
-      frame.contentWindow?.print();
-      window.setTimeout(() => frame.remove(), 1000);
-    };
-    document.body.appendChild(frame);
-  };
+  const [busy, setBusy] = useState(false);
 
-  const downloadWord = (): void => {
-    const blob = new Blob([buildCvWordDocument(data, template)], { type: "application/msword" });
+  const saveBlob = (blob: Blob, fileName: string): void => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = cvFileName(data.fullName, "doc");
+    link.download = fileName;
+    document.body.appendChild(link);
     link.click();
-    URL.revokeObjectURL(url);
+    link.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 2000);
   };
+
+  const downloadPdf = async (): Promise<void> => {
+    setBusy(true);
+    try {
+      const { buildCvPdf } = await import("@/lib/cv-pdf");
+      saveBlob(buildCvPdf(data, template), cvFileName(data.fullName, "pdf"));
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const downloadWord = (): void => {
+    const blob = new Blob(["\ufeff", buildCvWordDocument(data, template)], {
+      type: "application/msword",
+    });
+    saveBlob(blob, cvFileName(data.fullName, "doc"));
+  };
+
 
   return (
     <LabShell
@@ -399,10 +405,11 @@ function CvBuilderDemo() {
             <div className="mt-6 flex flex-wrap gap-3">
               <button
                 type="button"
-                onClick={downloadPdf}
-                className="inline-flex items-center gap-2 rounded-full bg-[image:var(--gradient-royal)] px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-glow-gold hover:brightness-110 transition-luxury"
+                onClick={() => void downloadPdf()}
+                disabled={busy}
+                className="inline-flex items-center gap-2 rounded-full bg-[image:var(--gradient-royal)] px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-glow-gold hover:brightness-110 transition-luxury disabled:opacity-60"
               >
-                <FileText className="h-4 w-4" /> Download PDF
+                <FileText className="h-4 w-4" /> {busy ? "Preparing PDF…" : "Download PDF"}
               </button>
               <button
                 type="button"
@@ -413,8 +420,10 @@ function CvBuilderDemo() {
               </button>
             </div>
             <p className="mt-3 text-xs text-muted-foreground">
-              PDF opens your browser's print dialog — choose "Save as PDF" as the destination.
+              The PDF is a real, laid-out file — no print dialog. The Word file opens in Microsoft
+              Word or Google Docs with the same headings, spacing and dates in place.
             </p>
+
           </div>
         </div>
       </div>

@@ -185,13 +185,87 @@ ${data.references ? `<h2>References</h2><p>${escapeHtml(data.references)}</p>` :
 </body></html>`;
 }
 
-/** Wraps the CV HTML in a Word-compatible document string. */
+/**
+ * Builds a Word-compatible document. Word ignores flexbox and most modern CSS,
+ * so the layout is rebuilt with tables and inline styles it understands.
+ */
 export function buildCvWordDocument(data: CvData, template: CvTemplate): string {
-  return buildCvHtml(data, template).replace(
-    '<html lang="en">',
-    '<html lang="en" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word">',
-  );
+  const serif = template === "classic";
+  const bodyFont = serif ? "Georgia, 'Times New Roman', serif" : "Calibri, Arial, sans-serif";
+  const accent = template === "dynasty" ? "#b8892b" : template === "minimal" ? "#5b6472" : "#14181f";
+  const centered = serif;
+
+  const skills = data.skills
+    .split(",")
+    .map((skill) => skill.trim())
+    .filter(Boolean);
+  const experience = data.experience.filter((item) => item.role || item.company);
+  const education = data.education.filter((item) => item.qualification || item.institution);
+  const contactLine = [data.email, data.phone, data.location]
+    .filter(Boolean)
+    .map(escapeHtml)
+    .join(" &#183; ");
+
+  const heading = (label: string): string =>
+    `<p style="margin:18pt 0 6pt;font-size:11pt;font-weight:bold;letter-spacing:1pt;text-transform:uppercase;color:${accent};border-bottom:1pt solid ${accent};">${label}</p>`;
+
+  const row = (left: string, right: string): string =>
+    `<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 0 2pt;"><tr>
+      <td style="font-size:11pt;font-weight:bold;vertical-align:top;">${left}</td>
+      <td width="130" align="right" style="font-size:10pt;color:#5b6472;vertical-align:top;white-space:nowrap;">${right}</td>
+    </tr></table>`;
+
+  const align = centered ? "center" : "left";
+
+  return `<!DOCTYPE html>
+<html lang="en" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+<head><meta charset="utf-8" />
+<title>${escapeHtml(data.fullName || "Curriculum Vitae")}</title>
+<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml><![endif]-->
+<style>
+@page { size: 21cm 29.7cm; margin: 2cm; }
+body { font-family: ${bodyFont}; font-size: 11pt; line-height: 1.4; color: #14181f; }
+p { margin: 0 0 6pt; }
+ul { margin: 0 0 6pt 18pt; padding: 0; }
+li { font-size: 11pt; margin: 0 0 3pt; }
+</style>
+</head><body>
+<p style="margin:0;font-size:24pt;font-weight:bold;text-align:${align};">${escapeHtml(data.fullName || "Your name")}</p>
+${data.jobTitle ? `<p style="margin:2pt 0 0;font-size:13pt;color:${accent};text-align:${align};">${escapeHtml(data.jobTitle)}</p>` : ""}
+${contactLine ? `<p style="margin:4pt 0 0;font-size:10pt;color:#5b6472;text-align:${align};">${contactLine}</p>` : ""}
+<p style="margin:8pt 0 0;border-bottom:2pt solid ${accent};font-size:1pt;">&nbsp;</p>
+${data.summary ? `${heading("Profile")}<p>${escapeHtml(data.summary)}</p>` : ""}
+${skills.length ? `${heading("Skills")}<ul>${skills.map((s) => `<li>${escapeHtml(s)}</li>`).join("")}</ul>` : ""}
+${
+  experience.length
+    ? `${heading("Experience")}${experience
+        .map(
+          (item) =>
+            `${row(
+              `${escapeHtml(item.role)}${item.company ? ` &#8212; ${escapeHtml(item.company)}` : ""}`,
+              escapeHtml(item.period),
+            )}${item.detail ? `<p style="font-size:10.5pt;color:#5b6472;margin:0 0 10pt;">${escapeHtml(item.detail)}</p>` : `<p style="margin:0 0 8pt;font-size:1pt;">&nbsp;</p>`}`,
+        )
+        .join("")}`
+    : ""
 }
+${
+  education.length
+    ? `${heading("Education")}${education
+        .map(
+          (item) =>
+            `${row(
+              `${escapeHtml(item.qualification)}${item.institution ? ` &#8212; ${escapeHtml(item.institution)}` : ""}`,
+              escapeHtml(item.period),
+            )}<p style="margin:0 0 8pt;font-size:1pt;">&nbsp;</p>`,
+        )
+        .join("")}`
+    : ""
+}
+${data.references ? `${heading("References")}<p>${escapeHtml(data.references)}</p>` : ""}
+</body></html>`;
+}
+
 
 /** Turns a person's name into a safe download file name. */
 export function cvFileName(fullName: string, extension: string): string {

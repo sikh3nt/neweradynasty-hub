@@ -24,9 +24,12 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LabsIndexRouteImport } from './routes/labs.index'
+import { Route as LabsSwiftdropRouteImport } from './routes/labs.swiftdrop'
 import { Route as LabsNdingubaniTvRouteImport } from './routes/labs.ndingubani-tv'
 import { Route as LabsCvBuilderRouteImport } from './routes/labs.cv-builder'
+import { Route as LabsCivicFacenetRouteImport } from './routes/labs.civic-facenet'
 import { Route as LabsCalculatorRouteImport } from './routes/labs.calculator'
+import { Route as LabsBarStockRouteImport } from './routes/labs.bar-stock'
 import { Route as LabsAmdBotRouteImport } from './routes/labs.amd-bot'
 import { Route as AuthenticatedPortalIndexRouteImport } from './routes/_authenticated/portal.index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
@@ -113,6 +116,11 @@ const LabsIndexRoute = LabsIndexRouteImport.update({
   path: '/labs/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LabsSwiftdropRoute = LabsSwiftdropRouteImport.update({
+  id: '/labs/swiftdrop',
+  path: '/labs/swiftdrop',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LabsNdingubaniTvRoute = LabsNdingubaniTvRouteImport.update({
   id: '/labs/ndingubani-tv',
   path: '/labs/ndingubani-tv',
@@ -123,9 +131,19 @@ const LabsCvBuilderRoute = LabsCvBuilderRouteImport.update({
   path: '/labs/cv-builder',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LabsCivicFacenetRoute = LabsCivicFacenetRouteImport.update({
+  id: '/labs/civic-facenet',
+  path: '/labs/civic-facenet',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LabsCalculatorRoute = LabsCalculatorRouteImport.update({
   id: '/labs/calculator',
   path: '/labs/calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LabsBarStockRoute = LabsBarStockRouteImport.update({
+  id: '/labs/bar-stock',
+  path: '/labs/bar-stock',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LabsAmdBotRoute = LabsAmdBotRouteImport.update({
@@ -208,9 +226,12 @@ export interface FileRoutesByFullPath {
   '/testimonials': typeof TestimonialsRoute
   '/vision': typeof VisionRoute
   '/labs/amd-bot': typeof LabsAmdBotRoute
+  '/labs/bar-stock': typeof LabsBarStockRoute
   '/labs/calculator': typeof LabsCalculatorRoute
+  '/labs/civic-facenet': typeof LabsCivicFacenetRoute
   '/labs/cv-builder': typeof LabsCvBuilderRoute
   '/labs/ndingubani-tv': typeof LabsNdingubaniTvRoute
+  '/labs/swiftdrop': typeof LabsSwiftdropRoute
   '/labs/': typeof LabsIndexRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/admin/contact': typeof AuthenticatedAdminContactRoute
@@ -238,9 +259,12 @@ export interface FileRoutesByTo {
   '/testimonials': typeof TestimonialsRoute
   '/vision': typeof VisionRoute
   '/labs/amd-bot': typeof LabsAmdBotRoute
+  '/labs/bar-stock': typeof LabsBarStockRoute
   '/labs/calculator': typeof LabsCalculatorRoute
+  '/labs/civic-facenet': typeof LabsCivicFacenetRoute
   '/labs/cv-builder': typeof LabsCvBuilderRoute
   '/labs/ndingubani-tv': typeof LabsNdingubaniTvRoute
+  '/labs/swiftdrop': typeof LabsSwiftdropRoute
   '/labs': typeof LabsIndexRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/admin/contact': typeof AuthenticatedAdminContactRoute
@@ -270,9 +294,12 @@ export interface FileRoutesById {
   '/testimonials': typeof TestimonialsRoute
   '/vision': typeof VisionRoute
   '/labs/amd-bot': typeof LabsAmdBotRoute
+  '/labs/bar-stock': typeof LabsBarStockRoute
   '/labs/calculator': typeof LabsCalculatorRoute
+  '/labs/civic-facenet': typeof LabsCivicFacenetRoute
   '/labs/cv-builder': typeof LabsCvBuilderRoute
   '/labs/ndingubani-tv': typeof LabsNdingubaniTvRoute
+  '/labs/swiftdrop': typeof LabsSwiftdropRoute
   '/labs/': typeof LabsIndexRoute
   '/_authenticated/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/_authenticated/admin/contact': typeof AuthenticatedAdminContactRoute
@@ -302,9 +329,12 @@ export interface FileRouteTypes {
     | '/testimonials'
     | '/vision'
     | '/labs/amd-bot'
+    | '/labs/bar-stock'
     | '/labs/calculator'
+    | '/labs/civic-facenet'
     | '/labs/cv-builder'
     | '/labs/ndingubani-tv'
+    | '/labs/swiftdrop'
     | '/labs/'
     | '/admin/clients'
     | '/admin/contact'
@@ -332,9 +362,12 @@ export interface FileRouteTypes {
     | '/testimonials'
     | '/vision'
     | '/labs/amd-bot'
+    | '/labs/bar-stock'
     | '/labs/calculator'
+    | '/labs/civic-facenet'
     | '/labs/cv-builder'
     | '/labs/ndingubani-tv'
+    | '/labs/swiftdrop'
     | '/labs'
     | '/admin/clients'
     | '/admin/contact'
@@ -363,9 +396,12 @@ export interface FileRouteTypes {
     | '/testimonials'
     | '/vision'
     | '/labs/amd-bot'
+    | '/labs/bar-stock'
     | '/labs/calculator'
+    | '/labs/civic-facenet'
     | '/labs/cv-builder'
     | '/labs/ndingubani-tv'
+    | '/labs/swiftdrop'
     | '/labs/'
     | '/_authenticated/admin/clients'
     | '/_authenticated/admin/contact'
@@ -395,9 +431,12 @@ export interface RootRouteChildren {
   TestimonialsRoute: typeof TestimonialsRoute
   VisionRoute: typeof VisionRoute
   LabsAmdBotRoute: typeof LabsAmdBotRoute
+  LabsBarStockRoute: typeof LabsBarStockRoute
   LabsCalculatorRoute: typeof LabsCalculatorRoute
+  LabsCivicFacenetRoute: typeof LabsCivicFacenetRoute
   LabsCvBuilderRoute: typeof LabsCvBuilderRoute
   LabsNdingubaniTvRoute: typeof LabsNdingubaniTvRoute
+  LabsSwiftdropRoute: typeof LabsSwiftdropRoute
   LabsIndexRoute: typeof LabsIndexRoute
 }
 
@@ -508,6 +547,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LabsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/labs/swiftdrop': {
+      id: '/labs/swiftdrop'
+      path: '/labs/swiftdrop'
+      fullPath: '/labs/swiftdrop'
+      preLoaderRoute: typeof LabsSwiftdropRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/labs/ndingubani-tv': {
       id: '/labs/ndingubani-tv'
       path: '/labs/ndingubani-tv'
@@ -522,11 +568,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LabsCvBuilderRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/labs/civic-facenet': {
+      id: '/labs/civic-facenet'
+      path: '/labs/civic-facenet'
+      fullPath: '/labs/civic-facenet'
+      preLoaderRoute: typeof LabsCivicFacenetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/labs/calculator': {
       id: '/labs/calculator'
       path: '/labs/calculator'
       fullPath: '/labs/calculator'
       preLoaderRoute: typeof LabsCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/labs/bar-stock': {
+      id: '/labs/bar-stock'
+      path: '/labs/bar-stock'
+      fullPath: '/labs/bar-stock'
+      preLoaderRoute: typeof LabsBarStockRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/labs/amd-bot': {
@@ -654,11 +714,24 @@ const rootRouteChildren: RootRouteChildren = {
   TestimonialsRoute: TestimonialsRoute,
   VisionRoute: VisionRoute,
   LabsAmdBotRoute: LabsAmdBotRoute,
+  LabsBarStockRoute: LabsBarStockRoute,
   LabsCalculatorRoute: LabsCalculatorRoute,
+  LabsCivicFacenetRoute: LabsCivicFacenetRoute,
   LabsCvBuilderRoute: LabsCvBuilderRoute,
   LabsNdingubaniTvRoute: LabsNdingubaniTvRoute,
+  LabsSwiftdropRoute: LabsSwiftdropRoute,
   LabsIndexRoute: LabsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
