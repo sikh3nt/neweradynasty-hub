@@ -24,6 +24,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LabsIndexRouteImport } from './routes/labs.index'
+import { Route as LabsNdingubaniTvRouteImport } from './routes/labs.ndingubani-tv'
 import { Route as LabsCvBuilderRouteImport } from './routes/labs.cv-builder'
 import { Route as LabsCalculatorRouteImport } from './routes/labs.calculator'
 import { Route as LabsAmdBotRouteImport } from './routes/labs.amd-bot'
@@ -110,6 +111,11 @@ const IndexRoute = IndexRouteImport.update({
 const LabsIndexRoute = LabsIndexRouteImport.update({
   id: '/labs/',
   path: '/labs/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LabsNdingubaniTvRoute = LabsNdingubaniTvRouteImport.update({
+  id: '/labs/ndingubani-tv',
+  path: '/labs/ndingubani-tv',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LabsCvBuilderRoute = LabsCvBuilderRouteImport.update({
@@ -204,6 +210,7 @@ export interface FileRoutesByFullPath {
   '/labs/amd-bot': typeof LabsAmdBotRoute
   '/labs/calculator': typeof LabsCalculatorRoute
   '/labs/cv-builder': typeof LabsCvBuilderRoute
+  '/labs/ndingubani-tv': typeof LabsNdingubaniTvRoute
   '/labs/': typeof LabsIndexRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/admin/contact': typeof AuthenticatedAdminContactRoute
@@ -233,6 +240,7 @@ export interface FileRoutesByTo {
   '/labs/amd-bot': typeof LabsAmdBotRoute
   '/labs/calculator': typeof LabsCalculatorRoute
   '/labs/cv-builder': typeof LabsCvBuilderRoute
+  '/labs/ndingubani-tv': typeof LabsNdingubaniTvRoute
   '/labs': typeof LabsIndexRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/admin/contact': typeof AuthenticatedAdminContactRoute
@@ -264,6 +272,7 @@ export interface FileRoutesById {
   '/labs/amd-bot': typeof LabsAmdBotRoute
   '/labs/calculator': typeof LabsCalculatorRoute
   '/labs/cv-builder': typeof LabsCvBuilderRoute
+  '/labs/ndingubani-tv': typeof LabsNdingubaniTvRoute
   '/labs/': typeof LabsIndexRoute
   '/_authenticated/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/_authenticated/admin/contact': typeof AuthenticatedAdminContactRoute
@@ -295,6 +304,7 @@ export interface FileRouteTypes {
     | '/labs/amd-bot'
     | '/labs/calculator'
     | '/labs/cv-builder'
+    | '/labs/ndingubani-tv'
     | '/labs/'
     | '/admin/clients'
     | '/admin/contact'
@@ -324,6 +334,7 @@ export interface FileRouteTypes {
     | '/labs/amd-bot'
     | '/labs/calculator'
     | '/labs/cv-builder'
+    | '/labs/ndingubani-tv'
     | '/labs'
     | '/admin/clients'
     | '/admin/contact'
@@ -354,6 +365,7 @@ export interface FileRouteTypes {
     | '/labs/amd-bot'
     | '/labs/calculator'
     | '/labs/cv-builder'
+    | '/labs/ndingubani-tv'
     | '/labs/'
     | '/_authenticated/admin/clients'
     | '/_authenticated/admin/contact'
@@ -385,6 +397,7 @@ export interface RootRouteChildren {
   LabsAmdBotRoute: typeof LabsAmdBotRoute
   LabsCalculatorRoute: typeof LabsCalculatorRoute
   LabsCvBuilderRoute: typeof LabsCvBuilderRoute
+  LabsNdingubaniTvRoute: typeof LabsNdingubaniTvRoute
   LabsIndexRoute: typeof LabsIndexRoute
 }
 
@@ -493,6 +506,13 @@ declare module '@tanstack/react-router' {
       path: '/labs'
       fullPath: '/labs/'
       preLoaderRoute: typeof LabsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/labs/ndingubani-tv': {
+      id: '/labs/ndingubani-tv'
+      path: '/labs/ndingubani-tv'
+      fullPath: '/labs/ndingubani-tv'
+      preLoaderRoute: typeof LabsNdingubaniTvRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/labs/cv-builder': {
@@ -636,6 +656,7 @@ const rootRouteChildren: RootRouteChildren = {
   LabsAmdBotRoute: LabsAmdBotRoute,
   LabsCalculatorRoute: LabsCalculatorRoute,
   LabsCvBuilderRoute: LabsCvBuilderRoute,
+  LabsNdingubaniTvRoute: LabsNdingubaniTvRoute,
   LabsIndexRoute: LabsIndexRoute,
 }
 export const routeTree = rootRouteImport
