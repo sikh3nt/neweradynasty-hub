@@ -41,7 +41,7 @@ type Demo = {
   name: string;
   desc: string;
   tags: string[];
-  to?: "/labs/calculator" | "/labs/cv-builder" | "/labs/amd-bot";
+  to?: "/labs/calculator" | "/labs/cv-builder" | "/labs/amd-bot" | "/labs/ndingubani-tv";
   status: "live" | "soon";
 };
 
