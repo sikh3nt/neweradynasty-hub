@@ -24,6 +24,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LabsIndexRouteImport } from './routes/labs.index'
+import { Route as LabsSwiftdropRouteImport } from './routes/labs.swiftdrop'
 import { Route as LabsNdingubaniTvRouteImport } from './routes/labs.ndingubani-tv'
 import { Route as LabsCvBuilderRouteImport } from './routes/labs.cv-builder'
 import { Route as LabsCalculatorRouteImport } from './routes/labs.calculator'
@@ -111,6 +112,11 @@ const IndexRoute = IndexRouteImport.update({
 const LabsIndexRoute = LabsIndexRouteImport.update({
   id: '/labs/',
   path: '/labs/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LabsSwiftdropRoute = LabsSwiftdropRouteImport.update({
+  id: '/labs/swiftdrop',
+  path: '/labs/swiftdrop',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LabsNdingubaniTvRoute = LabsNdingubaniTvRouteImport.update({
@@ -211,6 +217,7 @@ export interface FileRoutesByFullPath {
   '/labs/calculator': typeof LabsCalculatorRoute
   '/labs/cv-builder': typeof LabsCvBuilderRoute
   '/labs/ndingubani-tv': typeof LabsNdingubaniTvRoute
+  '/labs/swiftdrop': typeof LabsSwiftdropRoute
   '/labs/': typeof LabsIndexRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/admin/contact': typeof AuthenticatedAdminContactRoute
@@ -241,6 +248,7 @@ export interface FileRoutesByTo {
   '/labs/calculator': typeof LabsCalculatorRoute
   '/labs/cv-builder': typeof LabsCvBuilderRoute
   '/labs/ndingubani-tv': typeof LabsNdingubaniTvRoute
+  '/labs/swiftdrop': typeof LabsSwiftdropRoute
   '/labs': typeof LabsIndexRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/admin/contact': typeof AuthenticatedAdminContactRoute
@@ -273,6 +281,7 @@ export interface FileRoutesById {
   '/labs/calculator': typeof LabsCalculatorRoute
   '/labs/cv-builder': typeof LabsCvBuilderRoute
   '/labs/ndingubani-tv': typeof LabsNdingubaniTvRoute
+  '/labs/swiftdrop': typeof LabsSwiftdropRoute
   '/labs/': typeof LabsIndexRoute
   '/_authenticated/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/_authenticated/admin/contact': typeof AuthenticatedAdminContactRoute
@@ -305,6 +314,7 @@ export interface FileRouteTypes {
     | '/labs/calculator'
     | '/labs/cv-builder'
     | '/labs/ndingubani-tv'
+    | '/labs/swiftdrop'
     | '/labs/'
     | '/admin/clients'
     | '/admin/contact'
@@ -335,6 +345,7 @@ export interface FileRouteTypes {
     | '/labs/calculator'
     | '/labs/cv-builder'
     | '/labs/ndingubani-tv'
+    | '/labs/swiftdrop'
     | '/labs'
     | '/admin/clients'
     | '/admin/contact'
@@ -366,6 +377,7 @@ export interface FileRouteTypes {
     | '/labs/calculator'
     | '/labs/cv-builder'
     | '/labs/ndingubani-tv'
+    | '/labs/swiftdrop'
     | '/labs/'
     | '/_authenticated/admin/clients'
     | '/_authenticated/admin/contact'
@@ -398,6 +410,7 @@ export interface RootRouteChildren {
   LabsCalculatorRoute: typeof LabsCalculatorRoute
   LabsCvBuilderRoute: typeof LabsCvBuilderRoute
   LabsNdingubaniTvRoute: typeof LabsNdingubaniTvRoute
+  LabsSwiftdropRoute: typeof LabsSwiftdropRoute
   LabsIndexRoute: typeof LabsIndexRoute
 }
 
@@ -506,6 +519,13 @@ declare module '@tanstack/react-router' {
       path: '/labs'
       fullPath: '/labs/'
       preLoaderRoute: typeof LabsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/labs/swiftdrop': {
+      id: '/labs/swiftdrop'
+      path: '/labs/swiftdrop'
+      fullPath: '/labs/swiftdrop'
+      preLoaderRoute: typeof LabsSwiftdropRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/labs/ndingubani-tv': {
@@ -657,6 +677,7 @@ const rootRouteChildren: RootRouteChildren = {
   LabsCalculatorRoute: LabsCalculatorRoute,
   LabsCvBuilderRoute: LabsCvBuilderRoute,
   LabsNdingubaniTvRoute: LabsNdingubaniTvRoute,
+  LabsSwiftdropRoute: LabsSwiftdropRoute,
   LabsIndexRoute: LabsIndexRoute,
 }
 export const routeTree = rootRouteImport
