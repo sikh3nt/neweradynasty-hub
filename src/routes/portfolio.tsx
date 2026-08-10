@@ -168,6 +168,7 @@ const softwareProjects: {
     name: "Ndingubani TV",
     desc: "A branded live-streaming channel website built for a client, designed around an identity and heritage storytelling concept (\u201CNdingubani\u201D — \u201CWho am I?\u201D). Features an autoplaying live-stream hero, a news-style announcement ticker, a schedule strip, and an episode gallery for catching up on past broadcasts — all built mobile-first for viewers arriving via shared social links.",
     tags: ["HTML/CSS/JS", "Live streaming", "Client work"],
+    demo: "/labs/ndingubani-tv",
   },
 ];
 
