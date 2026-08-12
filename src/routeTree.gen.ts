@@ -42,6 +42,7 @@ import { Route as AuthenticatedAdminReviewsRouteImport } from './routes/_authent
 import { Route as AuthenticatedAdminProjectsRouteImport } from './routes/_authenticated/admin.projects'
 import { Route as AuthenticatedAdminContactRouteImport } from './routes/_authenticated/admin.contact'
 import { Route as AuthenticatedAdminClientsRouteImport } from './routes/_authenticated/admin.clients'
+import { Route as AuthenticatedAdminAnalyticsRouteImport } from './routes/_authenticated/admin.analytics'
 
 const VisionRoute = VisionRouteImport.update({
   id: '/vision',
@@ -216,6 +217,12 @@ const AuthenticatedAdminClientsRoute =
     path: '/admin/clients',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAdminAnalyticsRoute =
+  AuthenticatedAdminAnalyticsRouteImport.update({
+    id: '/admin/analytics',
+    path: '/admin/analytics',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -239,6 +246,7 @@ export interface FileRoutesByFullPath {
   '/labs/ndingubani-tv': typeof LabsNdingubaniTvRoute
   '/labs/swiftdrop': typeof LabsSwiftdropRoute
   '/labs/': typeof LabsIndexRoute
+  '/admin/analytics': typeof AuthenticatedAdminAnalyticsRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/admin/contact': typeof AuthenticatedAdminContactRoute
   '/admin/projects': typeof AuthenticatedAdminProjectsRoute
@@ -273,6 +281,7 @@ export interface FileRoutesByTo {
   '/labs/ndingubani-tv': typeof LabsNdingubaniTvRoute
   '/labs/swiftdrop': typeof LabsSwiftdropRoute
   '/labs': typeof LabsIndexRoute
+  '/admin/analytics': typeof AuthenticatedAdminAnalyticsRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/admin/contact': typeof AuthenticatedAdminContactRoute
   '/admin/projects': typeof AuthenticatedAdminProjectsRoute
@@ -309,6 +318,7 @@ export interface FileRoutesById {
   '/labs/ndingubani-tv': typeof LabsNdingubaniTvRoute
   '/labs/swiftdrop': typeof LabsSwiftdropRoute
   '/labs/': typeof LabsIndexRoute
+  '/_authenticated/admin/analytics': typeof AuthenticatedAdminAnalyticsRoute
   '/_authenticated/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/_authenticated/admin/contact': typeof AuthenticatedAdminContactRoute
   '/_authenticated/admin/projects': typeof AuthenticatedAdminProjectsRoute
@@ -345,6 +355,7 @@ export interface FileRouteTypes {
     | '/labs/ndingubani-tv'
     | '/labs/swiftdrop'
     | '/labs/'
+    | '/admin/analytics'
     | '/admin/clients'
     | '/admin/contact'
     | '/admin/projects'
@@ -379,6 +390,7 @@ export interface FileRouteTypes {
     | '/labs/ndingubani-tv'
     | '/labs/swiftdrop'
     | '/labs'
+    | '/admin/analytics'
     | '/admin/clients'
     | '/admin/contact'
     | '/admin/projects'
@@ -414,6 +426,7 @@ export interface FileRouteTypes {
     | '/labs/ndingubani-tv'
     | '/labs/swiftdrop'
     | '/labs/'
+    | '/_authenticated/admin/analytics'
     | '/_authenticated/admin/clients'
     | '/_authenticated/admin/contact'
     | '/_authenticated/admin/projects'
@@ -686,10 +699,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminClientsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/analytics': {
+      id: '/_authenticated/admin/analytics'
+      path: '/admin/analytics'
+      fullPath: '/admin/analytics'
+      preLoaderRoute: typeof AuthenticatedAdminAnalyticsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminAnalyticsRoute: typeof AuthenticatedAdminAnalyticsRoute
   AuthenticatedAdminClientsRoute: typeof AuthenticatedAdminClientsRoute
   AuthenticatedAdminContactRoute: typeof AuthenticatedAdminContactRoute
   AuthenticatedAdminProjectsRoute: typeof AuthenticatedAdminProjectsRoute
@@ -703,6 +724,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminAnalyticsRoute: AuthenticatedAdminAnalyticsRoute,
   AuthenticatedAdminClientsRoute: AuthenticatedAdminClientsRoute,
   AuthenticatedAdminContactRoute: AuthenticatedAdminContactRoute,
   AuthenticatedAdminProjectsRoute: AuthenticatedAdminProjectsRoute,
