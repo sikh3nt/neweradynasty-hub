@@ -462,10 +462,23 @@ function CvBuilderDemo() {
                 <Download className="h-4 w-4" /> Download Word
               </button>
             </div>
+            {exportStatus && (
+              <p
+                role="status"
+                className={`mt-3 rounded-2xl px-4 py-3 text-xs ${
+                  exportStatus.tone === "ok"
+                    ? "border border-primary/30 bg-primary/10 text-primary"
+                    : "border border-destructive/40 text-destructive"
+                }`}
+              >
+                {exportStatus.message}
+              </p>
+            )}
             <p className="mt-3 text-xs text-muted-foreground">
               The PDF is a real, laid-out file — no print dialog. The Word file opens in Microsoft
               Word or Google Docs with the same headings, spacing and dates in place.
             </p>
+
 
           </div>
         </div>
