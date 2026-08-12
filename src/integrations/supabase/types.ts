@@ -56,6 +56,51 @@ export type Database = {
         }
         Relationships: []
       }
+      demo_events: {
+        Row: {
+          city: string | null
+          country: string | null
+          created_at: string
+          demo: string
+          detail: string | null
+          event_type: string
+          id: string
+          path: string
+          referrer: string | null
+          referrer_domain: string | null
+          region: string | null
+          session_id: string
+        }
+        Insert: {
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          demo: string
+          detail?: string | null
+          event_type: string
+          id?: string
+          path: string
+          referrer?: string | null
+          referrer_domain?: string | null
+          region?: string | null
+          session_id: string
+        }
+        Update: {
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          demo?: string
+          detail?: string | null
+          event_type?: string
+          id?: string
+          path?: string
+          referrer?: string | null
+          referrer_domain?: string | null
+          region?: string | null
+          session_id?: string
+        }
+        Relationships: []
+      }
       invoices: {
         Row: {
           amount: number

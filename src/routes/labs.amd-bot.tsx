@@ -96,6 +96,7 @@ function AmdBotDemo() {
 
   return (
     <LabShell
+      demo="amd-bot"
       eyebrow="Live demo · Automation"
       title="AMD trading bot replay."
       intro="Replay a market session and watch the accumulation–manipulation–distribution engine map the range, catch the liquidity sweep, take the entry and manage the trade to target or stop."

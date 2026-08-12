@@ -1,20 +1,26 @@
 import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, FlaskConical } from "lucide-react";
+import { ArrowLeft, FlaskConical, ShieldCheck } from "lucide-react";
+import { useDemoView } from "@/lib/analytics";
 
 export function LabShell({
+  demo,
   eyebrow,
   title,
   intro,
   notice,
   children,
 }: {
+  demo?: string;
   eyebrow: string;
   title: string;
   intro: string;
   notice?: string;
   children: ReactNode;
 }) {
+  useDemoView(demo);
+
+
   return (
     <main className="pt-28 sm:pt-36 pb-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -34,10 +40,15 @@ export function LabShell({
           </h1>
           <p className="mt-5 text-base text-muted-foreground">{intro}</p>
           {notice && (
-            <p className="mt-4 rounded-2xl glass px-4 py-3 text-xs text-muted-foreground">
-              {notice}
+            <p className="mt-4 flex items-start gap-2 rounded-2xl glass px-4 py-3 text-xs text-muted-foreground">
+              <ShieldCheck className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
+              <span>
+                <span className="text-primary">Demo mode</span> — {notice} Anonymous usage counts
+                (page, country, referring site) are recorded to see which demos people find useful.
+              </span>
             </p>
           )}
+
         </div>
 
         <div className="mt-10">{children}</div>

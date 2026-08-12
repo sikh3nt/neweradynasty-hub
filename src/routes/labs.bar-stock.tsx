@@ -4,12 +4,16 @@ import { LabShell } from "@/components/labs/LabShell";
 import { Download, Minus, Plus, RotateCcw, TriangleAlert } from "lucide-react";
 import {
   evaluateLine,
+  reorderCost,
+  reorderSuggestions,
   starterStock,
   stockCsv,
   summariseStock,
   type StockLine,
 } from "@/lib/bar-stock";
 import { formatRand } from "@/lib/swiftdrop";
+import { trackDemoEvent } from "@/lib/analytics";
+
 
 export const Route = createFileRoute("/labs/bar-stock")({
   head: () => ({
@@ -41,8 +45,16 @@ function BarStockDemo() {
   const [lines, setLines] = useState<StockLine[]>(starterStock);
   const [shift, setShift] = useState(shifts[1]);
 
-  const results = useMemo(() => lines.map(evaluateLine), [lines]);
+  const [onlyBelowPar, setOnlyBelowPar] = useState(false);
+
+  const allResults = useMemo(() => lines.map(evaluateLine), [lines]);
+  const results = useMemo(
+    () => (onlyBelowPar ? allResults.filter((line) => line.belowPar) : allResults),
+    [allResults, onlyBelowPar],
+  );
   const totals = useMemo(() => summariseStock(lines), [lines]);
+  const reorders = useMemo(() => reorderSuggestions(lines), [lines]);
+  const reorderTotal = useMemo(() => reorderCost(lines), [lines]);
 
   const adjust = (id: string, key: "closing" | "wastage", delta: number): void => {
     setLines((current) =>
@@ -60,20 +72,39 @@ function BarStockDemo() {
     );
   };
 
-  const exportCsv = (): void => {
-    const blob = new Blob([stockCsv(lines, shift)], { type: "text/csv;charset=utf-8" });
+  const download = (content: string, filename: string, mime: string): void => {
+    const blob = new Blob([content], { type: mime });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `469-stock-${shift.toLowerCase().replace(/[^a-z0-9]+/g, "-")}.csv`;
+    link.download = filename;
     document.body.appendChild(link);
     link.click();
     link.remove();
     window.setTimeout(() => URL.revokeObjectURL(url), 2000);
   };
 
+  const slug = shift.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
+  const exportCsv = (): void => {
+    download(stockCsv(lines, shift), `469-stock-${slug}.csv`, "text/csv;charset=utf-8");
+    trackDemoEvent("export", "bar-stock", "shift-csv");
+  };
+
+  const exportReorderList = (): void => {
+    const rows = [
+      "Item,Unit,Order quantity,Estimated cost",
+      ...reorders.map((item) => `${item.name},${item.unit},${item.shortfall},${item.cost}`),
+      `Total,,,${reorderTotal}`,
+    ].join("\n");
+    download(rows, `469-reorder-${slug}.csv`, "text/csv;charset=utf-8");
+    trackDemoEvent("export", "bar-stock", "reorder-csv");
+  };
+
+
   return (
     <LabShell
+      demo="bar-stock"
       eyebrow="Live demo · Hospitality"
       title="469 Premium bar stock tracker."
       intro="Count the bar the way a shift manager does: adjust closing stock and wastage, watch variance and value update in real time, then export the report."
@@ -98,13 +129,25 @@ function BarStockDemo() {
                 ))}
               </select>
             </div>
-            <div className="flex gap-3">
+            <div className="flex flex-wrap gap-3">
               <button
                 type="button"
                 onClick={() => setLines(starterStock)}
                 className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm text-muted-foreground hover:border-primary hover:text-primary transition-luxury"
               >
                 <RotateCcw className="h-4 w-4" /> Reset count
+              </button>
+              <button
+                type="button"
+                onClick={() => setOnlyBelowPar((value) => !value)}
+                aria-pressed={onlyBelowPar}
+                className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition-luxury ${
+                  onlyBelowPar
+                    ? "border-primary bg-primary/10 text-primary"
+                    : "border-border text-muted-foreground hover:border-primary hover:text-primary"
+                }`}
+              >
+                <TriangleAlert className="h-4 w-4" /> Below par only
               </button>
               <button
                 type="button"
@@ -132,6 +175,53 @@ function BarStockDemo() {
             ))}
           </div>
         </div>
+
+        <div className="glass-strong rounded-3xl p-6 md:p-8">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h2 className="font-display text-2xl text-foreground">Reorder suggestions</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Everything sitting under par, with the quantity needed to get back to level.
+              </p>
+            </div>
+            {reorders.length > 0 && (
+              <button
+                type="button"
+                onClick={exportReorderList}
+                className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-sm text-primary hover:bg-primary/20 transition-luxury"
+              >
+                <Download className="h-4 w-4" /> Export order list
+              </button>
+            )}
+          </div>
+
+          {reorders.length === 0 ? (
+            <p className="mt-5 text-sm text-muted-foreground">
+              Every line is at or above par — nothing to order for this shift.
+            </p>
+          ) : (
+            <>
+              <ul className="mt-5 grid gap-2">
+                {reorders.map((item) => (
+                  <li
+                    key={item.id}
+                    className="flex items-center justify-between gap-3 rounded-2xl glass px-4 py-3 text-sm"
+                  >
+                    <span className="text-foreground">{item.name}</span>
+                    <span className="text-muted-foreground">
+                      {item.shortfall} {item.unit} · {formatRand(item.cost)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-4 border-t border-border pt-3 text-sm text-foreground">
+                Estimated restock cost{" "}
+                <span className="text-primary">{formatRand(reorderTotal)}</span>
+              </p>
+            </>
+          )}
+        </div>
+
 
         <div className="grid gap-4 md:grid-cols-2">
           {results.map((line) => (

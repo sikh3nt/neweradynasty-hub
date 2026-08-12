@@ -3,7 +3,7 @@ import { PortalShell } from "@/components/portal/PortalShell";
 import { AdminGate } from "@/components/portal/AdminGate";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Star, FolderKanban, Users, Inbox } from "lucide-react";
+import { Star, FolderKanban, Users, Inbox, BarChart3 } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/admin/")({
   head: () => ({ meta: [{ title: "Admin — New Era Dynasty" }, { name: "robots", content: "noindex" }] }),
@@ -28,6 +28,7 @@ function AdminHome() {
     { label: "Projects", value: stats.projects, icon: FolderKanban, to: "/admin/projects" },
     { label: "Clients", value: stats.clients, icon: Users, to: "/admin/clients" },
     { label: "Enquiries", value: stats.enquiries, icon: Inbox, to: "/admin/contact" },
+    { label: "Demo analytics", value: "View", icon: BarChart3, to: "/admin/analytics" },
   ];
   return (
     <PortalShell isAdmin>

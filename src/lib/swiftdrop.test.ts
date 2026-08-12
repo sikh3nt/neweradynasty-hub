@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { formatRand, quoteDelivery } from "./swiftdrop";
+import { formatRand, pickDriver, quoteDelivery } from "./swiftdrop";
 
 describe("quoteDelivery", () => {
   it("prices base plus distance plus size", () => {
@@ -25,5 +25,25 @@ describe("quoteDelivery", () => {
 describe("formatRand", () => {
   it("uses a comma as the decimal separator", () => {
     expect(formatRand(70)).toBe("R 70,00");
+  });
+});
+
+describe("surge, tips and drivers", () => {
+  it("applies a surge multiplier on top of the fees", () => {
+    const normal = quoteDelivery({ distanceKm: 5, size: "small", express: false });
+    const peak = quoteDelivery({ distanceKm: 5, size: "small", express: false, surge: 1.5 });
+    expect(peak.surgeFee).toBeCloseTo(normal.total * 0.5, 2);
+    expect(peak.total).toBeGreaterThan(normal.total);
+  });
+
+  it("adds the tip to the total without changing the eta", () => {
+    const quote = quoteDelivery({ distanceKm: 5, size: "small", express: false, tip: 20 });
+    const base = quoteDelivery({ distanceKm: 5, size: "small", express: false });
+    expect(quote.total).toBe(base.total + 20);
+    expect(quote.etaMinutes).toBe(base.etaMinutes);
+  });
+
+  it("sends the bakkie driver for large parcels", () => {
+    expect(pickDriver(4, "large").vehicle).toContain("NP200");
   });
 });

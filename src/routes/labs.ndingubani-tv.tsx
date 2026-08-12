@@ -134,6 +134,7 @@ function NdingubaniTvDemo() {
 
   return (
     <LabShell
+      demo="ndingubani-tv"
       eyebrow="Live demo · Media & streaming"
       title="Ndingubani TV."
       intro="A preview of the branded streaming channel built for a client — live hero player, announcement ticker, daily schedule strip and a catch-up episode gallery, all mobile-first."

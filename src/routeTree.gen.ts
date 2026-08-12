@@ -33,6 +33,7 @@ import { Route as LabsBarStockRouteImport } from './routes/labs.bar-stock'
 import { Route as LabsAmdBotRouteImport } from './routes/labs.amd-bot'
 import { Route as AuthenticatedPortalIndexRouteImport } from './routes/_authenticated/portal.index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as ApiPublicTrackRouteImport } from './routes/api/public/track'
 import { Route as AuthenticatedPortalReviewsRouteImport } from './routes/_authenticated/portal.reviews'
 import { Route as AuthenticatedPortalProjectsRouteImport } from './routes/_authenticated/portal.projects'
 import { Route as AuthenticatedPortalMessagesRouteImport } from './routes/_authenticated/portal.messages'
@@ -41,6 +42,7 @@ import { Route as AuthenticatedAdminReviewsRouteImport } from './routes/_authent
 import { Route as AuthenticatedAdminProjectsRouteImport } from './routes/_authenticated/admin.projects'
 import { Route as AuthenticatedAdminContactRouteImport } from './routes/_authenticated/admin.contact'
 import { Route as AuthenticatedAdminClientsRouteImport } from './routes/_authenticated/admin.clients'
+import { Route as AuthenticatedAdminAnalyticsRouteImport } from './routes/_authenticated/admin.analytics'
 
 const VisionRoute = VisionRouteImport.update({
   id: '/vision',
@@ -162,6 +164,11 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const ApiPublicTrackRoute = ApiPublicTrackRouteImport.update({
+  id: '/api/public/track',
+  path: '/api/public/track',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedPortalReviewsRoute =
   AuthenticatedPortalReviewsRouteImport.update({
     id: '/portal/reviews',
@@ -210,6 +217,12 @@ const AuthenticatedAdminClientsRoute =
     path: '/admin/clients',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAdminAnalyticsRoute =
+  AuthenticatedAdminAnalyticsRouteImport.update({
+    id: '/admin/analytics',
+    path: '/admin/analytics',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -233,6 +246,7 @@ export interface FileRoutesByFullPath {
   '/labs/ndingubani-tv': typeof LabsNdingubaniTvRoute
   '/labs/swiftdrop': typeof LabsSwiftdropRoute
   '/labs/': typeof LabsIndexRoute
+  '/admin/analytics': typeof AuthenticatedAdminAnalyticsRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/admin/contact': typeof AuthenticatedAdminContactRoute
   '/admin/projects': typeof AuthenticatedAdminProjectsRoute
@@ -241,6 +255,7 @@ export interface FileRoutesByFullPath {
   '/portal/messages': typeof AuthenticatedPortalMessagesRoute
   '/portal/projects': typeof AuthenticatedPortalProjectsRoute
   '/portal/reviews': typeof AuthenticatedPortalReviewsRoute
+  '/api/public/track': typeof ApiPublicTrackRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/portal/': typeof AuthenticatedPortalIndexRoute
 }
@@ -266,6 +281,7 @@ export interface FileRoutesByTo {
   '/labs/ndingubani-tv': typeof LabsNdingubaniTvRoute
   '/labs/swiftdrop': typeof LabsSwiftdropRoute
   '/labs': typeof LabsIndexRoute
+  '/admin/analytics': typeof AuthenticatedAdminAnalyticsRoute
   '/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/admin/contact': typeof AuthenticatedAdminContactRoute
   '/admin/projects': typeof AuthenticatedAdminProjectsRoute
@@ -274,6 +290,7 @@ export interface FileRoutesByTo {
   '/portal/messages': typeof AuthenticatedPortalMessagesRoute
   '/portal/projects': typeof AuthenticatedPortalProjectsRoute
   '/portal/reviews': typeof AuthenticatedPortalReviewsRoute
+  '/api/public/track': typeof ApiPublicTrackRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/portal': typeof AuthenticatedPortalIndexRoute
 }
@@ -301,6 +318,7 @@ export interface FileRoutesById {
   '/labs/ndingubani-tv': typeof LabsNdingubaniTvRoute
   '/labs/swiftdrop': typeof LabsSwiftdropRoute
   '/labs/': typeof LabsIndexRoute
+  '/_authenticated/admin/analytics': typeof AuthenticatedAdminAnalyticsRoute
   '/_authenticated/admin/clients': typeof AuthenticatedAdminClientsRoute
   '/_authenticated/admin/contact': typeof AuthenticatedAdminContactRoute
   '/_authenticated/admin/projects': typeof AuthenticatedAdminProjectsRoute
@@ -309,6 +327,7 @@ export interface FileRoutesById {
   '/_authenticated/portal/messages': typeof AuthenticatedPortalMessagesRoute
   '/_authenticated/portal/projects': typeof AuthenticatedPortalProjectsRoute
   '/_authenticated/portal/reviews': typeof AuthenticatedPortalReviewsRoute
+  '/api/public/track': typeof ApiPublicTrackRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/portal/': typeof AuthenticatedPortalIndexRoute
 }
@@ -336,6 +355,7 @@ export interface FileRouteTypes {
     | '/labs/ndingubani-tv'
     | '/labs/swiftdrop'
     | '/labs/'
+    | '/admin/analytics'
     | '/admin/clients'
     | '/admin/contact'
     | '/admin/projects'
@@ -344,6 +364,7 @@ export interface FileRouteTypes {
     | '/portal/messages'
     | '/portal/projects'
     | '/portal/reviews'
+    | '/api/public/track'
     | '/admin/'
     | '/portal/'
   fileRoutesByTo: FileRoutesByTo
@@ -369,6 +390,7 @@ export interface FileRouteTypes {
     | '/labs/ndingubani-tv'
     | '/labs/swiftdrop'
     | '/labs'
+    | '/admin/analytics'
     | '/admin/clients'
     | '/admin/contact'
     | '/admin/projects'
@@ -377,6 +399,7 @@ export interface FileRouteTypes {
     | '/portal/messages'
     | '/portal/projects'
     | '/portal/reviews'
+    | '/api/public/track'
     | '/admin'
     | '/portal'
   id:
@@ -403,6 +426,7 @@ export interface FileRouteTypes {
     | '/labs/ndingubani-tv'
     | '/labs/swiftdrop'
     | '/labs/'
+    | '/_authenticated/admin/analytics'
     | '/_authenticated/admin/clients'
     | '/_authenticated/admin/contact'
     | '/_authenticated/admin/projects'
@@ -411,6 +435,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/messages'
     | '/_authenticated/portal/projects'
     | '/_authenticated/portal/reviews'
+    | '/api/public/track'
     | '/_authenticated/admin/'
     | '/_authenticated/portal/'
   fileRoutesById: FileRoutesById
@@ -438,6 +463,7 @@ export interface RootRouteChildren {
   LabsNdingubaniTvRoute: typeof LabsNdingubaniTvRoute
   LabsSwiftdropRoute: typeof LabsSwiftdropRoute
   LabsIndexRoute: typeof LabsIndexRoute
+  ApiPublicTrackRoute: typeof ApiPublicTrackRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -610,6 +636,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/api/public/track': {
+      id: '/api/public/track'
+      path: '/api/public/track'
+      fullPath: '/api/public/track'
+      preLoaderRoute: typeof ApiPublicTrackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/portal/reviews': {
       id: '/_authenticated/portal/reviews'
       path: '/portal/reviews'
@@ -666,10 +699,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminClientsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/analytics': {
+      id: '/_authenticated/admin/analytics'
+      path: '/admin/analytics'
+      fullPath: '/admin/analytics'
+      preLoaderRoute: typeof AuthenticatedAdminAnalyticsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminAnalyticsRoute: typeof AuthenticatedAdminAnalyticsRoute
   AuthenticatedAdminClientsRoute: typeof AuthenticatedAdminClientsRoute
   AuthenticatedAdminContactRoute: typeof AuthenticatedAdminContactRoute
   AuthenticatedAdminProjectsRoute: typeof AuthenticatedAdminProjectsRoute
@@ -683,6 +724,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminAnalyticsRoute: AuthenticatedAdminAnalyticsRoute,
   AuthenticatedAdminClientsRoute: AuthenticatedAdminClientsRoute,
   AuthenticatedAdminContactRoute: AuthenticatedAdminContactRoute,
   AuthenticatedAdminProjectsRoute: AuthenticatedAdminProjectsRoute,
@@ -721,17 +763,8 @@ const rootRouteChildren: RootRouteChildren = {
   LabsNdingubaniTvRoute: LabsNdingubaniTvRoute,
   LabsSwiftdropRoute: LabsSwiftdropRoute,
   LabsIndexRoute: LabsIndexRoute,
+  ApiPublicTrackRoute: ApiPublicTrackRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
