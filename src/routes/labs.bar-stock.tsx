@@ -45,8 +45,16 @@ function BarStockDemo() {
   const [lines, setLines] = useState<StockLine[]>(starterStock);
   const [shift, setShift] = useState(shifts[1]);
 
-  const results = useMemo(() => lines.map(evaluateLine), [lines]);
+  const [onlyBelowPar, setOnlyBelowPar] = useState(false);
+
+  const allResults = useMemo(() => lines.map(evaluateLine), [lines]);
+  const results = useMemo(
+    () => (onlyBelowPar ? allResults.filter((line) => line.belowPar) : allResults),
+    [allResults, onlyBelowPar],
+  );
   const totals = useMemo(() => summariseStock(lines), [lines]);
+  const reorders = useMemo(() => reorderSuggestions(lines), [lines]);
+  const reorderTotal = useMemo(() => reorderCost(lines), [lines]);
 
   const adjust = (id: string, key: "closing" | "wastage", delta: number): void => {
     setLines((current) =>
@@ -64,17 +72,35 @@ function BarStockDemo() {
     );
   };
 
-  const exportCsv = (): void => {
-    const blob = new Blob([stockCsv(lines, shift)], { type: "text/csv;charset=utf-8" });
+  const download = (content: string, filename: string, mime: string): void => {
+    const blob = new Blob([content], { type: mime });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `469-stock-${shift.toLowerCase().replace(/[^a-z0-9]+/g, "-")}.csv`;
+    link.download = filename;
     document.body.appendChild(link);
     link.click();
     link.remove();
     window.setTimeout(() => URL.revokeObjectURL(url), 2000);
   };
+
+  const slug = shift.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
+  const exportCsv = (): void => {
+    download(stockCsv(lines, shift), `469-stock-${slug}.csv`, "text/csv;charset=utf-8");
+    trackDemoEvent("export", "bar-stock", "shift-csv");
+  };
+
+  const exportReorderList = (): void => {
+    const rows = [
+      "Item,Unit,Order quantity,Estimated cost",
+      ...reorders.map((item) => `${item.name},${item.unit},${item.shortfall},${item.cost}`),
+      `Total,,,${reorderTotal}`,
+    ].join("\n");
+    download(rows, `469-reorder-${slug}.csv`, "text/csv;charset=utf-8");
+    trackDemoEvent("export", "bar-stock", "reorder-csv");
+  };
+
 
   return (
     <LabShell
