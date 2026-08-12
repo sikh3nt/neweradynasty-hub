@@ -64,6 +64,21 @@ function CvBuilderDemo() {
   };
 
   const [busy, setBusy] = useState(false);
+  const [exportStatus, setExportStatus] = useState<{ tone: "ok" | "error"; message: string } | null>(
+    null,
+  );
+
+  /** Blocks empty or broken exports before a visitor downloads a useless file. */
+  const validate = (): string | null => {
+    if (!data.fullName.trim()) return "Add your full name before downloading.";
+    const hasBody =
+      Boolean(data.summary.trim()) ||
+      Boolean(data.skills.trim()) ||
+      data.experience.some((item) => item.role || item.company) ||
+      data.education.some((item) => item.qualification || item.institution);
+    if (!hasBody) return "Add at least a profile, a skill or one role before downloading.";
+    return null;
+  };
 
   const saveBlob = (blob: Blob, fileName: string): void => {
     const url = URL.createObjectURL(blob);
@@ -77,21 +92,47 @@ function CvBuilderDemo() {
   };
 
   const downloadPdf = async (): Promise<void> => {
+    const problem = validate();
+    if (problem) {
+      setExportStatus({ tone: "error", message: problem });
+      return;
+    }
     setBusy(true);
     try {
       const { buildCvPdf } = await import("@/lib/cv-pdf");
-      saveBlob(buildCvPdf(data, template), cvFileName(data.fullName, "pdf"));
+      const blob = buildCvPdf(data, template);
+      if (blob.size < 1000) {
+        setExportStatus({ tone: "error", message: "The PDF came out empty — please try again." });
+        return;
+      }
+      saveBlob(blob, cvFileName(data.fullName, "pdf"));
+      setExportStatus({
+        tone: "ok",
+        message: `PDF ready (${Math.round(blob.size / 1024)} KB) — check your downloads.`,
+      });
+      trackDemoEvent("export", "cv-builder", `pdf:${template}`);
     } finally {
       setBusy(false);
     }
   };
 
   const downloadWord = (): void => {
+    const problem = validate();
+    if (problem) {
+      setExportStatus({ tone: "error", message: problem });
+      return;
+    }
     const blob = new Blob(["\ufeff", buildCvWordDocument(data, template)], {
       type: "application/msword",
     });
     saveBlob(blob, cvFileName(data.fullName, "doc"));
+    setExportStatus({
+      tone: "ok",
+      message: `Word file ready (${Math.round(blob.size / 1024)} KB) — opens in Word or Google Docs.`,
+    });
+    trackDemoEvent("export", "cv-builder", `doc:${template}`);
   };
+
 
 
   return (
