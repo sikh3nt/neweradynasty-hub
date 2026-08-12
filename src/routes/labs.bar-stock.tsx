@@ -129,13 +129,25 @@ function BarStockDemo() {
                 ))}
               </select>
             </div>
-            <div className="flex gap-3">
+            <div className="flex flex-wrap gap-3">
               <button
                 type="button"
                 onClick={() => setLines(starterStock)}
                 className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm text-muted-foreground hover:border-primary hover:text-primary transition-luxury"
               >
                 <RotateCcw className="h-4 w-4" /> Reset count
+              </button>
+              <button
+                type="button"
+                onClick={() => setOnlyBelowPar((value) => !value)}
+                aria-pressed={onlyBelowPar}
+                className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition-luxury ${
+                  onlyBelowPar
+                    ? "border-primary bg-primary/10 text-primary"
+                    : "border-border text-muted-foreground hover:border-primary hover:text-primary"
+                }`}
+              >
+                <TriangleAlert className="h-4 w-4" /> Below par only
               </button>
               <button
                 type="button"
@@ -163,6 +175,53 @@ function BarStockDemo() {
             ))}
           </div>
         </div>
+
+        <div className="glass-strong rounded-3xl p-6 md:p-8">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h2 className="font-display text-2xl text-foreground">Reorder suggestions</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Everything sitting under par, with the quantity needed to get back to level.
+              </p>
+            </div>
+            {reorders.length > 0 && (
+              <button
+                type="button"
+                onClick={exportReorderList}
+                className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-sm text-primary hover:bg-primary/20 transition-luxury"
+              >
+                <Download className="h-4 w-4" /> Export order list
+              </button>
+            )}
+          </div>
+
+          {reorders.length === 0 ? (
+            <p className="mt-5 text-sm text-muted-foreground">
+              Every line is at or above par — nothing to order for this shift.
+            </p>
+          ) : (
+            <>
+              <ul className="mt-5 grid gap-2">
+                {reorders.map((item) => (
+                  <li
+                    key={item.id}
+                    className="flex items-center justify-between gap-3 rounded-2xl glass px-4 py-3 text-sm"
+                  >
+                    <span className="text-foreground">{item.name}</span>
+                    <span className="text-muted-foreground">
+                      {item.shortfall} {item.unit} · {formatRand(item.cost)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-4 border-t border-border pt-3 text-sm text-foreground">
+                Estimated restock cost{" "}
+                <span className="text-primary">{formatRand(reorderTotal)}</span>
+              </p>
+            </>
+          )}
+        </div>
+
 
         <div className="grid gap-4 md:grid-cols-2">
           {results.map((line) => (
