@@ -46,3 +46,17 @@ describe("stockCsv", () => {
     expect(csv.startsWith("Shift,Item,Category")).toBe(true);
   });
 });
+
+describe("reorderSuggestions", () => {
+  it("lists only below-par lines, most expensive first", () => {
+    const lines: StockLine[] = [
+      { id: "a", name: "Gin", category: "Spirits", unit: "bottle", par: 10, unitPrice: 100, opening: 10, received: 0, sold: 5, wastage: 0, closing: 4 },
+      { id: "b", name: "Beer", category: "Beer", unit: "can", par: 20, unitPrice: 10, opening: 20, received: 0, sold: 5, wastage: 0, closing: 15 },
+      { id: "c", name: "Rum", category: "Spirits", unit: "bottle", par: 5, unitPrice: 90, opening: 8, received: 0, sold: 1, wastage: 0, closing: 7 },
+    ];
+    const suggestions = reorderSuggestions(lines);
+    expect(suggestions.map((item) => item.id)).toEqual(["a", "b"]);
+    expect(suggestions[0].shortfall).toBe(6);
+    expect(reorderCost(lines)).toBe(650);
+  });
+});
