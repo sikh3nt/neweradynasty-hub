@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Download, FileText, Plus, Trash2, Wand2 } from "lucide-react";
 import { LabShell } from "@/components/labs/LabShell";
+import { trackDemoEvent } from "@/lib/analytics";
 import {
   buildCvHtml,
   buildCvWordDocument,
