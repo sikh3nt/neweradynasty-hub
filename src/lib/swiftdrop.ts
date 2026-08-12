@@ -81,3 +81,46 @@ export const deliveryStages: DeliveryStage[] = [
   { key: "arriving", label: "Arriving now", detail: "Driver is a few streets away from the drop-off." },
   { key: "delivered", label: "Delivered", detail: "Handover complete and proof of delivery captured." },
 ];
+
+export type Driver = {
+  name: string;
+  vehicle: string;
+  plate: string;
+  rating: number;
+  trips: number;
+};
+
+export const driverPool: Driver[] = [
+  { name: "Sipho M.", vehicle: "Honda Ace 125", plate: "HXJ 042 EC", rating: 4.9, trips: 1284 },
+  { name: "Naledi K.", vehicle: "VW Polo Vivo", plate: "KTR 771 EC", rating: 4.8, trips: 963 },
+  { name: "Anele D.", vehicle: "Nissan NP200", plate: "LFB 318 EC", rating: 4.7, trips: 542 },
+];
+
+/** Picks a driver deterministically so the demo replays the same way for everyone. */
+export function pickDriver(distanceKm: number, size: ParcelSize): Driver {
+  if (size === "large") return driverPool[2];
+  const index = Math.floor(distanceKm) % 2;
+  return driverPool[index];
+}
+
+/** Plain-text proof of delivery a customer could share or keep. */
+export function deliveryReceipt(params: {
+  pickup: string;
+  dropoff: string;
+  quote: DeliveryQuote;
+  driver: Driver;
+  reference: string;
+}): string {
+  const { pickup, dropoff, quote, driver, reference } = params;
+  return [
+    "SwiftDrop — proof of delivery (demo)",
+    `Reference: ${reference}`,
+    `Pickup: ${pickup}`,
+    `Drop-off: ${dropoff}`,
+    `Distance: ${quote.distanceKm.toFixed(1).replace(".", ",")} km`,
+    `Driver: ${driver.name} · ${driver.vehicle} · ${driver.plate}`,
+    `Tip: ${formatRand(quote.tip)}`,
+    `Total paid: ${formatRand(quote.total)}`,
+    "This is a simulation. No delivery took place and no payment was taken.",
+  ].join("\n");
+}
