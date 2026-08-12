@@ -46,17 +46,27 @@ const sizes: { id: ParcelSize; label: string; hint: string }[] = [
 const fieldClass =
   "w-full rounded-xl border border-border bg-black/40 px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:border-primary transition-luxury";
 
+const tipOptions = [0, 10, 20, 35];
+
 function SwiftDropDemo() {
   const [pickup, setPickup] = useState("469 Premium, Kwazakhele");
   const [dropoff, setDropoff] = useState("Baywest Mall, Gqeberha");
   const [distance, setDistance] = useState(6);
   const [size, setSize] = useState<ParcelSize>("medium");
   const [express, setExpress] = useState(false);
+  const [peak, setPeak] = useState(false);
+  const [tip, setTip] = useState(10);
   const [stage, setStage] = useState(-1);
 
+  const surge = peak ? 1.4 : 1;
   const quote = useMemo(
-    () => quoteDelivery({ distanceKm: distance, size, express }),
-    [distance, size, express],
+    () => quoteDelivery({ distanceKm: distance, size, express, surge, tip }),
+    [distance, size, express, surge, tip],
+  );
+  const driver = useMemo(() => pickDriver(distance, size), [distance, size]);
+  const reference = useMemo(
+    () => `SD-${String(Math.round(distance * 100)).padStart(4, "0")}-${size.slice(0, 2).toUpperCase()}`,
+    [distance, size],
   );
 
   useEffect(() => {
@@ -66,7 +76,29 @@ function SwiftDropDemo() {
   }, [stage]);
 
   const tracking = stage >= 0;
+  const delivered = stage === deliveryStages.length - 1;
   const progress = tracking ? ((stage + 1) / deliveryStages.length) * 100 : 0;
+
+  const requestDriver = (): void => {
+    setStage(0);
+    trackDemoEvent("demo_action", "swiftdrop", `request:${size}${express ? ":express" : ""}`);
+  };
+
+  const downloadReceipt = (): void => {
+    const text = deliveryReceipt({ pickup, dropoff, quote, driver, reference });
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `swiftdrop-${reference.toLowerCase()}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 2000);
+    trackDemoEvent("export", "swiftdrop", "receipt");
+  };
+
+
 
   return (
     <LabShell
