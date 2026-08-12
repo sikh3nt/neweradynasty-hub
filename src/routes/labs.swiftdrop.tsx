@@ -1,13 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { LabShell } from "@/components/labs/LabShell";
-import { Bike, MapPin, Package, Play, RotateCcw, Zap } from "lucide-react";
+import { Bike, Download, MapPin, Package, Play, RotateCcw, Star, Zap } from "lucide-react";
+import { trackDemoEvent } from "@/lib/analytics";
 import {
+  deliveryReceipt,
   deliveryStages,
   formatRand,
+  pickDriver,
   quoteDelivery,
   type ParcelSize,
 } from "@/lib/swiftdrop";
+
 
 export const Route = createFileRoute("/labs/swiftdrop")({
   head: () => ({
