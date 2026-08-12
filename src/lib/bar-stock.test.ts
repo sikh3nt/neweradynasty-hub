@@ -1,5 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { evaluateLine, starterStock, stockCsv, summariseStock, type StockLine } from "./bar-stock";
+import {
+  evaluateLine,
+  reorderCost,
+  reorderSuggestions,
+  starterStock,
+  stockCsv,
+  summariseStock,
+  type StockLine,
+} from "./bar-stock";
 
 const line: StockLine = {
   id: "test",
