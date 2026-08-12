@@ -187,6 +187,39 @@ function SwiftDropDemo() {
                 {express ? "On · +35%" : "Off"}
               </span>
             </button>
+
+            <button
+              type="button"
+              onClick={() => setPeak((value) => !value)}
+              className={`flex items-center justify-between rounded-2xl border px-4 py-3 text-left transition-luxury ${
+                peak ? "border-primary bg-primary/10" : "border-border hover:border-primary/50"
+              }`}
+            >
+              <span className="text-sm text-foreground">Peak demand (Friday night)</span>
+              <span className="text-xs text-muted-foreground">{peak ? "Surge ×1,4" : "Normal"}</span>
+            </button>
+
+            <div>
+              <span className="mb-2 block text-xs uppercase tracking-[0.15em] text-muted-foreground">
+                Driver tip
+              </span>
+              <div className="grid grid-cols-4 gap-2">
+                {tipOptions.map((amount) => (
+                  <button
+                    key={amount}
+                    type="button"
+                    onClick={() => setTip(amount)}
+                    className={`rounded-2xl border px-3 py-2 text-sm transition-luxury ${
+                      tip === amount
+                        ? "border-primary bg-primary/10 text-foreground"
+                        : "border-border text-muted-foreground hover:border-primary/50"
+                    }`}
+                  >
+                    {amount === 0 ? "None" : `R${amount}`}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -199,6 +232,8 @@ function SwiftDropDemo() {
                 [`Distance · ${distance.toFixed(1).replace(".", ",")} km`, quote.distanceFee],
                 ["Parcel size", quote.sizeFee],
                 ["Express", quote.expressFee],
+                ["Peak surge", quote.surgeFee],
+                ["Driver tip", quote.tip],
               ].map(([label, value]) => (
                 <div key={String(label)} className="flex justify-between text-muted-foreground">
                   <dt>{label}</dt>
@@ -211,16 +246,41 @@ function SwiftDropDemo() {
               </div>
             </dl>
             <p className="mt-4 text-xs text-muted-foreground">
-              Estimated arrival in about {quote.etaMinutes} minutes.
+              Estimated arrival in about {quote.etaMinutes} minutes · reference {reference}.
             </p>
+
+            <div className="mt-5 flex items-center gap-3 rounded-2xl border border-border px-4 py-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/15 font-display text-primary">
+                {driver.name.charAt(0)}
+              </span>
+              <div className="min-w-0">
+                <p className="text-sm text-foreground">{driver.name}</p>
+                <p className="truncate text-xs text-muted-foreground">
+                  {driver.vehicle} · {driver.plate}
+                </p>
+              </div>
+              <span className="ml-auto inline-flex items-center gap-1 text-xs text-primary">
+                <Star className="h-3.5 w-3.5" /> {driver.rating.toFixed(1).replace(".", ",")}
+              </span>
+            </div>
+
             <div className="mt-5 flex flex-wrap gap-3">
               <button
                 type="button"
-                onClick={() => setStage(0)}
+                onClick={requestDriver}
                 className="inline-flex items-center gap-2 rounded-full bg-[image:var(--gradient-royal)] px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-glow-gold hover:brightness-110 transition-luxury"
               >
                 <Play className="h-4 w-4" /> Request driver
               </button>
+              {delivered && (
+                <button
+                  type="button"
+                  onClick={downloadReceipt}
+                  className="inline-flex items-center gap-2 rounded-full bg-primary/10 border border-primary/30 px-4 py-2.5 text-sm text-primary hover:bg-primary/20 transition-luxury"
+                >
+                  <Download className="h-4 w-4" /> Proof of delivery
+                </button>
+              )}
               {tracking && (
                 <button
                   type="button"
@@ -232,6 +292,7 @@ function SwiftDropDemo() {
               )}
             </div>
           </div>
+
 
           <div className="glass-strong rounded-3xl p-6 md:p-8">
             <div className="flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-primary">
