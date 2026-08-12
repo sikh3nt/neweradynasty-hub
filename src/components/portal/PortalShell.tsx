@@ -33,6 +33,7 @@ export function PortalShell({ children, isAdmin = false }: { children: React.Rea
     { to: "/admin/projects", label: "Projects", icon: FolderKanban },
     { to: "/admin/clients", label: "Clients", icon: Users },
     { to: "/admin/contact", label: "Enquiries", icon: Inbox },
+    { to: "/admin/analytics", label: "Demo analytics", icon: BarChart3 },
   ];
   const links = isAdmin ? adminLinks : clientLinks;
 
