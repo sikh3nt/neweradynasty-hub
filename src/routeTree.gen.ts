@@ -33,6 +33,7 @@ import { Route as LabsBarStockRouteImport } from './routes/labs.bar-stock'
 import { Route as LabsAmdBotRouteImport } from './routes/labs.amd-bot'
 import { Route as AuthenticatedPortalIndexRouteImport } from './routes/_authenticated/portal.index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as ApiPublicTrackRouteImport } from './routes/api/public/track'
 import { Route as AuthenticatedPortalReviewsRouteImport } from './routes/_authenticated/portal.reviews'
 import { Route as AuthenticatedPortalProjectsRouteImport } from './routes/_authenticated/portal.projects'
 import { Route as AuthenticatedPortalMessagesRouteImport } from './routes/_authenticated/portal.messages'
@@ -162,6 +163,11 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const ApiPublicTrackRoute = ApiPublicTrackRouteImport.update({
+  id: '/api/public/track',
+  path: '/api/public/track',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedPortalReviewsRoute =
   AuthenticatedPortalReviewsRouteImport.update({
     id: '/portal/reviews',
@@ -241,6 +247,7 @@ export interface FileRoutesByFullPath {
   '/portal/messages': typeof AuthenticatedPortalMessagesRoute
   '/portal/projects': typeof AuthenticatedPortalProjectsRoute
   '/portal/reviews': typeof AuthenticatedPortalReviewsRoute
+  '/api/public/track': typeof ApiPublicTrackRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/portal/': typeof AuthenticatedPortalIndexRoute
 }
@@ -274,6 +281,7 @@ export interface FileRoutesByTo {
   '/portal/messages': typeof AuthenticatedPortalMessagesRoute
   '/portal/projects': typeof AuthenticatedPortalProjectsRoute
   '/portal/reviews': typeof AuthenticatedPortalReviewsRoute
+  '/api/public/track': typeof ApiPublicTrackRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/portal': typeof AuthenticatedPortalIndexRoute
 }
@@ -309,6 +317,7 @@ export interface FileRoutesById {
   '/_authenticated/portal/messages': typeof AuthenticatedPortalMessagesRoute
   '/_authenticated/portal/projects': typeof AuthenticatedPortalProjectsRoute
   '/_authenticated/portal/reviews': typeof AuthenticatedPortalReviewsRoute
+  '/api/public/track': typeof ApiPublicTrackRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/portal/': typeof AuthenticatedPortalIndexRoute
 }
@@ -344,6 +353,7 @@ export interface FileRouteTypes {
     | '/portal/messages'
     | '/portal/projects'
     | '/portal/reviews'
+    | '/api/public/track'
     | '/admin/'
     | '/portal/'
   fileRoutesByTo: FileRoutesByTo
@@ -377,6 +387,7 @@ export interface FileRouteTypes {
     | '/portal/messages'
     | '/portal/projects'
     | '/portal/reviews'
+    | '/api/public/track'
     | '/admin'
     | '/portal'
   id:
@@ -411,6 +422,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/messages'
     | '/_authenticated/portal/projects'
     | '/_authenticated/portal/reviews'
+    | '/api/public/track'
     | '/_authenticated/admin/'
     | '/_authenticated/portal/'
   fileRoutesById: FileRoutesById
@@ -438,6 +450,7 @@ export interface RootRouteChildren {
   LabsNdingubaniTvRoute: typeof LabsNdingubaniTvRoute
   LabsSwiftdropRoute: typeof LabsSwiftdropRoute
   LabsIndexRoute: typeof LabsIndexRoute
+  ApiPublicTrackRoute: typeof ApiPublicTrackRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -610,6 +623,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/api/public/track': {
+      id: '/api/public/track'
+      path: '/api/public/track'
+      fullPath: '/api/public/track'
+      preLoaderRoute: typeof ApiPublicTrackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/portal/reviews': {
       id: '/_authenticated/portal/reviews'
       path: '/portal/reviews'
@@ -721,17 +741,8 @@ const rootRouteChildren: RootRouteChildren = {
   LabsNdingubaniTvRoute: LabsNdingubaniTvRoute,
   LabsSwiftdropRoute: LabsSwiftdropRoute,
   LabsIndexRoute: LabsIndexRoute,
+  ApiPublicTrackRoute: ApiPublicTrackRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
