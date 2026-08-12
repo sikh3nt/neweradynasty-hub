@@ -4,12 +4,16 @@ import { LabShell } from "@/components/labs/LabShell";
 import { Download, Minus, Plus, RotateCcw, TriangleAlert } from "lucide-react";
 import {
   evaluateLine,
+  reorderCost,
+  reorderSuggestions,
   starterStock,
   stockCsv,
   summariseStock,
   type StockLine,
 } from "@/lib/bar-stock";
 import { formatRand } from "@/lib/swiftdrop";
+import { trackDemoEvent } from "@/lib/analytics";
+
 
 export const Route = createFileRoute("/labs/bar-stock")({
   head: () => ({
