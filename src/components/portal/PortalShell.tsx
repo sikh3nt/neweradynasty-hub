@@ -2,7 +2,7 @@ import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
-import { LayoutDashboard, FolderKanban, MessageSquare, Receipt, Star, LogOut, Home, Shield, Users, Inbox, Menu, X } from "lucide-react";
+import { LayoutDashboard, FolderKanban, MessageSquare, Receipt, Star, LogOut, Home, Shield, Users, Inbox, Menu, X, BarChart3 } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 
 export function PortalShell({ children, isAdmin = false }: { children: React.ReactNode; isAdmin?: boolean }) {
