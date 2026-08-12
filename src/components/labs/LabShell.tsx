@@ -1,20 +1,26 @@
 import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, FlaskConical } from "lucide-react";
+import { ArrowLeft, FlaskConical, ShieldCheck } from "lucide-react";
+import { useDemoView } from "@/lib/analytics";
 
 export function LabShell({
+  demo,
   eyebrow,
   title,
   intro,
   notice,
   children,
 }: {
+  demo?: string;
   eyebrow: string;
   title: string;
   intro: string;
   notice?: string;
   children: ReactNode;
 }) {
+  useDemoView(demo);
+
+
   return (
     <main className="pt-28 sm:pt-36 pb-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
