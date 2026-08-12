@@ -159,6 +159,7 @@ function CalculatorDemo() {
 
   return (
     <LabShell
+      demo="calculator"
       eyebrow="Live demo · Utility"
       title="Scientific calculator."
       intro="The full calculator, running here exactly as built. Trigonometry, logarithms, exponents, factorials and memory keys, with a degree and radian toggle."

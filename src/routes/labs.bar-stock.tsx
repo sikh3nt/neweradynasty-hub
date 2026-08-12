@@ -74,6 +74,7 @@ function BarStockDemo() {
 
   return (
     <LabShell
+      demo="bar-stock"
       eyebrow="Live demo · Hospitality"
       title="469 Premium bar stock tracker."
       intro="Count the bar the way a shift manager does: adjust closing stock and wastage, watch variance and value update in real time, then export the report."

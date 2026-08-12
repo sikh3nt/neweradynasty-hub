@@ -252,6 +252,7 @@ function CivicFaceNetDemo() {
 
   return (
     <LabShell
+      demo="civic-facenet"
       eyebrow="Live demo · Civic tech"
       title="Civic FaceNet."
       intro="Walk through the community safety flow, then run it yourself: enrol a face template, search the register and trigger a simulated alert."

@@ -96,6 +96,7 @@ function CvBuilderDemo() {
 
   return (
     <LabShell
+      demo="cv-builder"
       eyebrow="Live demo · Career tool"
       title="CV / résumé builder."
       intro="Fill in the form, choose a template and download a polished CV as a PDF or an editable Word file. No design skills needed."

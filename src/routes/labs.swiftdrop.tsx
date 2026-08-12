@@ -66,6 +66,7 @@ function SwiftDropDemo() {
 
   return (
     <LabShell
+      demo="swiftdrop"
       eyebrow="Live demo · Local delivery"
       title="SwiftDrop."
       intro="Describe an errand, watch the fee update as you change the job, then follow a driver through every stage of the delivery."
