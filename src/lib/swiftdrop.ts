@@ -6,6 +6,8 @@ export type DeliveryQuote = {
   distanceFee: number;
   sizeFee: number;
   expressFee: number;
+  surgeFee: number;
+  tip: number;
   total: number;
   etaMinutes: number;
 };
@@ -14,6 +16,10 @@ export type QuoteInput = {
   distanceKm: number;
   size: ParcelSize;
   express: boolean;
+  /** Demand multiplier, 1 = normal, 1.4 = peak. */
+  surge?: number;
+  /** Optional driver tip in rand. */
+  tip?: number;
 };
 
 const BASE_FEE = 25;
@@ -26,12 +32,20 @@ function money(value: number): number {
 }
 
 /** Prices an errand the way the SwiftDrop quote engine does. */
-export function quoteDelivery({ distanceKm, size, express }: QuoteInput): DeliveryQuote {
+export function quoteDelivery({
+  distanceKm,
+  size,
+  express,
+  surge = 1,
+  tip = 0,
+}: QuoteInput): DeliveryQuote {
   const distance = Math.max(0, distanceKm);
   const distanceFee = money(distance * PER_KM);
   const sizeFee = SIZE_FEE[size];
   const subtotal = BASE_FEE + distanceFee + sizeFee;
   const expressFee = express ? money(subtotal * 0.35) : 0;
+  const surgeFee = money((subtotal + expressFee) * (Math.max(1, surge) - 1));
+  const driverTip = money(Math.max(0, tip));
   const etaBase = 12 + distance * 3.2 + (size === "large" ? 6 : 0);
 
   return {
@@ -40,10 +54,13 @@ export function quoteDelivery({ distanceKm, size, express }: QuoteInput): Delive
     distanceFee,
     sizeFee,
     expressFee,
-    total: money(subtotal + expressFee),
+    surgeFee,
+    tip: driverTip,
+    total: money(subtotal + expressFee + surgeFee + driverTip),
     etaMinutes: Math.max(10, Math.round(express ? etaBase * 0.65 : etaBase)),
   };
 }
+
 
 /** Formats an amount in rand with European-style decimal separators. */
 export function formatRand(value: number): string {
