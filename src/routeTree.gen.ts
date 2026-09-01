@@ -14,6 +14,7 @@ import { Route as TestimonialsRouteImport } from './routes/testimonials'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as ReferralRouteImport } from './routes/referral'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -67,6 +68,11 @@ const ServicesRoute = ServicesRouteImport.update({
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
   path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReferralRoute = ReferralRouteImport.update({
+  id: '/referral',
+  path: '/referral',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PortfolioRoute = PortfolioRouteImport.update({
@@ -233,6 +239,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/portfolio': typeof PortfolioRoute
+  '/referral': typeof ReferralRoute
   '/reset-password': typeof ResetPasswordRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -268,6 +275,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/portfolio': typeof PortfolioRoute
+  '/referral': typeof ReferralRoute
   '/reset-password': typeof ResetPasswordRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -305,6 +313,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/portfolio': typeof PortfolioRoute
+  '/referral': typeof ReferralRoute
   '/reset-password': typeof ResetPasswordRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -342,6 +351,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/gallery'
     | '/portfolio'
+    | '/referral'
     | '/reset-password'
     | '/services'
     | '/sitemap.xml'
@@ -377,6 +387,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/gallery'
     | '/portfolio'
+    | '/referral'
     | '/reset-password'
     | '/services'
     | '/sitemap.xml'
@@ -413,6 +424,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/gallery'
     | '/portfolio'
+    | '/referral'
     | '/reset-password'
     | '/services'
     | '/sitemap.xml'
@@ -450,6 +462,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   GalleryRoute: typeof GalleryRoute
   PortfolioRoute: typeof PortfolioRoute
+  ReferralRoute: typeof ReferralRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -501,6 +514,13 @@ declare module '@tanstack/react-router' {
       path: '/reset-password'
       fullPath: '/reset-password'
       preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/referral': {
+      id: '/referral'
+      path: '/referral'
+      fullPath: '/referral'
+      preLoaderRoute: typeof ReferralRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/portfolio': {
@@ -750,6 +770,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   GalleryRoute: GalleryRoute,
   PortfolioRoute: PortfolioRoute,
+  ReferralRoute: ReferralRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
