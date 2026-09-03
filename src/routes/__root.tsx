@@ -134,6 +134,7 @@ function AppFrame() {
       {!inPortal && <Header />}
       <Outlet />
       {!inPortal && <Footer />}
+      {!inPortal && <ChatWidget />}
       <Toaster theme="dark" position="top-right" richColors />
     </>
   );
