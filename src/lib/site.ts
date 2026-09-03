@@ -28,5 +28,6 @@ export const NAV = [
   { to: "/blog", label: "Blog" },
   { to: "/awards", label: "Awards" },
   { to: "/testimonials", label: "Testimonials" },
+  { to: "/referral", label: "Referral" },
   { to: "/contact", label: "Contact" },
 ] as const;
