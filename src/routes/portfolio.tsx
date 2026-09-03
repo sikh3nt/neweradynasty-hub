@@ -80,7 +80,7 @@ const ventures = [
     icon: Building2,
     logo: nedPyramid.url,
     name: "New Era Dynasty",
-    tag: "Parent Brand · 2024/0980819/07",
+    tag: "Parent Brand · 2024/080819/07",
     desc: "The umbrella brand for every discipline — technology, business consulting, creative direction, and community development. A South African brand with global intent.",
     highlights: ["Multidisciplinary practice", "Registered SA company", "Community-first", "Growing team"],
     gradient: "var(--gradient-royal)",
