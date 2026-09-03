@@ -1,6 +1,6 @@
 # Dynasty Digital Hub
 
-Create a premium, modern, futuristic personal brand website for Tozamile Sikhenjana, Founder and CEO of New Era Dynasty (2024/0980819/07), a registered South African company based in Motherwell, Gqeberha, 6211, South Africa.
+Create a premium, modern, futuristic personal brand website for Tozamile Sikhenjana, Founder and CEO of New Era Dynasty (2024/080819/07), a registered South African company based in Motherwell, Gqeberha, 6211, South Africa.
 
 The website should have a luxury black, gold, silver, white, and subtle blue technology-inspired design with smooth animations, glassmorphism, responsive layouts, dark mode, excellent accessibility, and strong SEO optimization.
 
