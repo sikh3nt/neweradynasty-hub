@@ -1,7 +1,7 @@
 export const SITE = {
   name: "Tozamile Sikhenjana",
   brand: "New Era Dynasty",
-  regNumber: "2024/0980819/07",
+  regNumber: "2024/080819/07",
   location: "Motherwell, Gqeberha, 6211, South Africa",
   slogan: "From Motherwell to the World — One Skill, One Business, One Legacy at a Time.",
   email: "tozamilesikh3njana@proton.me",
@@ -28,5 +28,6 @@ export const NAV = [
   { to: "/blog", label: "Blog" },
   { to: "/awards", label: "Awards" },
   { to: "/testimonials", label: "Testimonials" },
+  { to: "/referral", label: "Referral" },
   { to: "/contact", label: "Contact" },
 ] as const;

@@ -17,7 +17,7 @@ export const Route = createFileRoute("/awards")({
 });
 
 const items = [
-  { icon: BadgeCheck, title: "New Era Dynasty (Pty) Ltd", detail: "Registered SA company — 2024/0980819/07" },
+  { icon: BadgeCheck, title: "New Era Dynasty (Pty) Ltd", detail: "Registered SA company — 2024/080819/07" },
   { icon: Trophy, title: "Multidisciplinary Founder", detail: "3 active ventures across tech, connectivity & lifestyle" },
   { icon: Sparkles, title: "Self-Taught Engineer", detail: "6+ years of continuous, self-directed learning" },
   { icon: Award, title: "Certifications", detail: "In-progress: web dev, cybersecurity fundamentals, AI/LLM tooling" },

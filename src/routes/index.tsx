@@ -36,7 +36,7 @@ const timeline = [
   { year: "Motherwell", title: "The Beginning", desc: "Grew up in Motherwell, Gqeberha — where hustle meets heart." },
   { year: "Self-Taught", title: "Years of Learning", desc: "Programming, design, business, security, trading — all self-taught with discipline." },
   { year: "2023", title: "First Ventures", desc: "Launched Blackstyle Barbershop and started serving the community." },
-  { year: "2024", title: "New Era Dynasty", desc: "Registered New Era Dynasty (2024/0980819/07) — one brand, many disciplines." },
+  { year: "2024", title: "New Era Dynasty", desc: "Registered New Era Dynasty (2024/080819/07) — one brand, many disciplines." },
   { year: "2024+", title: "WireNet", desc: "Founded WireNet — connecting people, businesses, and infrastructure." },
   { year: "Today", title: "One Legacy", desc: "Building technology, business, and community impact from South Africa to the world." },
 ];
