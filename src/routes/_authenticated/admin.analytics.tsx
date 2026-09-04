@@ -16,8 +16,67 @@ type DemoEvent = {
   country: string | null;
   region: string | null;
   city: string | null;
+  ip_masked: string | null;
+  user_agent: string | null;
+  device: string | null;
+  timezone: string | null;
   created_at: string;
 };
+
+type Visitor = {
+  sessionId: string;
+  first: string;
+  last: string;
+  pages: number;
+  paths: string[];
+  location: string;
+  ip: string;
+  device: string;
+  timezone: string;
+  referrer: string;
+};
+
+/** Formats a timestamp as DD/MM/YYYY HH:mm in the viewer's locale time. */
+function formatStamp(iso: string): string {
+  const date = new Date(iso);
+  return `${date.toLocaleDateString("en-GB")} ${date.toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+  })}`;
+}
+
+/** Collapses raw events into one row per visitor session. */
+function buildVisitors(rows: DemoEvent[]): Visitor[] {
+  const bySession = new Map<string, DemoEvent[]>();
+  rows.forEach((row) => {
+    const list = bySession.get(row.session_id) ?? [];
+    list.push(row);
+    bySession.set(row.session_id, list);
+  });
+
+  return [...bySession.entries()]
+    .map(([sessionId, events]) => {
+      const ordered = [...events].sort((a, b) => a.created_at.localeCompare(b.created_at));
+      const firstEvent = ordered[0]!;
+      const lastEvent = ordered[ordered.length - 1]!;
+      const paths = [...new Set(ordered.map((event) => event.path).filter(Boolean))] as string[];
+      return {
+        sessionId,
+        first: firstEvent.created_at,
+        last: lastEvent.created_at,
+        pages: ordered.length,
+        paths,
+        location:
+          [firstEvent.city, firstEvent.region, firstEvent.country].filter(Boolean).join(", ") ||
+          "Unknown",
+        ip: firstEvent.ip_masked ?? "Not available",
+        device: firstEvent.device ?? "Unknown",
+        timezone: firstEvent.timezone ?? "Unknown",
+        referrer: firstEvent.referrer_domain ?? "Direct",
+      };
+    })
+    .sort((a, b) => b.last.localeCompare(a.last));
+}
 
 const ranges = [
   { id: "7", label: "Last 7 days" },

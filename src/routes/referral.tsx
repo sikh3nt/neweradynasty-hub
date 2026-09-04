@@ -29,18 +29,27 @@ const steps = [
   { icon: Gift, title: "You get a website, free", desc: "Five partner slots open each month. I design and build your website at no cost — same standard as any paying client." },
   { icon: FileSignature, title: "We sign a simple agreement", desc: "A short partnership contract sets out the free build, the referral terms and how commission is paid. No hidden clauses." },
   { icon: Handshake, title: "You refer people to me", desc: "Share your website and my link. Tell anyone who needs a website, app, or branding to mention your name when they enquire." },
-  { icon: Percent, title: "You earn 20% per paying client", desc: "Every referred client who pays earns you 20% of what they paid. No cap on how many you refer." },
+  { icon: Percent, title: "You earn R 300 per paying client", desc: "A standard R 2 000 website leaves R 1 500 as my service fee after hosting and domain. Your cut is 20% of that — R 300 per paying referral, with no cap." },
   { icon: Wallet, title: "You get paid after the client pays", desc: "Commission is paid out once the client's payment clears, by EFT to your account." },
 ];
 
+const PROJECT_PRICE = 2000;
+const HOSTING_PORTION = 500;
+const SERVICE_FEE = PROJECT_PRICE - HOSTING_PORTION;
+const COMMISSION_RATE = 0.2;
+const COMMISSION_PER_CLIENT = SERVICE_FEE * COMMISSION_RATE;
+
 const examples = [
-  { referrals: 1, note: "First referral" },
+  { referrals: 1, note: "First paying referral" },
+  { referrals: 2, note: "Building momentum" },
   { referrals: 3, note: "Steady sharing" },
-  { referrals: 5, note: "Partner tier" },
-  { referrals: 10, note: "Top partner" },
+  { referrals: 4, note: "Partner tier" },
+  { referrals: 5, note: "Top partner for the month" },
 ];
 
-const EXAMPLE_FEE = 5000;
+/** Formats an amount in rand using South African conventions. */
+const rand = (amount: number): string =>
+  `R ${amount.toLocaleString("en-ZA", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
 const applicationSchema = z.object({
   full_name: z.string().trim().min(2, { message: "Enter your full name" }).max(100),
@@ -106,18 +115,34 @@ function Referral() {
       </div>
 
       <section className="mt-16">
-        <h2 className="font-display text-3xl text-foreground">What you could earn</h2>
+        <h2 className="font-display text-3xl text-foreground">What you earn, in real numbers</h2>
         <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-          Illustration only, based on an example project fee of R {EXAMPLE_FEE.toLocaleString("en-ZA")} per referred client.
-          Your actual commission is always 20% of what each referred client really pays.
+          A standard website costs a client {rand(PROJECT_PRICE)}. Of that, {rand(HOSTING_PORTION)}{" "}
+          is set aside for hosting and the client's domain (.com, .co.za or whichever they prefer),
+          and {rand(SERVICE_FEE)} is my service fee. Your 20% commission comes out of my service
+          fee, so every paying client you refer pays you {rand(COMMISSION_PER_CLIENT)}.
         </p>
+        <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          {[
+            { label: "Client pays", value: rand(PROJECT_PRICE) },
+            { label: "Hosting and domain", value: rand(HOSTING_PORTION) },
+            { label: "My service fee", value: rand(SERVICE_FEE) },
+          ].map((item) => (
+            <div key={item.label} className="glass rounded-2xl p-5">
+              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                {item.label}
+              </p>
+              <p className="mt-2 font-display text-2xl text-foreground">{item.value}</p>
+            </div>
+          ))}
+        </div>
         <div className="mt-6 overflow-hidden glass rounded-2xl">
           <table className="w-full text-sm">
             <thead className="bg-muted/50 text-xs uppercase tracking-widest text-muted-foreground">
               <tr>
                 <th className="px-4 py-3 text-left">Paying referrals</th>
-                <th className="px-4 py-3 text-left">Commission rate</th>
-                <th className="px-4 py-3 text-left">Example payout</th>
+                <th className="px-4 py-3 text-left">Total the clients pay</th>
+                <th className="px-4 py-3 text-left">Your 20% of my service fee</th>
                 <th className="px-4 py-3 text-left">Tier</th>
               </tr>
             </thead>
@@ -125,9 +150,11 @@ function Referral() {
               {examples.map(({ referrals, note }) => (
                 <tr key={referrals} className="border-t border-border">
                   <td className="px-4 py-3 text-foreground">{referrals}</td>
-                  <td className="px-4 py-3 text-primary">20% each</td>
-                  <td className="px-4 py-3 text-foreground">
-                    R {(EXAMPLE_FEE * 0.2 * referrals).toLocaleString("en-ZA", { minimumFractionDigits: 2 })}
+                  <td className="px-4 py-3 text-muted-foreground">
+                    {rand(PROJECT_PRICE * referrals)}
+                  </td>
+                  <td className="px-4 py-3 text-primary">
+                    {rand(COMMISSION_PER_CLIENT * referrals)}
                   </td>
                   <td className="px-4 py-3 text-muted-foreground">{note}</td>
                 </tr>
@@ -135,7 +162,12 @@ function Referral() {
             </tbody>
           </table>
         </div>
+        <p className="mt-3 text-xs text-muted-foreground">
+          If a project is quoted above the standard {rand(PROJECT_PRICE)} — bigger builds, apps or
+          branding — your commission stays 20% of my service fee on that project, so you earn more.
+        </p>
       </section>
+
 
       <section className="mt-16 grid gap-8 lg:grid-cols-2">
         <div className="glass rounded-2xl p-6">
@@ -145,7 +177,7 @@ function Referral() {
               "Five free partner websites are available each month, on a first-come basis.",
               "A signed partnership agreement is required before your free build starts.",
               "The referred client must name you as their referrer when they enquire or pay.",
-              "Commission is 20% of the amount the referred client actually pays, per client.",
+              "Commission is 20% of my service fee on each project — R 300 on a standard R 2 000 website.",
               "Payouts happen after the client's payment has cleared — usually within 7 days.",
               "There is no limit on how many clients you may refer.",
             ].map((rule) => (

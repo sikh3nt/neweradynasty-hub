@@ -63,13 +63,17 @@ export type Database = {
           created_at: string
           demo: string
           detail: string | null
+          device: string | null
           event_type: string
           id: string
+          ip_masked: string | null
           path: string
           referrer: string | null
           referrer_domain: string | null
           region: string | null
           session_id: string
+          timezone: string | null
+          user_agent: string | null
         }
         Insert: {
           city?: string | null
@@ -77,13 +81,17 @@ export type Database = {
           created_at?: string
           demo: string
           detail?: string | null
+          device?: string | null
           event_type: string
           id?: string
+          ip_masked?: string | null
           path: string
           referrer?: string | null
           referrer_domain?: string | null
           region?: string | null
           session_id: string
+          timezone?: string | null
+          user_agent?: string | null
         }
         Update: {
           city?: string | null
@@ -91,13 +99,17 @@ export type Database = {
           created_at?: string
           demo?: string
           detail?: string | null
+          device?: string | null
           event_type?: string
           id?: string
+          ip_masked?: string | null
           path?: string
           referrer?: string | null
           referrer_domain?: string | null
           region?: string | null
           session_id?: string
+          timezone?: string | null
+          user_agent?: string | null
         }
         Relationships: []
       }

@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/site/PageShell";
 import { SITE } from "@/lib/site";
-import { Compass, Target, Heart, Users } from "lucide-react";
+import { Compass, Target, Heart, Users, Download } from "lucide-react";
+import cvAsset from "@/assets/tozamile-cv.pdf.asset.json";
+import { trackDemoEvent } from "@/lib/analytics";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -64,6 +66,26 @@ function About() {
           </dl>
         </div>
       </div>
+
+      <section className="glass mt-10 flex flex-wrap items-center justify-between gap-6 rounded-2xl p-8">
+        <div>
+          <h2 className="font-display text-2xl text-foreground">Thinking of hiring me?</h2>
+          <p className="mt-2 max-w-xl text-sm text-muted-foreground">
+            Download my full CV for a detailed view of my skills, experience, projects and
+            qualifications — everything you need to decide with confidence.
+          </p>
+        </div>
+        <a
+          href={cvAsset.url}
+          download="Tozamile-Sikhenjana-CV.pdf"
+          onClick={() => trackDemoEvent("export", "cv", "cv-download-about")}
+          className="inline-flex items-center gap-2 rounded-full bg-[image:var(--gradient-royal)] px-6 py-3 text-sm font-medium text-primary-foreground shadow-glow-gold"
+        >
+          <Download className="h-4 w-4" /> Download my CV (PDF)
+        </a>
+      </section>
+
+
 
       <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
         {[
