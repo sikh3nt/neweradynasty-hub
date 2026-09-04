@@ -177,7 +177,7 @@ function Referral() {
               "Five free partner websites are available each month, on a first-come basis.",
               "A signed partnership agreement is required before your free build starts.",
               "The referred client must name you as their referrer when they enquire or pay.",
-              "Commission is 20% of the amount the referred client actually pays, per client.",
+              "Commission is 20% of my service fee on each project — R 300 on a standard R 2 000 website.",
               "Payouts happen after the client's payment has cleared — usually within 7 days.",
               "There is no limit on how many clients you may refer.",
             ].map((rule) => (
