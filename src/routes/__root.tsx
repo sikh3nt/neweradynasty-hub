@@ -24,6 +24,7 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Toaster } from "sonner";
 import { ChatWidget } from "@/components/site/ChatWidget";
+import { usePageView } from "@/lib/analytics";
 import { supabase } from "@/integrations/supabase/client";
 
 function NotFoundComponent() {
