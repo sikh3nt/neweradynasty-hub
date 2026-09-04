@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/site/PageShell";
 import { SITE } from "@/lib/site";
-import { Compass, Target, Heart, Users } from "lucide-react";
+import { Compass, Target, Heart, Users, Download } from "lucide-react";
+import cvAsset from "@/assets/tozamile-cv.pdf.asset.json";
+import { trackDemoEvent } from "@/lib/analytics";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
