@@ -33,14 +33,23 @@ const steps = [
   { icon: Wallet, title: "You get paid after the client pays", desc: "Commission is paid out once the client's payment clears, by EFT to your account." },
 ];
 
+const PROJECT_PRICE = 2000;
+const HOSTING_PORTION = 500;
+const SERVICE_FEE = PROJECT_PRICE - HOSTING_PORTION;
+const COMMISSION_RATE = 0.2;
+const COMMISSION_PER_CLIENT = SERVICE_FEE * COMMISSION_RATE;
+
 const examples = [
-  { referrals: 1, note: "First referral" },
+  { referrals: 1, note: "First paying referral" },
+  { referrals: 2, note: "Building momentum" },
   { referrals: 3, note: "Steady sharing" },
-  { referrals: 5, note: "Partner tier" },
-  { referrals: 10, note: "Top partner" },
+  { referrals: 4, note: "Partner tier" },
+  { referrals: 5, note: "Top partner for the month" },
 ];
 
-const EXAMPLE_FEE = 5000;
+/** Formats an amount in rand using South African conventions. */
+const rand = (amount: number): string =>
+  `R ${amount.toLocaleString("en-ZA", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
 const applicationSchema = z.object({
   full_name: z.string().trim().min(2, { message: "Enter your full name" }).max(100),
