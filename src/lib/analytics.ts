@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-type DemoEventType = "demo_view" | "demo_action" | "export";
+type DemoEventType = "page_view" | "demo_view" | "demo_action" | "export";
 
 const SESSION_KEY = "ned-demo-session";
 
@@ -14,12 +14,16 @@ function sessionId(): string {
   return created;
 }
 
-/** Fire-and-forget demo analytics. Never blocks or breaks the demo it measures. */
-export function trackDemoEvent(
-  eventType: DemoEventType,
-  demo: string,
-  detail?: string,
-): void {
+/** Coarse device class derived from the viewport, never from fingerprinting. */
+function deviceClass(): "mobile" | "tablet" | "desktop" {
+  const width = window.innerWidth;
+  if (width < 640) return "mobile";
+  if (width < 1024) return "tablet";
+  return "desktop";
+}
+
+/** Fire-and-forget analytics. Never blocks or breaks the page it measures. */
+export function trackDemoEvent(eventType: DemoEventType, demo: string, detail?: string): void {
   if (typeof window === "undefined") return;
   const payload = JSON.stringify({
     sessionId: sessionId(),
@@ -28,6 +32,8 @@ export function trackDemoEvent(
     detail: detail?.slice(0, 200),
     path: window.location.pathname.slice(0, 200),
     referrer: document.referrer ? document.referrer.slice(0, 300) : undefined,
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone?.slice(0, 64),
+    device: deviceClass(),
   });
 
   void fetch("/api/public/track", {
@@ -44,4 +50,12 @@ export function useDemoView(demo: string | undefined): void {
     if (!demo) return;
     trackDemoEvent("demo_view", demo);
   }, [demo]);
+}
+
+/** Records every public page view so visits can be reviewed in the admin console. */
+export function usePageView(pathname: string): void {
+  useEffect(() => {
+    if (pathname.startsWith("/portal") || pathname.startsWith("/admin")) return;
+    trackDemoEvent("page_view", "site", pathname);
+  }, [pathname]);
 }
