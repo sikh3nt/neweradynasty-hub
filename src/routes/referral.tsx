@@ -115,18 +115,34 @@ function Referral() {
       </div>
 
       <section className="mt-16">
-        <h2 className="font-display text-3xl text-foreground">What you could earn</h2>
+        <h2 className="font-display text-3xl text-foreground">What you earn, in real numbers</h2>
         <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-          Illustration only, based on an example project fee of R {EXAMPLE_FEE.toLocaleString("en-ZA")} per referred client.
-          Your actual commission is always 20% of what each referred client really pays.
+          A standard website costs a client {rand(PROJECT_PRICE)}. Of that, {rand(HOSTING_PORTION)}{" "}
+          is set aside for hosting and the client's domain (.com, .co.za or whichever they prefer),
+          and {rand(SERVICE_FEE)} is my service fee. Your 20% commission comes out of my service
+          fee, so every paying client you refer pays you {rand(COMMISSION_PER_CLIENT)}.
         </p>
+        <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          {[
+            { label: "Client pays", value: rand(PROJECT_PRICE) },
+            { label: "Hosting and domain", value: rand(HOSTING_PORTION) },
+            { label: "My service fee", value: rand(SERVICE_FEE) },
+          ].map((item) => (
+            <div key={item.label} className="glass rounded-2xl p-5">
+              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                {item.label}
+              </p>
+              <p className="mt-2 font-display text-2xl text-foreground">{item.value}</p>
+            </div>
+          ))}
+        </div>
         <div className="mt-6 overflow-hidden glass rounded-2xl">
           <table className="w-full text-sm">
             <thead className="bg-muted/50 text-xs uppercase tracking-widest text-muted-foreground">
               <tr>
                 <th className="px-4 py-3 text-left">Paying referrals</th>
-                <th className="px-4 py-3 text-left">Commission rate</th>
-                <th className="px-4 py-3 text-left">Example payout</th>
+                <th className="px-4 py-3 text-left">Total the clients pay</th>
+                <th className="px-4 py-3 text-left">Your 20% of my service fee</th>
                 <th className="px-4 py-3 text-left">Tier</th>
               </tr>
             </thead>
@@ -134,9 +150,11 @@ function Referral() {
               {examples.map(({ referrals, note }) => (
                 <tr key={referrals} className="border-t border-border">
                   <td className="px-4 py-3 text-foreground">{referrals}</td>
-                  <td className="px-4 py-3 text-primary">20% each</td>
-                  <td className="px-4 py-3 text-foreground">
-                    R {(EXAMPLE_FEE * 0.2 * referrals).toLocaleString("en-ZA", { minimumFractionDigits: 2 })}
+                  <td className="px-4 py-3 text-muted-foreground">
+                    {rand(PROJECT_PRICE * referrals)}
+                  </td>
+                  <td className="px-4 py-3 text-primary">
+                    {rand(COMMISSION_PER_CLIENT * referrals)}
                   </td>
                   <td className="px-4 py-3 text-muted-foreground">{note}</td>
                 </tr>
@@ -144,7 +162,12 @@ function Referral() {
             </tbody>
           </table>
         </div>
+        <p className="mt-3 text-xs text-muted-foreground">
+          If a project is quoted above the standard {rand(PROJECT_PRICE)} — bigger builds, apps or
+          branding — your commission stays 20% of my service fee on that project, so you earn more.
+        </p>
       </section>
+
 
       <section className="mt-16 grid gap-8 lg:grid-cols-2">
         <div className="glass rounded-2xl p-6">
