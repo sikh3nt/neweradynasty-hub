@@ -29,7 +29,7 @@ const steps = [
   { icon: Gift, title: "You get a website, free", desc: "Five partner slots open each month. I design and build your website at no cost — same standard as any paying client." },
   { icon: FileSignature, title: "We sign a simple agreement", desc: "A short partnership contract sets out the free build, the referral terms and how commission is paid. No hidden clauses." },
   { icon: Handshake, title: "You refer people to me", desc: "Share your website and my link. Tell anyone who needs a website, app, or branding to mention your name when they enquire." },
-  { icon: Percent, title: "You earn 20% per paying client", desc: "Every referred client who pays earns you 20% of what they paid. No cap on how many you refer." },
+  { icon: Percent, title: "You earn R 300 per paying client", desc: "A standard R 2 000 website leaves R 1 500 as my service fee after hosting and domain. Your cut is 20% of that — R 300 per paying referral, with no cap." },
   { icon: Wallet, title: "You get paid after the client pays", desc: "Commission is paid out once the client's payment clears, by EFT to your account." },
 ];
 
