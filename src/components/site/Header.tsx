@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Menu, X, LogIn, UserCircle2 } from "lucide-react";
 import { NAV, SITE } from "@/lib/site";
 import { supabase } from "@/integrations/supabase/client";
-import nedPyramid from "@/assets/new-era-dynasty-pyramid.jpg.asset.json";
+import nedPyramid from "@/assets/new-era-dynasty-pyramid-transparent.png.asset.json";
 import type { Session } from "@supabase/supabase-js";
 
 export function Header() {
