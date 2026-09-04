@@ -129,6 +129,7 @@ function RootShell({ children }: { children: ReactNode }) {
 function AppFrame() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const inPortal = pathname.startsWith("/portal") || pathname.startsWith("/admin");
+  usePageView(pathname);
   return (
     <>
       {!inPortal && <Header />}
